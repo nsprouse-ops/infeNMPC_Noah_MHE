@@ -28,6 +28,7 @@ class Options:
 
     def __init__(self):
         # Simulation control
+        self.MHE_window = 5   # number of past sampling steps for MHE
         self.num_horizons = 25
         self.nfe_finite = 2
         self.ncp_finite = 3
