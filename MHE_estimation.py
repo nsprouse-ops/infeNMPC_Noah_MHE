@@ -11,7 +11,6 @@ from pyomo.contrib.mpc import ScalarData
 
 from make_model import _make_finite_horizon_model
 from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data
-from test_mhe_dummy import M_desired
 
 
 @dataclass
@@ -121,7 +120,7 @@ def solve_mhe_no_arrival_cost(
     k = len(io_data_array) - 1
     print("DEBUG: k =", k)
     print("DEBUG: last row =", io_data_array[-1])
-    print("DEBUG: M_desired =", M_desired)
+    print("DEBUG: M_desired =", M_desired)   #MHE will not run unless there is not at least one control input
 
     # Need at least one applied MV (k>=1) to do meaningful window dynamics
     k = len(io_data_array) - 1
@@ -229,4 +228,6 @@ def solve_mhe_no_arrival_cost(
         name = v.local_name
         if name in unmeasured:
             xhat[name] = pyo.value(v[tf])
+
+    return MHEResult(M_eff=M_eff, xhat=xhat, model=m, solver_result=res)
 
