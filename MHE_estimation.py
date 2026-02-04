@@ -10,7 +10,7 @@ import pyomo.environ as pyo
 from pyomo.contrib.mpc import ScalarData
 
 from make_model import _make_finite_horizon_model
-from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data
+from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data, _add_time_indexed_expression
 
 
 @dataclass
@@ -23,7 +23,7 @@ class MHEResult:
 
 def build_mhe_histories_from_io_data_array(
     io_data_array: Sequence[Sequence[float]],
-    CV_index: Sequence[str],
+    measured_index: Sequence[str],
     MV_index: Sequence[str],
     M_desired: int,
 ) -> Tuple[Dict[str, List[float]], Dict[str, List[float]], int]:
@@ -47,7 +47,7 @@ def build_mhe_histories_from_io_data_array(
     if n == 0:
         raise ValueError("io_data_array is empty.")
 
-    n_cv = len(CV_index)
+    n_cv = len(measured_index)
     n_mv = len(MV_index)
 
     k = n - 1
@@ -61,15 +61,21 @@ def build_mhe_histories_from_io_data_array(
     u_rows = list(range(k - M_eff + 1, k + 1))
 
     # Build y histories
-    y_hist: Dict[str, List[float]] = {name: [] for name in CV_index}
+    y_hist: Dict[str, List[float]] = {name: [] for name in measured_index}
     for r in y_rows:
         row = io_data_array[r]
         if len(row) < n_cv + n_mv:
             raise ValueError(
                 f"io_data_array row {r} has length {len(row)}, expected {n_cv + n_mv}"
             )
-        for j, cv in enumerate(CV_index):
-            y_hist[cv].append(float(row[j]))
+        for j, cv in enumerate(measured_index):
+            val = row[j]
+            if val is None:
+                raise ValueError(
+                    f"Measured '{cv}' is None at io_data_array row {r}. "
+                    f"Not enough measurement history yet."
+                )
+            y_hist[cv].append(float(val))
 
     # Build u histories
     u_hist: Dict[str, List[float]] = {name: [] for name in MV_index}
@@ -137,12 +143,12 @@ def solve_mhe_no_arrival_cost(
     tmp_opt = _make_options_for_mhe(options, M_eff=1)
     tmp = pyo.ConcreteModel()
     tmp = _make_finite_horizon_model(tmp, tmp_opt)
-    CV_index = list(tmp.CV_index)
+    measured_index = list(getattr(tmp, "Measured_index", tmp.CV_index))
     MV_index = list(tmp.MV_index)
 
     y_hist, u_hist, M_eff = build_mhe_histories_from_io_data_array(
         io_data_array=io_data_array,
-        CV_index=CV_index,
+        measured_index=measured_index,
         MV_index=MV_index,
         M_desired=M_desired,
     )
@@ -164,12 +170,12 @@ def solve_mhe_no_arrival_cost(
             f"Check discretization."
         )
 
-    # --- Measurement parameters y_meas(cv, t_fe) ---
-    m.y_meas = pyo.Param(m.CV_index, m.time, mutable=True, initialize=0.0)
+    # --- Measurement parameters y_meas(measured, t_fe) ---
+    m.y_meas = pyo.Param(m.Measured_index, m.time, mutable=True, initialize=0.0)
 
     # Load measurement history only at finite elements
     # y_hist[cv] has length M_eff+1 aligned with fe_times
-    for cv in m.CV_index:
+    for cv in m.Measured_index:
         series = y_hist[cv]
         if len(series) != len(fe_times):
             raise ValueError(
@@ -202,8 +208,8 @@ def solve_mhe_no_arrival_cost(
     def _mhe_obj_rule(mm):
         expr = 0
         for t_fe in fe_times:
-            for cv in mm.CV_index:
-                yhat = getattr(mm, cv)[t_fe]
+            for cv in mm.Measured_index:
+                yhat = _add_time_indexed_expression(mm, cv, t_fe)
                 ymeas = mm.y_meas[cv, t_fe]
                 # Use stage_cost_weights if you have them; else weight=1
                 w = 1.0
@@ -225,9 +231,25 @@ def solve_mhe_no_arrival_cost(
 
     xhat = {}
     for v in m.state_vars:
-        name = v.local_name
-        if name in unmeasured:
-            xhat[name] = pyo.value(v[tf])
+        if v.is_indexed():
+            for index in v.index_set():
+                if isinstance(index, tuple):
+                    if index[-1] != tf:
+                        continue
+                    base_index = index[:-1]
+                    name = f"{v.local_name}[{','.join(str(i) for i in base_index)}]"
+                    if name in unmeasured:
+                        xhat[name] = pyo.value(v[index])
+                else:
+                    if index != tf:
+                        continue
+                    name = v.local_name
+                    if name in unmeasured:
+                        xhat[name] = pyo.value(v[index])
+        else:
+            name = v.local_name
+            if name in unmeasured:
+                xhat[name] = pyo.value(v[tf])
 
     return MHEResult(M_eff=M_eff, xhat=xhat, model=m, solver_result=res)
 

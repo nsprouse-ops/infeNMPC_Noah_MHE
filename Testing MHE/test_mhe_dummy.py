@@ -8,7 +8,7 @@ from indexing_tools import _get_variable_key_for_data
 from pyomo.contrib.mpc import ScalarData
 from run_MPC import _make_plant
 
-num_steps = 3
+num_steps = 100
 def test_mhe_dummy_runs():
     # Skip if IPOPT isn't available in the environment
     if not pyo.SolverFactory("ipopt").available():

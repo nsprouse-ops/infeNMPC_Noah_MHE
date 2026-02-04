@@ -117,26 +117,3 @@ def get_measured_and_unmeasured_state_vars(model, unmeasured_names):
         raise ValueError(f"Unmeasured names are not states in this model: {sorted(missing)}")
 
     return measured_state_vars, unmeasured_state_vars
-#testing if code works
-if __name__ == "__main__":
-    import pyomo.environ as pyo
-    from pyomo.dae import ContinuousSet
-
-    # Import your model builder functions
-    from model_equations import variables_initialize
-
-    # --- Build a minimal model so indexing_tools can inspect it ---
-    m = pyo.ConcreteModel()
-    m.time = ContinuousSet(bounds=(0, 10))
-
-    # This must create m.Ca, m.Cb, m.Cc, m.Cm, m.T and DerivativeVars, etc.
-    m = variables_initialize(m)
-
-    # --- Compute the split ---
-    measured_state_vars, unmeasured_state_vars = get_measured_and_unmeasured_state_vars(
-        m, m.Unmeasured_index
-    )
-
-    # --- Print results ---
-    print("Unmeasured state vars:", sorted(v.local_name for v in unmeasured_state_vars))
-    print("Measured state vars:  ", sorted(v.local_name for v in measured_state_vars))

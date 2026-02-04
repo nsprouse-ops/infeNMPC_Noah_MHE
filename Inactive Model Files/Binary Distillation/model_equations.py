@@ -8,16 +8,26 @@ def variables_initialize(m):
 
     # ---- Time Units ----
     m.time_display_name = ["Time (h)"]
-
+    m.Ntray = pyo.Param(initialize=42)
     # ---- Variable Type Indexing ----
     m.MV_index = pyo.Set(initialize=["Qr", "Rec"])    # Manipulated variables
     m.MV_display_names = ["Q_r", "Rec"]
     m.CV_index = pyo.Set(initialize=["x[1]", "T[29]"])      # Controlled variables
     m.CV_display_names = ["x_1", "T_{29}"]
+    # Measured outputs used in estimation (EVERY DIFFERENTIAL STATE VARIABLE SHOULD EITHER BE IN MEASURED OR UNMEASURED INDEX)
+    m.Measured_index = pyo.Set(initialize=[f"T[{k}]" for k in range(1, m.Ntray + 1)])
+    m.Measured_display_names = [f"T_{{{k}}}" for k in range(1, m.Ntray + 1)]
+    m.Unmeasured_index = pyo.Set(
+        initialize=[f"x[{k}]" for k in range(1, m.Ntray + 1)]
+        + [f"M[{k}]" for k in range(1, m.Ntray + 1)]
+    )
+    m.Unmeasured_display_names = (
+        [f"x_{{{k}}}" for k in range(1, m.Ntray + 1)]
+        + [f"M_{{{k}}}" for k in range(1, m.Ntray + 1)]
+    )
     m.DV_index = pyo.Set(initialize=["xf"])    # Disturbance variables
 
 
-    m.Ntray = pyo.Param(initialize=42)
     m.tray = pyo.Set(initialize=range(1, m.Ntray+1))
 
     m.feedTray = pyo.Param(initialize=21)

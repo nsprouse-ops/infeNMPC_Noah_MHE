@@ -103,7 +103,7 @@ def _setup_live_plot(plant):
     return fig, axes
 
 
-def _update_live_plot(fig, axes, time_series, io_data_array, plant):
+def _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hist=None):
     """
     Update the live plot with current simulation data.
 
@@ -123,11 +123,16 @@ def _update_live_plot(fig, axes, time_series, io_data_array, plant):
     # Ensure axes is 2D for uniform indexing
     axes = np.atleast_2d(axes)
 
+    unmeasured_names = set(getattr(plant, "Unmeasured_index", []))
     for j, var_name in enumerate(plant.CV_index):
         ax = axes[j, 0] if axes.shape[1] > 1 else axes[j]
         ax.cla()
         display_name = plant.CV_display_names[j]
-        ax.plot(time_series, io_np[:, j], label="Trajectory")
+        if mhe_state_hist is not None and var_name in unmeasured_names and var_name in mhe_state_hist:
+            series = mhe_state_hist[var_name]
+            ax.plot(time_series[:len(series)], series, label="MHE Estimate")
+        else:
+            ax.plot(time_series, io_np[:, j], label="Trajectory")
         sp = plant.steady_state_values.get(var_name, None)
         if sp is not None:
             ax.axhline(y=sp, color='r', linestyle='--', label="Setpoint")
@@ -223,7 +228,51 @@ def _plot_final_results(time_series, io_data_array, plant, show=False):
     return figures, names
 
 
-def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options):
+def _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant):
+    """
+    Plot MHE estimates vs truth for unmeasured states.
+    """
+    figures = []
+    names = []
+    if not mhe_state_hist or not true_state_hist:
+        return figures, names
+
+    for name, mhe_series in mhe_state_hist.items():
+        if name not in true_state_hist:
+            continue
+        true_series = true_state_hist[name]
+        min_len = min(len(time_series), len(mhe_series), len(true_series))
+        if min_len == 0:
+            continue
+
+        fig = plt.figure()
+        plt.plot(time_series[:min_len], true_series[:min_len], label="Truth")
+        plt.plot(time_series[:min_len], mhe_series[:min_len], label="MHE")
+        plt.ylabel(name)
+        plt.xlabel(f"${plant.time_display_name[0]}$")
+        plt.title(f"MHE vs Truth: {name}")
+        plt.grid(True)
+        plt.legend()
+        figures.append(fig)
+        names.append(f"MHE_vs_Truth_{name}")
+
+        # Error plot: (Truth - MHE)
+        fig_err = plt.figure()
+        err = np.array(true_series[:min_len]) - np.array(mhe_series[:min_len])
+        plt.plot(time_series[:min_len], err, label="Truth - MHE")
+        plt.axhline(y=0.0, color="k", linestyle="--", linewidth=1)
+        plt.ylabel(f"{name} error")
+        plt.xlabel(f"${plant.time_display_name[0]}$")
+        plt.title(f"MHE Error: {name}")
+        plt.grid(True)
+        plt.legend()
+        figures.append(fig_err)
+        names.append(f"MHE_Error_{name}")
+
+    return figures, names
+
+
+def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None):
     """
     Post-processing after the MPC loop: saves data, plots, and manages output directories.
 
@@ -238,6 +287,9 @@ def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, o
         None
     """
     final_figures, figure_names = _plot_final_results(time_series, io_data_array, plant)
+    mhe_figures, mhe_names = _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant)
+    final_figures.extend(mhe_figures)
+    figure_names.extend(mhe_names)
 
     if options.infinite_horizon:
         folder_path = os.path.join(

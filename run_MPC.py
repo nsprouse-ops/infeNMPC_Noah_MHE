@@ -12,6 +12,7 @@ from indexing_tools import _get_variable_key_for_data
 import time
 from math import isclose
 from initialization_tools import _assist_initialization_infinite, _assist_initialization_finite
+from MHE_estimation import solve_mhe_no_arrival_cost
 from controller_factory import _make_infinite_horizon_controller, _make_finite_horizon_controller
  
 # Solver Settings
@@ -100,6 +101,7 @@ def _mpc_loop(options):
 
     # Get full initial TimeSeriesData
     sim_data = plant.interface.get_data_at_time([plant.time.first()])
+    full_initial_data = plant.interface.get_data_at_time([plant.time.first()])
 
     # Zero out non-state values in initial sim_data
     state_var_keys = set()
@@ -129,8 +131,12 @@ def _mpc_loop(options):
 
     # Prepare plotting data arrays
     io_data_array = []
+    io_meas_array = []
     time_series = []
     cpu_time = []
+    mhe_state_hist = None
+    true_state_hist = None
+    mhe_skipped = 0
 
     # Get initial CV values only if they correspond to a differential state
     differential_state_keys = set()
@@ -152,15 +158,31 @@ def _mpc_loop(options):
     initial_cv_row = []
     for var_name in plant.CV_index:
         key = _get_variable_key_for_data(plant, var_name)
-        value = sim_data.get_data_from_key(key)
+        value = full_initial_data.get_data_from_key(key)
         if isinstance(value, list):
             initial_cv_row.extend(value)
         else:
             initial_cv_row.append(value)
 
+    initial_meas_row = []
+    measured_index = list(getattr(plant, "Measured_index", plant.CV_index))
+    for var_name in measured_index:
+        key = _get_variable_key_for_data(plant, var_name)
+        value = full_initial_data.get_data_from_key(key)
+        if isinstance(value, list):
+            initial_meas_row.extend(value)
+        else:
+            initial_meas_row.append(value)
+
     initial_mv_row = [None for _ in plant.MV_index]  # No initial MV values
     io_data_array.append(initial_cv_row + initial_mv_row)
+    io_meas_array.append(initial_meas_row + initial_mv_row)
     time_series.append(0.0)
+    # Initialize MHE/Truth history with NaNs for k=0 to align with time_series
+    unmeasured_names = list(getattr(plant, "Unmeasured_index", []))
+    if unmeasured_names:
+        mhe_state_hist = {name: [np.nan] for name in unmeasured_names}
+        true_state_hist = {name: [np.nan] for name in unmeasured_names}
 
     fig, axes = None, None
     if options.live_plot:
@@ -286,6 +308,14 @@ def _mpc_loop(options):
             else:
                 cv_row.append(val)
 
+        meas_row = []
+        for var_name in measured_index:
+            val = full_data.get_data_from_key(_get_variable_key_for_data(plant, var_name))
+            if isinstance(val, list):
+                meas_row.extend(val)
+            else:
+                meas_row.append(val)
+
         mv_row = []
         for var_name in plant.MV_index:
             val = full_data.get_data_from_key(_get_variable_key_for_data(plant, var_name))
@@ -296,10 +326,11 @@ def _mpc_loop(options):
 
         io_row = cv_row + mv_row
         io_data_array.append(io_row)
+        io_meas_array.append(meas_row + mv_row)
         time_series.append(simulation_time)
 
         if options.live_plot:
-            _update_live_plot(fig, axes, time_series, io_data_array, plant)
+            _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hist=mhe_state_hist)
 
         model_data = plant.interface.get_data_at_time(new_data_time)
         model_data.shift_time_points(simulation_time - plant.time.first() - options.sampling_time)
@@ -308,7 +339,11 @@ def _mpc_loop(options):
         # Only load state variables into tf_data
         full_tf_data = plant.interface.get_data_at_time(options.sampling_time)
         tf_data = ScalarData(data={})
-        for state_var in state_vars:         #"for measured state vars in state vars"
+        unmeasured_names = list(getattr(plant, "Unmeasured_index", []))
+        unmeasured_base = {name.split("[", 1)[0] for name in unmeasured_names}
+        measured_state_vars = [v for v in state_vars if v.local_name not in unmeasured_base]
+        unmeasured_state_vars = [v for v in state_vars if v.local_name in unmeasured_base]
+        for state_var in measured_state_vars:
             sv_name = state_var.name.split(".")[-1]
             if state_var.is_indexed():
                 for index in state_var.index_set():
@@ -322,7 +357,42 @@ def _mpc_loop(options):
             else:
                 key = f"{sv_name}[*]"
                 tf_data.data[key] = full_tf_data.get_data_from_key(key)
-        #for UNMEASURED state vars in state vars, insert MHE estimates here
+        # for UNMEASURED state vars in state vars, insert MHE estimates here
+        # keep measured states from plant; replace only unmeasured with MHE xhat
+        try:
+            mhe_result = solve_mhe_no_arrival_cost(
+                options=options,
+                io_data_array=io_meas_array,
+                M_desired=options.MHE_window,
+                solver_name="ipopt",
+                tee=False,
+            )
+        except ValueError:
+            mhe_result = None
+            mhe_skipped += 1
+        if mhe_result is not None:
+            for name in unmeasured_names:
+                if name in mhe_result.xhat:
+                    key = _get_variable_key_for_data(plant, name)
+                    tf_data._data[key] = mhe_result.xhat[name]
+                    if mhe_state_hist is not None:
+                        mhe_state_hist[name].append(mhe_result.xhat[name])
+                else:
+                    if mhe_state_hist is not None:
+                        mhe_state_hist[name].append(np.nan)
+        else:
+            if mhe_state_hist is not None:
+                for name in unmeasured_names:
+                    mhe_state_hist[name].append(np.nan)
+            # Fallback: use plant values if MHE not available
+            for name in unmeasured_names:
+                key = _get_variable_key_for_data(plant, name)
+                tf_data._data[key] = full_tf_data.get_data_from_key(key)
+        # Record truth unmeasured states from plant at this sampling time
+        if true_state_hist is not None:
+            for name in true_state_hist:
+                key = _get_variable_key_for_data(plant, name)
+                true_state_hist[name].append(full_tf_data.get_data_from_key(key))
         plant.interface.load_data(tf_data)
 
         controller.interface.shift_values_by_time(options.sampling_time)
@@ -337,7 +407,17 @@ def _mpc_loop(options):
     if options.live_plot and fig is not None:
         _finalize_live_plot(fig)
 
-    _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options)
+    _handle_mpc_results(
+        sim_data,
+        time_series,
+        io_data_array,
+        plant,
+        cpu_time,
+        options,
+        mhe_state_hist=mhe_state_hist,
+        true_state_hist=true_state_hist,
+    )
+    print(f"MHE skipped count: {mhe_skipped}")
 
 
 if __name__ == "__main__":

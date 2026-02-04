@@ -12,9 +12,12 @@ def variables_initialize(m):
     m.MV_display_names = ["F_{A0}\;(kmol/h)", "\dot{m}_c\;(kmol/h)"]
     m.CV_index = pyo.Set(initialize=["Cc", "T"])      # Controlled variables
     m.CV_display_names = ["C_c\;(mol/L)", "T\;(K)"]
+    # Measured outputs used in estimation (EVERY DIFFERENTIAL STATE VARIABLE SHOULD EITHER BE IN MEASURED OR UNEMEAURSRED INDEX)
+    m.Measured_index = pyo.Set(initialize=["T"])
+    m.Measured_display_names = ["T\;(K)"]
+    m.Unmeasured_index = pyo.Set(initialize=["Ca","Cb","Cm","Cc"])
+    m.Unmeasured_display_names = ["C_a\;(mol/L)", "C_b\;(mol/L)","C_m\;(mol/L)","C_c\;(mol/L)"]
     m.DV_index = pyo.Set(initialize=["Fb0", "UA"])   # Disturbance variables
-    m.Unmeasured_index = pyo.Set(initialize=["Ca","Cb","Cm"]) #Unmeasured State variables
-    m.Unmeasured_display_names = ["C_a\;(mol/L)", "C_b\;(mol/L)","C_m\;(mol/L)"]
 
     # ---- Differential State Variables ----
     m.Ca = pyo.Var(m.time, initialize=1.5, domain=pyo.NonNegativeReals)  # A concentration
