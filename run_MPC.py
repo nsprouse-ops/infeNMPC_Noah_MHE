@@ -137,6 +137,7 @@ def _mpc_loop(options):
     mhe_state_hist = None
     true_state_hist = None
     mhe_skipped = 0
+    prev_mhe_model = None
 
     # Get initial CV values only if they correspond to a differential state
     differential_state_keys = set()
@@ -251,8 +252,8 @@ def _mpc_loop(options):
                 terminal_cost_prev - terminal_cost_now - options.beta * penultimate_stage_cost_now
             ) / first_stage_cost_prev
 
-            # if simulation_time != options.sampling_time:
-            #     assert LHS < 1, f"No ε ∈ [0,1) satisfies LHS ≤ ε; got LHS = {LHS}"
+            
+
             print("")
             print(f"Min value of epsilon: {LHS}")
             print("")
@@ -359,18 +360,36 @@ def _mpc_loop(options):
                 tf_data.data[key] = full_tf_data.get_data_from_key(key)
         # for UNMEASURED state vars in state vars, insert MHE estimates here
         # keep measured states from plant; replace only unmeasured with MHE xhat
+        # Build arrival-cost prior from previous MHE model at the current window start
+        prior_xhat = None
+        if prev_mhe_model is not None:
+            try:
+                prev_fe_times = list(prev_mhe_model.time.get_finite_elements())
+                if prev_fe_times:
+                    t_prior = prev_fe_times[1] if len(prev_fe_times) > 1 else prev_fe_times[0]
+                    prior_xhat = {}
+                    for name in unmeasured_names:
+                        try:
+                            prior_xhat[name] = pyo.value(_add_time_indexed_expression(prev_mhe_model, name, t_prior))
+                        except Exception:
+                            continue
+            except Exception:
+                prior_xhat = None
+
         try:
             mhe_result = solve_mhe_no_arrival_cost(
                 options=options,
                 io_data_array=io_meas_array,
                 M_desired=options.MHE_window,
                 solver_name="ipopt",
-                tee=False,
+                tee=True,
+                prior_xhat=prior_xhat,
             )
         except ValueError:
             mhe_result = None
             mhe_skipped += 1
         if mhe_result is not None:
+            prev_mhe_model = mhe_result.model
             for name in unmeasured_names:
                 if name in mhe_result.xhat:
                     key = _get_variable_key_for_data(plant, name)

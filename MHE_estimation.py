@@ -12,6 +12,9 @@ from pyomo.contrib.mpc import ScalarData
 from make_model import _make_finite_horizon_model
 from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data, _add_time_indexed_expression
 
+# Default arrival cost weight (scalar)
+LAMBDA_ARRIVAL = 1.75
+
 
 @dataclass
 class MHEResult:
@@ -111,6 +114,8 @@ def solve_mhe_no_arrival_cost(
     M_desired: int,
     solver_name: str = "ipopt",
     tee: bool = False,
+    prior_xhat: Optional[Dict[str, float]] = None,
+    lambda_arrival: float = LAMBDA_ARRIVAL,
 ) -> Optional[MHEResult]:
     """
     Solve MHE with arrival cost = 0.
@@ -217,6 +222,15 @@ def solve_mhe_no_arrival_cost(
                     # your model_equations defines cv_cost Param on CV_index
                     w = mm.cv_cost[cv]
                 expr += w * (yhat - ymeas) ** 2
+        # Arrival cost at start of window (if prior provided)
+        if prior_xhat:
+            t0 = fe_times[0]
+            for name, prior_val in prior_xhat.items():
+                try:
+                    x0 = _add_time_indexed_expression(mm, name, t0)
+                except Exception:
+                    continue
+                expr += float(lambda_arrival) * (x0 - float(prior_val)) ** 2
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
@@ -224,6 +238,18 @@ def solve_mhe_no_arrival_cost(
     # --- Solve ---
     solver = pyo.SolverFactory(solver_name)
     res = solver.solve(m, tee=tee)
+
+    # --- Report measurement-only objective value (exclude arrival cost) ---
+    meas_obj = 0.0
+    for t_fe in fe_times:
+        for cv in m.Measured_index:
+            yhat = _add_time_indexed_expression(m, cv, t_fe)
+            ymeas = m.y_meas[cv, t_fe]
+            w = 1.0
+            if hasattr(m, "cv_cost"):
+                w = m.cv_cost[cv]
+            meas_obj += w * (yhat - ymeas) ** 2
+    print(f"MHE measurement-only objective (no arrival): {pyo.value(meas_obj)}")
 
     # --- Extract xhat at final finite element time ---
     tf = fe_times[-1]

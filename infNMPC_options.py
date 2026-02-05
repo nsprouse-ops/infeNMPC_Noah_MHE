@@ -28,11 +28,11 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 3
-        self.num_horizons = 8
-        self.nfe_finite = 2
-        self.ncp_finite = 3
-        self.sampling_time = 1
+        self.MHE_window = 7
+        self.num_horizons = 30
+        self.nfe_finite = 1
+        self.ncp_finite = 2
+        self.sampling_time = 3.75
 
         # Infinite horizon settings
         self.infinite_horizon = True
