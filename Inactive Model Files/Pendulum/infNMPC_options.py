@@ -28,6 +28,7 @@ class Options:
 
     def __init__(self):
         # Simulation control
+        self.MHE_window = 5
         self.num_horizons = 150
         self.nfe_finite = 5
         self.ncp_finite = 5
@@ -44,6 +45,10 @@ class Options:
         self.custom_objective = False
         self.initialize_with_initial_data = True
         self.terminal_cost_riemann = False
+        self.remove_collocation = False
+        self.initialization_assist = False
+
+        self.input_suppression = False
 
         self.stage_cost_weights = [1, 1, 1]
         self.gamma = 0.0075

@@ -13,7 +13,12 @@ def variables_initialize(m):
     m.MV_display_names = ["F\;(N)"]
     m.CV_index = pyo.Set(initialize=["theta", "x"])      # Controlled variables
     m.CV_display_names = ["\theta", "x\;(m)"]
-
+    # ---- Measured/Unmeasured State Indexing (Very Sparse: only theta measured) ----
+    m.Measured_index = pyo.Set(initialize=["theta"])
+    m.Measured_display_names = ["\theta"]
+    m.Unmeasured_index = pyo.Set(initialize=["x", "x_dot", "theta_dot"])
+    m.Unmeasured_display_names = ["x\;(m)", "\dot{x}\;(m/s)", "\dot{\theta}"]
+    # ---- Measured/Unmeasured State Indexing (Very Sparse: only theta measured) ----
     # ---- Differential State Variables ----
     m.x = pyo.Var(m.time, initialize=0, bounds=(-1000, 1000))
     m.x_dot = pyo.Var(m.time, initialize=0, bounds=(-100, 100))
