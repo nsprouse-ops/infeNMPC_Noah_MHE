@@ -28,11 +28,11 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 15
-        self.num_horizons = 50
+        self.MHE_window = 10
+        self.num_horizons = 25
         self.nfe_finite = 2
         self.ncp_finite = 3
-        self.sampling_time = 0.1
+        self.sampling_time = 10
 
         # Infinite horizon settings
         self.infinite_horizon = True
@@ -40,7 +40,7 @@ class Options:
         self.ncp_infinite = 3
 
         # Solver and model options
-        self.tee_flag = True
+        self.tee_flag = False
         self.endpoint_constraints = True
         self.custom_objective = False
         self.initialize_with_initial_data = False
@@ -52,9 +52,22 @@ class Options:
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
 
-        self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
+        self.stage_cost_weights = [1e1 * 1.0e4, 1e3 * 1.0, 0e-1 * 1.0e5, 0e-1 * 1.0e5]
         self.gamma = 0.05
         self.beta = 1.2
+        # MHE arrival cost weights
+        self.mhe_arrival_default_lambda = 1
+        self.mhe_arrival_weights = {}
+        for i in range(1, 43):
+            self.mhe_arrival_weights[f"x[{i}]"] = 1/(((0.0008*i**2 - 0.0095*i + 0.0083) * 0.025)**2)
+        for i in range(2, 43):
+            self.mhe_arrival_weights[f"M[{i}]"] = 1/(((1.5846*i**2 - 40.417*i + 4133.5) * 0.025)**2)
+        for i in range(1, 2):
+            self.mhe_arrival_weights[f"M[{i}]"] = 1/(((104000) * 0.025)**2) 
+        # Display/Data Output options   
+
+
+
 
         # Display/Data Output options
         self.live_plot = True

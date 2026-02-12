@@ -362,6 +362,7 @@ def _mpc_loop(options):
         # keep measured states from plant; replace only unmeasured with MHE xhat
         # Build arrival-cost prior from previous MHE model at the current window start
         prior_xhat = None
+        warm_start_x0 = None
         if prev_mhe_model is not None:
             try:
                 prev_fe_times = list(prev_mhe_model.time.get_finite_elements())
@@ -382,8 +383,9 @@ def _mpc_loop(options):
                 io_data_array=io_meas_array,
                 M_desired=options.MHE_window,
                 solver_name="ipopt",
-                tee=True,
+                tee=False,
                 prior_xhat=prior_xhat,
+                warm_start_x0=warm_start_x0,
             )
         except ValueError:
             mhe_result = None

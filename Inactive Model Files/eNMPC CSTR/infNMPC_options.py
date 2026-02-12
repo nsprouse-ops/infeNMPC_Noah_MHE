@@ -28,6 +28,7 @@ class Options:
 
     def __init__(self):
         # Simulation control
+        self.MHE_window = 15
         self.num_horizons = 100
         self.nfe_finite = 4
         self.ncp_finite = 1
@@ -39,10 +40,15 @@ class Options:
         self.ncp_infinite = 1
 
         # Solver and model options
-        self.tee_flag = False
-        self.endpoint_constraints = False
+        self.tee_flag = True
+        self.endpoint_constraints = True
         self.custom_objective = True
         self.initialize_with_initial_data = False
+        self.terminal_cost_riemann = False
+        self.remove_collocation = True
+        self.initialization_assist = False
+        self.initialization_assist_sampling_time_start = 10
+
 
         self.stage_cost_weights = [1, 1, 1/600]
         self.gamma = 0.001
