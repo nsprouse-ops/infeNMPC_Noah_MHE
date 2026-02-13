@@ -12,11 +12,6 @@ from pyomo.contrib.mpc import ScalarData
 from make_model import _make_finite_horizon_model
 from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data, _add_time_indexed_expression
 
-# Default arrival cost weights.
-# this is a sftey if options isnt defined
-LAMBDA_ARRIVAL = 0.0075
-
-
 @dataclass
 class MHEResult:
     M_eff: int
@@ -238,8 +233,16 @@ def solve_mhe_no_arrival_cost(
     print("DEBUG: y_hist lens =", {k: len(v) for k, v in y_hist.items()})
     print("DEBUG: u_hist lens =", {k: len(v) for k, v in u_hist.items()})
 
-    # Single arrival weight applied to all states in prior_xhat.
-    arrival_lambda = float(LAMBDA_ARRIVAL if lambda_arrival is None else lambda_arrival)
+    # Arrival weights: per-state override, otherwise default scalar.
+    default_arrival_lambda = float(
+        getattr(options, "mhe_arrival_default_lambda", 0.0025)
+        if lambda_arrival is None
+        else lambda_arrival
+    )
+    arrival_weight_map = dict(getattr(options, "mhe_arrival_weights", {}))
+
+    def _arrival_weight(state_name: str) -> float:
+        return float(arrival_weight_map.get(state_name, default_arrival_lambda))
 
     # --- Objective: sum of squared measurement errors at finite elements only ---
     def _mhe_obj_rule(mm):
@@ -261,14 +264,16 @@ def solve_mhe_no_arrival_cost(
                     x0 = _add_time_indexed_expression(mm, name, t0)
                 except Exception:
                     continue
-                expr += arrival_lambda * (x0 - float(prior_val)) ** 2
+                w_arr = _arrival_weight(name)
+                expr += w_arr * (x0 - float(prior_val)) ** 2
         elif bootstrap_xhat0:
             for name, init_val in bootstrap_xhat0.items():
                 try:
                     x0 = _add_time_indexed_expression(mm, name, t0)
                 except Exception:
                     continue
-                expr += arrival_lambda * (x0 - float(init_val)) ** 2
+                w_arr = _arrival_weight(name)
+                expr += w_arr * (x0 - float(init_val)) ** 2
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
@@ -276,7 +281,7 @@ def solve_mhe_no_arrival_cost(
     # --- Solve ---
     print("MHE estimation solving")
     solver = pyo.SolverFactory(solver_name)
-    res = solver.solve(m, tee=False)
+    res = solver.solve(m, tee=True)
 
     # --- Report measurement-only objective value (exclude arrival cost) ---
     meas_obj = 0.0
@@ -299,7 +304,8 @@ def solve_mhe_no_arrival_cost(
                 x0 = _add_time_indexed_expression(m, name, t0)
             except Exception:
                 continue
-            arrival_obj += arrival_lambda * (x0 - float(prior_val)) ** 2
+            w_arr = _arrival_weight(name)
+            arrival_obj += w_arr * (x0 - float(prior_val)) ** 2
     elif bootstrap_xhat0:
         print("MHE bootstrap prior keys:", list(bootstrap_xhat0.keys()))
         t0 = fe_times[0]
@@ -308,7 +314,8 @@ def solve_mhe_no_arrival_cost(
                 x0 = _add_time_indexed_expression(m, name, t0)
             except Exception:
                 continue
-            arrival_obj += arrival_lambda * (x0 - float(init_val)) ** 2
+            w_arr = _arrival_weight(name)
+            arrival_obj += w_arr * (x0 - float(init_val)) ** 2
     print(f"MHE arrival cost only: {pyo.value(arrival_obj)}")
 
     # --- Extract xhat at final finite element time ---

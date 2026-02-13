@@ -29,10 +29,10 @@ class Options:
     def __init__(self):
         # Simulation control
         self.MHE_window = 10
-        self.num_horizons = 50
+        self.num_horizons = 100
         self.nfe_finite = 2
         self.ncp_finite = 3
-        self.sampling_time = 0.1
+        self.sampling_time = 0.05
 
         # Infinite horizon settings
         self.infinite_horizon = True
@@ -55,6 +55,7 @@ class Options:
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
+        self.mhe_arrival_lambda_deafult = 0.001
 
         # Display/Data Output options
         self.live_plot = True

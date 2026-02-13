@@ -56,14 +56,14 @@ class Options:
         self.gamma = 0.05
         self.beta = 1.2
         # MHE arrival cost weights
-        self.mhe_arrival_default_lambda = 1
+        self.mhe_arrival_lambda_deafult = 0.0025
         self.mhe_arrival_weights = {}
         for i in range(1, 43):
-            self.mhe_arrival_weights[f"x[{i}]"] = 1/(((0.0008*i**2 - 0.0095*i + 0.0083) * 0.025)**2)
+           self.mhe_arrival_weights[f"x[{i}]"] = (((0.0008*i**2 - 0.0095*i + 0.0083) * 0.0025)**2)
         for i in range(2, 43):
-            self.mhe_arrival_weights[f"M[{i}]"] = 1/(((1.5846*i**2 - 40.417*i + 4133.5) * 0.025)**2)
+            self.mhe_arrival_weights[f"M[{i}]"] = (((1.5846*i**2 - 40.417*i + 4133.5) * 0.0025)**2)
         for i in range(1, 2):
-            self.mhe_arrival_weights[f"M[{i}]"] = 1/(((104000) * 0.025)**2) 
+            self.mhe_arrival_weights[f"M[{i}]"] = (((104000) * 0.0025)**2) 
         # Display/Data Output options   
 
 
