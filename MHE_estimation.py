@@ -15,16 +15,16 @@ from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for
 @dataclass
 class MHEResult:
     M_eff: int
-    xhat: Dict[str, float]                 # estimated state at current time (end of window)
-    model: pyo.ConcreteModel               # the MHE model (optional to keep for debugging)
-    solver_result: object                  # solver results
+    xhat: Dict[str, float]                 #estimated state at current time
+    model: pyo.ConcreteModel               #MHE model
+    solver_result: object                  #solver results
 
 
 def build_mhe_histories_from_io_data_array(
-    io_data_array: Sequence[Sequence[float]],
-    measured_index: Sequence[str],
-    MV_index: Sequence[str],
-    M_desired: int,
+    io_data_array: Sequence[Sequence[float]], #all data
+    measured_index: Sequence[str], #names of measured states
+    MV_index: Sequence[str], #inputs
+    M_desired: int,  #what we want our horizon to be, may be shorter at early times
 ) -> Tuple[Dict[str, List[float]], Dict[str, List[float]], int]:
     """
     Build per-sampling-step histories for MHE from io_data_array.
@@ -40,27 +40,25 @@ def build_mhe_histories_from_io_data_array(
       M_eff: effective window length used (min(M_desired, k))
     """
     if M_desired < 0:
-        raise ValueError("M_desired must be >= 0")
+        raise ValueError("M_desired must be >= 0") #error checking for negative horizon length
 
-    n = len(io_data_array)
+    n = len(io_data_array)  #length of all data
     if n == 0:
-        raise ValueError("io_data_array is empty.")
+        raise ValueError("io_data_array is empty.") #error checking for empty data
 
-    n_cv = len(measured_index)
-    n_mv = len(MV_index)
+    n_cv = len(measured_index) #number of measured states
+    n_mv = len(MV_index) #number of inputs
 
-    k = n - 1
-    M_eff = min(M_desired, k)
+    k = n - 1 #current time index (0-based), so row k is current measurements, row k-1 is last applied input, etc.
+    M_eff = min(M_desired, k) #window lenght, using whatever is bigger, what you want or the current time
 
     # Measurements y: rows k-M_eff ... k (length M_eff+1)
-    y_rows = list(range(k - M_eff, k + 1))
+    y_rows = list(range(k - M_eff, k + 1)) #
 
-    # Inputs u: rows (k-M_eff+1) ... k (length M_eff)
-    # because row r stores u_{r-1}, and row 0 has None
     u_rows = list(range(k - M_eff + 1, k + 1))
 
     # Build y histories
-    y_hist: Dict[str, List[float]] = {name: [] for name in measured_index}
+    y_hist: Dict[str, List[float]] = {name: [] for name in measured_index} #building the output history that we use for MHE
     for r in y_rows:
         row = io_data_array[r]
         if len(row) < n_cv + n_mv:
@@ -76,7 +74,7 @@ def build_mhe_histories_from_io_data_array(
                 )
             y_hist[cv].append(float(val))
 
-    # Build u histories
+    # Build u histories #building the input history that we use for MHE
     u_hist: Dict[str, List[float]] = {name: [] for name in MV_index}
     if M_eff > 0:
         for r in u_rows:
@@ -95,9 +93,7 @@ def build_mhe_histories_from_io_data_array(
 
 def _make_options_for_mhe(options, M_eff: int):
     """
-    Create a shallow copy of options with a horizon sized for MHE:
-      - nfe_finite = M_eff
-      - time horizon = M_eff * sampling_time (handled inside _make_finite_horizon_model)
+    Pulling options for MHE model from the infNMPC options file
     """
     opt = copy.copy(options)
     opt.nfe_finite = int(M_eff)
@@ -115,33 +111,21 @@ def solve_mhe_no_arrival_cost(
     lambda_arrival: Optional[float] = None,
 ) -> Optional[MHEResult]:
     """
-    Solve MHE with arrival cost = 0.
+    creates model, declares weights for arrival cost, defines objective, and solves MHE problem to get xhat
 
-    Returns:
-      MHEResult if MHE can run (k>=1), else None at k=0.
-
-    Notes:
-      - Uses existing dynamic model builder (_make_finite_horizon_model)
-      - Penalizes measurement residuals at finite elements only
-      - Fixes MV trajectory using u_hist (piecewise-constant per sampling step)
     """
     k = len(io_data_array) - 1
     print("DEBUG: k =", k)
     print("DEBUG: last row =", io_data_array[-1])
     print("DEBUG: M_desired =", M_desired)   #MHE will not run unless there is not at least one control input
 
-    # Need at least one applied MV (k>=1) to do meaningful window dynamics
+    # Need at least one applied MV
     k = len(io_data_array) - 1
     if k < 1:
         return None
 
-    # Build histories (per sampling step)
-    # We need CV_index and MV_index; easiest is to build a small model once to read them.
-    # But your options/model setup already implies these sets are fixed across builds,
-    # so we can build the MHE model first and then fill parameters.
-    #
-    # We'll build the model after we know M_eff (from history), so first make a tiny pass:
-    # Use a temporary model to read indices cleanly.
+    # Build histories
+    # Use a temporary model just to read indicies
     tmp_opt = _make_options_for_mhe(options, M_eff=1)
     tmp = pyo.ConcreteModel()
     tmp = _make_finite_horizon_model(tmp, tmp_opt)
@@ -155,7 +139,7 @@ def solve_mhe_no_arrival_cost(
         M_desired=M_desired,
     )
 
-    # If M_eff ends up 0 (e.g., M_desired=0), still not useful without arrival cost.
+    # If M_eff ends up 0 cant do anything
     if M_eff < 1:
         return None
 
@@ -172,16 +156,15 @@ def solve_mhe_no_arrival_cost(
             f"Check discretization."
         )
     
-    # The model builder fixes all states at the first time point by default.
-    # For MHE, x0 must be a decision variable so the arrival cost can shape it.
     t0 = fe_times[0]
     for var in m.state_vars:
         for index in var:
-            if (isinstance(index, tuple) and index[-1] == t0) or index == t0:
+            if (isinstance(index, tuple) and index[-1] == t0) or index == t0: #unfixing the initial state variables at the first time point of the MHE horizon, so that they can be estimated
                 var[index].unfix()
 
-    # Bootstrap reference for the very first MHE solve (no prior_xhat yet).
-    # Use model-initialized values from model_equations as xhat0.
+    # Bootstrap reference for the very first MHE solve
+    # Use model-initialized values from model_equations as xhat0
+    #not enought data to accurately predict without this, drastically wrong estimates without it on the first solve
     bootstrap_xhat0: Dict[str, float] = {}
     if not prior_xhat:
         for name in getattr(m, "Unmeasured_index", []):
@@ -190,7 +173,7 @@ def solve_mhe_no_arrival_cost(
             except Exception:
                 continue
 
-    # Optional first-iteration warm start for x0.
+    #warm start for x0
     if warm_start_x0:
         for name, guess in warm_start_x0.items():
             try:
@@ -203,7 +186,6 @@ def solve_mhe_no_arrival_cost(
     m.y_meas = pyo.Param(m.Measured_index, m.time, mutable=True, initialize=0.0)
 
     # Load measurement history only at finite elements
-    # y_hist[cv] has length M_eff+1 aligned with fe_times
     for cv in m.Measured_index:
         series = y_hist[cv]
         if len(series) != len(fe_times):
@@ -213,12 +195,8 @@ def solve_mhe_no_arrival_cost(
         for t_fe, val in zip(fe_times, series):
             m.y_meas[cv, t_fe] = float(val)
 
-    # --- Fix MV trajectory (piecewise-constant per sampling step) ---
-    # u_hist[mv] has length M_eff aligned with intervals.
-    # We fix MV at finite elements:
-    #   - at t0, use u_hist[mv][0]
-    #   - at t_j (j>=1), use u_hist[mv][j-1]
-    #   - at final time, hold last input
+    #Fix MV trajectory (constant over each time step)
+    # At final time, hold last input
     for mv in m.MV_index:
         u_series = u_hist[mv]
         if len(u_series) != M_eff:
@@ -233,18 +211,19 @@ def solve_mhe_no_arrival_cost(
     print("DEBUG: y_hist lens =", {k: len(v) for k, v in y_hist.items()})
     print("DEBUG: u_hist lens =", {k: len(v) for k, v in u_hist.items()})
 
-    # Arrival weights: per-state override, otherwise default scalar.
+    # Arrival weights: per-state override, otherwise default
     default_arrival_lambda = float(
-        getattr(options, "mhe_arrival_default_lambda", 0.0025)
+        getattr(options, "mhe_arrival_default_lambda", 1) #checks if there is a defualt set in options, if not uses value at end
         if lambda_arrival is None
         else lambda_arrival
     )
     arrival_weight_map = dict(getattr(options, "mhe_arrival_weights", {}))
 
     def _arrival_weight(state_name: str) -> float:
-        return float(arrival_weight_map.get(state_name, default_arrival_lambda))
+        return float(arrival_weight_map.get(state_name, default_arrival_lambda)) #loooking fow specific weight for this state, if not found uses default
 
-    # --- Objective: sum of squared measurement errors at finite elements only ---
+    #Objective: sum of squared measurement errors at finite elements only (may make it coallocation points later)
+    # + arrival cost at the start of the window, and for the first solve, bootstrap cost using model intital conditions
     def _mhe_obj_rule(mm):
         expr = 0
         for t_fe in fe_times:
@@ -254,10 +233,9 @@ def solve_mhe_no_arrival_cost(
                 # Use stage_cost_weights if you have them; else weight=1
                 w = 1.0
                 if hasattr(mm, "cv_cost"):
-                    # your model_equations defines cv_cost Param on CV_index
                     w = mm.cv_cost[cv]
-                expr += w * (yhat - ymeas) ** 2
-        # Arrival cost at start of window (if prior provided)
+                expr += w * (yhat - ymeas) ** 2 #sum squared error
+        # Arrival cost at start of window
         if prior_xhat:
             for name, prior_val in prior_xhat.items():
                 try:
@@ -265,7 +243,7 @@ def solve_mhe_no_arrival_cost(
                 except Exception:
                     continue
                 w_arr = _arrival_weight(name)
-                expr += w_arr * (x0 - float(prior_val)) ** 2
+                expr += w_arr * (x0 - float(prior_val)) ** 2 #arrival weight * squared error of initial state from prior
         elif bootstrap_xhat0:
             for name, init_val in bootstrap_xhat0.items():
                 try:
@@ -273,17 +251,17 @@ def solve_mhe_no_arrival_cost(
                 except Exception:
                     continue
                 w_arr = _arrival_weight(name)
-                expr += w_arr * (x0 - float(init_val)) ** 2
+                expr += w_arr * (x0 - float(init_val)) ** 2 #arrival weight * squared error of initial state from "prior" (initial state condtion)
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
 
     # --- Solve ---
     print("MHE estimation solving")
-    solver = pyo.SolverFactory(solver_name)
-    res = solver.solve(m, tee=True)
+    solver = pyo.SolverFactory(solver_name) #same solver as MPC
+    res = solver.solve(m, tee=True) #solving model
 
-    # --- Report measurement-only objective value (exclude arrival cost) ---
+    # just reporting sum of squred errors for debugging
     meas_obj = 0.0
     for t_fe in fe_times:
         for cv in m.Measured_index:
@@ -294,7 +272,7 @@ def solve_mhe_no_arrival_cost(
                 w = m.cv_cost[cv]
             meas_obj += w * (yhat - ymeas) ** 2
     print(f"MHE measurement-only objective (no arrival): {pyo.value(meas_obj)}")
-    # --- Report arrival cost only (if prior provided) ---
+    # just reporting arrival cost for debugging
     arrival_obj = 0.0
     if prior_xhat:
         print("MHE arrival prior_xhat keys:", list(prior_xhat.keys()))
@@ -318,7 +296,7 @@ def solve_mhe_no_arrival_cost(
             arrival_obj += w_arr * (x0 - float(init_val)) ** 2
     print(f"MHE arrival cost only: {pyo.value(arrival_obj)}")
 
-    # --- Extract xhat at final finite element time ---
+    #getting what the final estimates were in the MHE, which is the final time in the horzion, these are the estimates that we will use for the initial condition of the MPC at the next time step, and also to report how well the MHE is doing in estimating the current state
     tf = fe_times[-1]
     unmeasured = set(m.Unmeasured_index)
 

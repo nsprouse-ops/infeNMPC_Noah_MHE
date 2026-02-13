@@ -51,7 +51,7 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-
+        #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1e1 * 1.0e4, 1e3 * 1.0, 0e-1 * 1.0e5, 0e-1 * 1.0e5]
         self.gamma = 0.05
         self.beta = 1.2

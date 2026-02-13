@@ -51,11 +51,11 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-
+        #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
-        self.mhe_arrival_lambda_deafult = 0.001
+        self.mhe_arrival_lambda_deafult = 1
 
         # Display/Data Output options
         self.live_plot = True
