@@ -55,7 +55,7 @@ class Options:
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
-        self.mhe_arrival_lambda_deafult = 1
+        self.mhe_arrival_default_lambda = 4.25
 
         # Display/Data Output options
         self.live_plot = True
