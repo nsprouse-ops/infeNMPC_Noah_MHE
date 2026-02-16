@@ -138,6 +138,10 @@ def _mpc_loop(options):
     true_state_hist = None
     mhe_skipped = 0
     prev_mhe_model = None
+    prev_mhe_xhat = None
+    current_mhe_window = int(options.MHE_window)
+    mhe_min_window = int(getattr(options, "mhe_min_window", 1))
+    mhe_consecutive_ok = 0
 
     # Get initial CV values only if they correspond to a differential state
     differential_state_keys = set()
@@ -310,12 +314,16 @@ def _mpc_loop(options):
                 cv_row.append(val)
 
         meas_row = []
+        measured_now = {}
         for var_name in measured_index:
             val = full_data.get_data_from_key(_get_variable_key_for_data(plant, var_name))
             if isinstance(val, list):
                 meas_row.extend(val)
+                if len(val) == 1:
+                    measured_now[var_name] = float(val[0])
             else:
                 meas_row.append(val)
+                measured_now[var_name] = float(val)
 
         mv_row = []
         for var_name in plant.MV_index:
@@ -376,12 +384,15 @@ def _mpc_loop(options):
                             continue
             except Exception:
                 prior_xhat = None
+        if prior_xhat is not None and len(prior_xhat) == 0:
+            # Keep bootstrap term active until we have at least one valid prior state.
+            prior_xhat = None
 
         try:
             mhe_result = solve_mhe_no_arrival_cost(
                 options=options,
                 io_data_array=io_meas_array,
-                M_desired=options.MHE_window,
+                M_desired=current_mhe_window,
                 solver_name="ipopt",
                 tee=False,
                 prior_xhat=prior_xhat,
@@ -391,7 +402,57 @@ def _mpc_loop(options):
             mhe_result = None
             mhe_skipped += 1
         if mhe_result is not None:
+            # Adaptive MHE window reduction:
+            # if state-change and output-residual conditions are satisfied
+            # for 2 consecutive iterations across all states/outputs.
+            state_default_eps = float(getattr(options, "mhe_state_error_default", 1e-2))
+            state_eps_map = dict(getattr(options, "mhe_state_error", {}))
+            output_default_eps = float(getattr(options, "mhe_output_error_default", 1e-2))
+            output_eps_map = dict(getattr(options, "mhe_output_error", {}))
+
+            state_ok = prev_mhe_xhat is not None and bool(unmeasured_names)
+            if state_ok:
+                for name in unmeasured_names:
+                    if name not in mhe_result.xhat or name not in prev_mhe_xhat:
+                        state_ok = False
+                        break
+                    eps_x = float(state_eps_map.get(name, state_default_eps))
+                    if abs(float(mhe_result.xhat[name]) - float(prev_mhe_xhat[name])) >= eps_x:
+                        state_ok = False
+                        break
+
+            output_ok = bool(measured_index)
+            tf_mhe = mhe_result.model.time.last()
+            if output_ok:
+                for name in measured_index:
+                    if name not in measured_now:
+                        output_ok = False
+                        break
+                    try:
+                        yhat_now = float(pyo.value(_add_time_indexed_expression(mhe_result.model, name, tf_mhe)))
+                    except Exception:
+                        output_ok = False
+                        break
+                    eps_y = float(output_eps_map.get(name, output_default_eps))
+                    if abs(float(measured_now[name]) - yhat_now) >= eps_y:
+                        output_ok = False
+                        break
+
+            if state_ok and output_ok:
+                mhe_consecutive_ok += 1
+            else:
+                mhe_consecutive_ok = 0
+                if current_mhe_window != 10:
+                    current_mhe_window = 10
+                    print("Adaptive MHE window reset to: 10")
+
+            if mhe_consecutive_ok >= 1 and current_mhe_window > mhe_min_window:
+                current_mhe_window -= 1
+                mhe_consecutive_ok = 0
+                print(f"Adaptive MHE window reduced to: {current_mhe_window}")
+
             prev_mhe_model = mhe_result.model
+            prev_mhe_xhat = dict(mhe_result.xhat)
             for name in unmeasured_names:
                 if name in mhe_result.xhat:
                     key = _get_variable_key_for_data(plant, name)
@@ -402,6 +463,7 @@ def _mpc_loop(options):
                     if mhe_state_hist is not None:
                         mhe_state_hist[name].append(np.nan)
         else:
+            mhe_consecutive_ok = 0
             if mhe_state_hist is not None:
                 for name in unmeasured_names:
                     mhe_state_hist[name].append(np.nan)

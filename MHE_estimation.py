@@ -9,7 +9,7 @@ import copy
 import pyomo.environ as pyo
 from pyomo.contrib.mpc import ScalarData
 
-from make_model import _make_finite_horizon_model
+from make_model import _make_finite_horizon_model, _make_steady_state_model, _solve_steady_state_model
 from indexing_tools import _get_derivative_and_state_vars, _get_variable_key_for_data, _add_time_indexed_expression
 
 @dataclass
@@ -100,6 +100,48 @@ def _make_options_for_mhe(options, M_eff: int):
     return opt
 
 
+def _get_cached_ss_arrival_weights(options) -> Dict[str, float]:
+    """
+    Build (once) and cache arrival weights as 1/(x_ss^2) using solved steady-state values.
+    """
+    cached = getattr(options, "_mhe_ss_arrival_weights_cache", None)
+    if isinstance(cached, dict) and len(cached) > 0:
+        return cached
+
+    m_ss = pyo.ConcreteModel()
+    m_ss = _make_steady_state_model(m_ss, options)
+
+    if options.custom_objective:
+        m_ss_target = None
+    else:
+        setpoint_targets = {
+            _get_variable_key_for_data(m_ss, var): pyo.value(m_ss.setpoints[var])
+            for var in m_ss.setpoints.index_set()
+        }
+        m_ss_target = ScalarData(setpoint_targets)
+
+    ss_data = _solve_steady_state_model(m_ss, m_ss_target, options)
+
+    eps = float(getattr(options, "mhe_arrival_ss_weight_epsilon", 1e-12))
+    ss_weights: Dict[str, float] = {}
+    for name in getattr(m_ss, "Unmeasured_index", []):
+        try:
+            key = _get_variable_key_for_data(m_ss, name)
+            val = ss_data.get_data_from_key(key)
+            if isinstance(val, list):
+                if len(val) != 1:
+                    continue
+                val = val[0]
+            x_ss = float(val)
+            denom = max(abs(x_ss), eps)
+            ss_weights[name] = 1.0 / (denom ** 2)
+        except Exception:
+            continue
+
+    setattr(options, "_mhe_ss_arrival_weights_cache", ss_weights)
+    return ss_weights
+
+
 def solve_mhe_no_arrival_cost(
     options,
     io_data_array: Sequence[Sequence[float]],
@@ -142,6 +184,9 @@ def solve_mhe_no_arrival_cost(
     # If M_eff ends up 0 cant do anything
     if M_eff < 1:
         return None
+    
+    # Arrival should activate only once the full window is available.
+    arrival_active = bool(prior_xhat) and (M_eff >= M_desired)
 
     # Build an MHE model with M_eff finite elements
     mhe_opt = _make_options_for_mhe(options, M_eff=M_eff)
@@ -166,7 +211,7 @@ def solve_mhe_no_arrival_cost(
     # Use model-initialized values from model_equations as xhat0
     #not enought data to accurately predict without this, drastically wrong estimates without it on the first solve
     bootstrap_xhat0: Dict[str, float] = {}
-    if not prior_xhat:
+    if not arrival_active:
         for name in getattr(m, "Unmeasured_index", []):
             try:
                 bootstrap_xhat0[name] = float(pyo.value(_add_time_indexed_expression(m, name, t0)))
@@ -218,12 +263,39 @@ def solve_mhe_no_arrival_cost(
         else lambda_arrival
     )
     arrival_weight_map = dict(getattr(options, "mhe_arrival_weights", {}))
+    if getattr(options, "mhe_arrival_use_steady_state_weights", True):
+        try:
+            ss_weight_map = _get_cached_ss_arrival_weights(options)
+            for name, val in ss_weight_map.items():
+                arrival_weight_map.setdefault(name, float(val))
+        except Exception as err:
+            print(f"MHE warning: failed to compute steady-state arrival weights ({err})")
 
     def _arrival_weight(state_name: str) -> float:
         return float(arrival_weight_map.get(state_name, default_arrival_lambda)) #loooking fow specific weight for this state, if not found uses default
 
+    # Debug: show effective arrival weights used this solve.
+    arrival_ref = prior_xhat if arrival_active else bootstrap_xhat0
+    if arrival_ref:
+        matched = 0
+        defaulted = 0
+        samples = []
+        for name in arrival_ref:
+            if name in arrival_weight_map:
+                matched += 1
+            else:
+                defaulted += 1
+            if len(samples) < 6:
+                samples.append((name, _arrival_weight(name)))
+        print(
+            f"MHE arrival weight debug: matched={matched}, defaulted={defaulted}, "
+            f"default_lambda={default_arrival_lambda}"
+        )
+        print("MHE arrival weight samples:", samples)
+
     #Objective: sum of squared measurement errors at finite elements only (may make it coallocation points later)
-    # + arrival cost at the start of the window, and for the first solve, bootstrap cost using model intital conditions
+    # + arrival cost at the start of the window, and for the solves before the arrival cost is active,
+    # bootstrap cost using model intital conditions and after the first the condition from the estimation before
     def _mhe_obj_rule(mm):
         expr = 0
         for t_fe in fe_times:
@@ -236,7 +308,7 @@ def solve_mhe_no_arrival_cost(
                     w = mm.cv_cost[cv]
                 expr += w * (yhat - ymeas) ** 2 #sum squared error
         # Arrival cost at start of window
-        if prior_xhat:
+        if arrival_active:
             for name, prior_val in prior_xhat.items():
                 try:
                     x0 = _add_time_indexed_expression(mm, name, t0)
@@ -258,8 +330,9 @@ def solve_mhe_no_arrival_cost(
 
     # --- Solve ---
     print("MHE estimation solving")
+    print(f"MHE horizon length in use: {M_eff}")
     solver = pyo.SolverFactory(solver_name) #same solver as MPC
-    res = solver.solve(m, tee=True) #solving model
+    res = solver.solve(m, tee=False) #solving model
 
     # just reporting sum of squred errors for debugging
     meas_obj = 0.0
@@ -274,7 +347,7 @@ def solve_mhe_no_arrival_cost(
     print(f"MHE measurement-only objective (no arrival): {pyo.value(meas_obj)}")
     # just reporting arrival cost for debugging
     arrival_obj = 0.0
-    if prior_xhat:
+    if arrival_active:
         print("MHE arrival prior_xhat keys:", list(prior_xhat.keys()))
         t0 = fe_times[0]
         for name, prior_val in prior_xhat.items():
