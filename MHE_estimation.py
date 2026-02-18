@@ -134,7 +134,7 @@ def _get_cached_ss_arrival_weights(options) -> Dict[str, float]:
                 val = val[0]
             x_ss = float(val)
             denom = max(abs(x_ss), eps)
-            ss_weights[name] = .5 / (denom ** 2)
+            ss_weights[name] = 400 / (denom ** 2)
         except Exception:
             continue
 

@@ -132,6 +132,7 @@ def _mpc_loop(options):
     # Prepare plotting data arrays
     io_data_array = []
     io_meas_array = []
+    io_live_plot_array = []
     time_series = []
     cpu_time = []
     mhe_state_hist = None
@@ -142,6 +143,33 @@ def _mpc_loop(options):
     current_mhe_window = int(options.MHE_window)
     mhe_min_window = int(getattr(options, "mhe_min_window", 1))
     mhe_consecutive_ok = 0
+    noise_amplitude = float(getattr(options, "measurement_noise_amplitude", 0.0))
+    if noise_amplitude < 0.0 or noise_amplitude > 1.0:
+        raise ValueError("measurement_noise_amplitude must be between 0 and 1.")
+    noise_vector = np.random.normal(loc=0.0, scale=1.0, size=options.num_horizons)
+    noise_vector = noise_vector - float(np.mean(noise_vector))
+    max_abs_noise = float(np.max(np.abs(noise_vector)))
+    if max_abs_noise > 0.0:
+        noise_vector = noise_vector / max_abs_noise
+    else:
+        noise_vector = np.zeros(options.num_horizons)
+    print("Measurement noise vector:", noise_vector.tolist())
+
+    def _as_list(v):
+        return v if isinstance(v, list) else [v]
+
+    def _restore_shape(v_ref, v_list):
+        if isinstance(v_ref, list):
+            return v_list
+        return v_list[0]
+
+    def _make_noisy_measurement(y_actual, y_ss, noise_factor):
+        ya = [float(x) for x in _as_list(y_actual)]
+        ys = [float(x) for x in _as_list(y_ss)]
+        if len(ys) == 1 and len(ya) > 1:
+            ys = ys * len(ya)
+        noisy = [ya_i + ys_i * noise_factor for ya_i, ys_i in zip(ya, ys)]
+        return _restore_shape(y_actual, noisy)
 
     # Get initial CV values only if they correspond to a differential state
     differential_state_keys = set()
@@ -171,9 +199,11 @@ def _mpc_loop(options):
 
     initial_meas_row = []
     measured_index = list(getattr(plant, "Measured_index", plant.CV_index))
+    measured_ss = {}
     for var_name in measured_index:
         key = _get_variable_key_for_data(plant, var_name)
         value = full_initial_data.get_data_from_key(key)
+        measured_ss[var_name] = value
         if isinstance(value, list):
             initial_meas_row.extend(value)
         else:
@@ -182,6 +212,7 @@ def _mpc_loop(options):
     initial_mv_row = [None for _ in plant.MV_index]  # No initial MV values
     io_data_array.append(initial_cv_row + initial_mv_row)
     io_meas_array.append(initial_meas_row + initial_mv_row)
+    io_live_plot_array.append(initial_cv_row + initial_mv_row)
     time_series.append(0.0)
     # Initialize MHE/Truth history with NaNs for k=0 to align with time_series
     unmeasured_names = list(getattr(plant, "Unmeasured_index", []))
@@ -202,6 +233,7 @@ def _mpc_loop(options):
     for i in loop_iter:
 
         simulation_time = (i + 1) * options.sampling_time
+        noise_factor = noise_amplitude * float(noise_vector[i])
 
         start_time = time.process_time()
         solver.solve(controller, tee=options.tee_flag)
@@ -315,15 +347,18 @@ def _mpc_loop(options):
 
         meas_row = []
         measured_now = {}
+        measured_noisy = {}
         for var_name in measured_index:
             val = full_data.get_data_from_key(_get_variable_key_for_data(plant, var_name))
-            if isinstance(val, list):
-                meas_row.extend(val)
-                if len(val) == 1:
-                    measured_now[var_name] = float(val[0])
+            y_measured = _make_noisy_measurement(val, measured_ss[var_name], noise_factor)
+            measured_noisy[var_name] = y_measured
+            if isinstance(y_measured, list):
+                meas_row.extend(y_measured)
+                if len(y_measured) == 1:
+                    measured_now[var_name] = float(y_measured[0])
             else:
-                meas_row.append(val)
-                measured_now[var_name] = float(val)
+                meas_row.append(y_measured)
+                measured_now[var_name] = float(y_measured)
 
         mv_row = []
         for var_name in plant.MV_index:
@@ -336,10 +371,21 @@ def _mpc_loop(options):
         io_row = cv_row + mv_row
         io_data_array.append(io_row)
         io_meas_array.append(meas_row + mv_row)
+        live_cv_row = []
+        for var_name in plant.CV_index:
+            if var_name in measured_noisy:
+                y_live = measured_noisy[var_name]
+            else:
+                y_live = full_data.get_data_from_key(_get_variable_key_for_data(plant, var_name))
+            if isinstance(y_live, list):
+                live_cv_row.extend(y_live)
+            else:
+                live_cv_row.append(y_live)
+        io_live_plot_array.append(live_cv_row + mv_row)
         time_series.append(simulation_time)
 
         if options.live_plot:
-            _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hist=mhe_state_hist)
+            _update_live_plot(fig, axes, time_series, io_live_plot_array, plant, mhe_state_hist=mhe_state_hist)
 
         model_data = plant.interface.get_data_at_time(new_data_time)
         model_data.shift_time_points(simulation_time - plant.time.first() - options.sampling_time)
@@ -359,13 +405,19 @@ def _mpc_loop(options):
                     if isinstance(index, tuple) and len(index) > 1:
                         partial_index_str = ",".join(str(i) for i in index[:-1]) + ",*"
                         key = f"{sv_name}[{partial_index_str}]"
-                        tf_data._data[key] = full_tf_data.get_data_from_key(key)
+                        y_actual = full_tf_data.get_data_from_key(key)
+                        y_ss = full_initial_data.get_data_from_key(key)
+                        tf_data._data[key] = _make_noisy_measurement(y_actual, y_ss, noise_factor)
                     else:
                         key = f"{sv_name}[*]"
-                        tf_data._data[key] = full_tf_data.get_data_from_key(key)
+                        y_actual = full_tf_data.get_data_from_key(key)
+                        y_ss = full_initial_data.get_data_from_key(key)
+                        tf_data._data[key] = _make_noisy_measurement(y_actual, y_ss, noise_factor)
             else:
                 key = f"{sv_name}[*]"
-                tf_data.data[key] = full_tf_data.get_data_from_key(key)
+                y_actual = full_tf_data.get_data_from_key(key)
+                y_ss = full_initial_data.get_data_from_key(key)
+                tf_data.data[key] = _make_noisy_measurement(y_actual, y_ss, noise_factor)
         # for UNMEASURED state vars in state vars, insert MHE estimates here
         # keep measured states from plant; replace only unmeasured with MHE xhat
         # Build arrival-cost prior from previous MHE model at the current window start

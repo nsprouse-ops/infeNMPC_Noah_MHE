@@ -28,7 +28,7 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 10
+        self.MHE_window = 15
         self.num_horizons = 100
         self.nfe_finite = 2
         self.ncp_finite = 3
@@ -51,6 +51,7 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
+        self.measurement_noise_amplitude = 0.01
         #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
