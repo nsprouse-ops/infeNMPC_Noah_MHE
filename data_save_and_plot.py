@@ -103,7 +103,16 @@ def _setup_live_plot(plant):
     return fig, axes
 
 
-def _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hist=None):
+def _update_live_plot(
+    fig,
+    axes,
+    time_series,
+    io_data_array,
+    plant,
+    mhe_state_hist=None,
+    setpoint_values=None,
+    io_true_data_array=None,
+):
     """
     Update the live plot with current simulation data.
 
@@ -113,27 +122,37 @@ def _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hi
         time_series: List of simulation time points.
         io_data_array: List of CV and MV data at each time.
         plant: The plant model with display names and steady state values.
+        io_true_data_array: Optional list of true CV/MV data to overlay against noisy measurements.
 
     Returns:
         None
     """
     io_np = np.array(io_data_array)
+    true_np = np.array(io_true_data_array) if io_true_data_array is not None else None
     time_label = f"${plant.time_display_name[0]}$"
 
     # Ensure axes is 2D for uniform indexing
     axes = np.atleast_2d(axes)
 
     unmeasured_names = set(getattr(plant, "Unmeasured_index", []))
+    measured_names = set(getattr(plant, "Measured_index", plant.CV_index))
+    if setpoint_values is None:
+        setpoint_values = getattr(plant, "steady_state_values", {})
+
     for j, var_name in enumerate(plant.CV_index):
         ax = axes[j, 0] if axes.shape[1] > 1 else axes[j]
         ax.cla()
         display_name = plant.CV_display_names[j]
         if mhe_state_hist is not None and var_name in unmeasured_names and var_name in mhe_state_hist:
             series = mhe_state_hist[var_name]
-            ax.plot(time_series[:len(series)], series, label="MHE Estimate")
+            ax.plot(time_series[:len(series)], series, label="MHE Estimate", color="blue")
+            ax.plot(time_series, io_np[:, j], label="Actual", color="purple")
+        elif var_name in measured_names and true_np is not None:
+            ax.plot(time_series, io_np[:, j], label="Noisy Measurement", color="blue")
+            ax.plot(time_series, true_np[:, j], label="Actual", color="purple")
         else:
             ax.plot(time_series, io_np[:, j], label="Trajectory")
-        sp = plant.steady_state_values.get(var_name, None)
+        sp = setpoint_values.get(var_name, None)
         if sp is not None:
             ax.axhline(y=sp, color='r', linestyle='--', label="Setpoint")
         ax.set_ylabel(f"${display_name}$")
@@ -148,7 +167,7 @@ def _update_live_plot(fig, axes, time_series, io_data_array, plant, mhe_state_hi
         display_name = plant.MV_display_names[j]
         mv_index = len(plant.CV_index) + j
         ax.plot(time_series, io_np[:, mv_index], label="Trajectory")
-        sp = plant.steady_state_values.get(var_name, None)
+        sp = setpoint_values.get(var_name, None)
         if sp is not None:
             ax.axhline(y=sp, color='r', linestyle='--', label="Setpoint")
         ax.set_ylabel(f"${display_name}$")
@@ -175,7 +194,7 @@ def _finalize_live_plot(fig):
     plt.close(fig)
 
 
-def _plot_final_results(time_series, io_data_array, plant, show=False):
+def _plot_final_results(time_series, io_data_array, plant, show=False, setpoint_values=None):
     """
     Generate final CV and MV trajectory plots.
 
@@ -194,11 +213,14 @@ def _plot_final_results(time_series, io_data_array, plant, show=False):
     figures = []
     names = []
 
+    if setpoint_values is None:
+        setpoint_values = getattr(plant, "steady_state_values", {})
+
     for j, var_name in enumerate(plant.CV_index):
         fig = plt.figure()
         display_name = plant.CV_display_names[j]
         plt.plot(time_series, io_np[:, j], label="Trajectory")
-        sp = plant.steady_state_values.get(var_name, None)
+        sp = setpoint_values.get(var_name, None)
         if sp is not None:
             plt.axhline(y=sp, color='r', linestyle='--', label="Setpoint")
         plt.ylabel(f"${display_name}$")
@@ -214,7 +236,7 @@ def _plot_final_results(time_series, io_data_array, plant, show=False):
         display_name = plant.MV_display_names[j]
         mv_index = len(plant.CV_index) + j
         plt.plot(time_series, io_np[:, mv_index], label="Trajectory")
-        sp = plant.steady_state_values.get(var_name, None)
+        sp = setpoint_values.get(var_name, None)
         if sp is not None:
             plt.axhline(y=sp, color='r', linestyle='--', label="Setpoint")
         plt.ylabel(f"${display_name}$")
@@ -272,7 +294,7 @@ def _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant):
     return figures, names
 
 
-def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None):
+def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None, setpoint_values=None):
     """
     Post-processing after the MPC loop: saves data, plots, and manages output directories.
 
@@ -286,7 +308,12 @@ def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, o
     Returns:
         None
     """
-    final_figures, figure_names = _plot_final_results(time_series, io_data_array, plant)
+    final_figures, figure_names = _plot_final_results(
+        time_series,
+        io_data_array,
+        plant,
+        setpoint_values=setpoint_values,
+    )
     mhe_figures, mhe_names = _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant)
     final_figures.extend(mhe_figures)
     figure_names.extend(mhe_names)

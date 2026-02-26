@@ -1,6 +1,7 @@
 from infNMPC_options import _import_settings
 import pyomo.environ as pyo
-from model_equations import equations_write, variables_initialize
+import importlib
+from model_equations import equations_write as default_equations_write, variables_initialize as default_variables_initialize
 import idaes
 from idaes.core.solvers import use_idaes_solver_configuration_defaults
 from pyomo.contrib.mpc import DynamicModelInterface, ScalarData
@@ -20,7 +21,28 @@ idaes.cfg.ipopt.options.halt_on_ampl_error = "yes"
 idaes.cfg.ipopt.options.bound_relax_factor = 0
 
 
-def _make_steady_state_model(m, options):
+def _get_equation_functions(equations_module: str = "model_equations"):
+    """
+    Return (variables_initialize, equations_write, custom_objective_or_None)
+    from the selected equations module.
+    """
+    if equations_module == "model_equations":
+        custom_objective = None
+        try:
+            from model_equations import custom_objective as _custom_objective
+            custom_objective = _custom_objective
+        except ImportError:
+            pass
+        return default_variables_initialize, default_equations_write, custom_objective
+
+    eq_module = importlib.import_module(equations_module)
+    variables_initialize = getattr(eq_module, "variables_initialize")
+    equations_write = getattr(eq_module, "equations_write")
+    custom_objective = getattr(eq_module, "custom_objective", None)
+    return variables_initialize, equations_write, custom_objective
+
+
+def _make_steady_state_model(m, options, equations_module: str = "model_equations"):
     """ 
     Generate steady state values for model
     
@@ -36,6 +58,7 @@ def _make_steady_state_model(m, options):
     """
     m.time = ContinuousSet(bounds=(0, 1))
 
+    variables_initialize, equations_write, _ = _get_equation_functions(equations_module)
     m = variables_initialize(m)
 
     deriv_vars, state_vars = _get_derivative_and_state_vars(m)
@@ -79,7 +102,9 @@ def _solve_steady_state_model(m, target, options):
     ss_interface = DynamicModelInterface(m, m.time)
 
     if options.custom_objective and target is None:
-        from model_equations import custom_objective
+        _, _, custom_objective = _get_equation_functions(equations_module)
+        if custom_objective is None:
+            raise AttributeError(f"custom_objective not found in '{equations_module}'")
         cost_fn = custom_objective(m, options)
 
         def ss_obj_rule(m):
@@ -117,7 +142,7 @@ def _solve_steady_state_model(m, target, options):
     return steady_state_data
 
 
-def _make_infinite_horizon_model(m, options):
+def _make_infinite_horizon_model(m, options, equations_module: str = "model_equations"):
     """
     Create an infinite horizon NMPC model.
 
@@ -134,7 +159,7 @@ def _make_infinite_horizon_model(m, options):
     # --- Build and solve steady-state model with setpoints ---
     print('Writing Steady State Model')
     m_ss = pyo.ConcreteModel()
-    m_ss = _make_steady_state_model(m_ss, options)
+    m_ss = _make_steady_state_model(m_ss, options, equations_module=equations_module)
 
     if options.custom_objective:
         m_ss_target = None
@@ -162,7 +187,7 @@ def _make_infinite_horizon_model(m, options):
     print('Writing Initial Value Model')
     # --- Handle initial values ---
     m_iv = pyo.ConcreteModel()
-    m_iv = _make_steady_state_model(m_iv, options)
+    m_iv = _make_steady_state_model(m_iv, options, equations_module=equations_module)
 
     initial_value_vars = list(m_iv.initial_values.index_set())
     if all(var in m_iv.CV_index for var in initial_value_vars):
@@ -196,8 +221,8 @@ def _make_infinite_horizon_model(m, options):
         m.infinite_block.ss_obj_value = m_ss.ss_obj_value
 
     # Generate blocks
-    m.finite_block = _finite_block_gen(m.finite_block, options)
-    m.infinite_block = _infinite_block_gen(m.infinite_block, options)
+    m.finite_block = _finite_block_gen(m.finite_block, options, equations_module=equations_module)
+    m.infinite_block = _infinite_block_gen(m.infinite_block, options, equations_module=equations_module)
     m = _link_blocks(m)
 
     m.interface = DynamicModelInterface(m.finite_block, m.finite_block.time)
@@ -335,7 +360,7 @@ def _remove_non_collocation_values_finite(m):
     return m
 
 
-def _make_finite_horizon_model(m, options):
+def _make_finite_horizon_model(m, options, equations_module: str = "model_equations"):
     """
     Create a finite horizon NMPC model.
 
@@ -353,7 +378,7 @@ def _make_finite_horizon_model(m, options):
 
     # --- Build and solve steady-state model with setpoints ---
     m_ss = pyo.ConcreteModel()
-    m_ss = _make_steady_state_model(m_ss, options)
+    m_ss = _make_steady_state_model(m_ss, options, equations_module=equations_module)
 
     if options.custom_objective:
         m_ss_target = None
@@ -380,7 +405,7 @@ def _make_finite_horizon_model(m, options):
 
     # --- Handle initial values ---
     m_iv = pyo.ConcreteModel()
-    m_iv = _make_steady_state_model(m_iv, options)
+    m_iv = _make_steady_state_model(m_iv, options, equations_module=equations_module)
 
     initial_value_vars = list(m_iv.initial_values.index_set())
     if all(var in m_iv.CV_index for var in initial_value_vars):
@@ -407,7 +432,7 @@ def _make_finite_horizon_model(m, options):
     m.steady_state_values = steady_state_values
 
     # Generate blocks
-    m = _finite_block_gen(m, options)
+    m = _finite_block_gen(m, options, equations_module=equations_module)
 
     m.interface = DynamicModelInterface(m, m.time)
     
@@ -433,7 +458,7 @@ def _make_finite_horizon_model(m, options):
     return m
 
 
-def _finite_block_gen(m, options):
+def _finite_block_gen(m, options, equations_module: str = "model_equations"):
     """
     Generate the finite block for the NMPC model.
 
@@ -449,6 +474,7 @@ def _finite_block_gen(m, options):
     """
     m.time = ContinuousSet(bounds=(0, options.nfe_finite*options.sampling_time))
 
+    variables_initialize, equations_write, _ = _get_equation_functions(equations_module)
     m = variables_initialize(m)
 
     deriv_vars, state_vars = _get_derivative_and_state_vars(m)
@@ -531,9 +557,10 @@ def _transform_model_derivatives(model, deriv_vars):
                         pass  # Component may not support deletion or index doesn't exist
 
 
-def _infinite_block_gen(m, options):
+def _infinite_block_gen(m, options, equations_module: str = "model_equations"):
     m.time = ContinuousSet(bounds=(0,1))
 
+    variables_initialize, equations_write, custom_objective = _get_equation_functions(equations_module)
     m = variables_initialize(m)
 
     def _add_dphidt(m):
@@ -587,7 +614,8 @@ def _infinite_block_gen(m, options):
                 return (options.gamma / options.sampling_time * (1 - t**2)) * m.dphidt[t] == stage_cost_expr - m.ss_obj_value
 
         if options.custom_objective:
-            from model_equations import custom_objective
+            if custom_objective is None:
+                raise AttributeError(f"custom_objective not found in '{equations_module}'")
             m.terminal_cost = pyo.Constraint(m.time, rule=_custom_terminal_cost_rule)
         else: 
             m.terminal_cost = pyo.Constraint(m.time, rule=_terminal_cost_rule)

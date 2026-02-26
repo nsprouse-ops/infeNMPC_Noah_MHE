@@ -62,106 +62,106 @@
             Ca : Size=7, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
                        0 :     0 : 0.15612173378479913 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 :  0.2042140501340798 :  None : False : False : NonNegativeReals
-                0.032247 :     0 : 0.25655275900390767 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :   0.227515768403332 :  None : False : False : NonNegativeReals
-                0.057753 :     0 : 0.20413080586165328 :  None : False : False : NonNegativeReals
-                0.082247 :     0 : 0.13566844669933661 :  None : False : False : NonNegativeReals
-                     0.1 :     0 : 0.10167533979506083 :  None : False : False : NonNegativeReals
+                0.007753 :     0 :  0.2042140501340795 :  None : False : False : NonNegativeReals
+                0.032247 :     0 : 0.25655275900390695 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 0.22751576840333185 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :  0.2041308058616536 :  None : False : False : NonNegativeReals
+                0.082247 :     0 : 0.13566844669933756 :  None : False : False : NonNegativeReals
+                     0.1 :     0 : 0.10167533979506169 :  None : False : False : NonNegativeReals
             Cb : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
                        0 :     0 :  33.55804914071708 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 : 33.416854600462905 :  None : False : False : NonNegativeReals
-                0.032247 :     0 : 32.899330584964744 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :  32.48279043353291 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :  32.29657562080724 :  None : False : False : NonNegativeReals
-                0.082247 :     0 : 31.737901399195458 :  None : False : False : NonNegativeReals
-                     0.1 :     0 : 31.370567227231025 :  None : False : False : NonNegativeReals
+                0.007753 :     0 :  33.41685460046291 :  None : False : False : NonNegativeReals
+                0.032247 :     0 :  32.89933058496475 :  None : False : False : NonNegativeReals
+                    0.05 :     0 :  32.48279043353293 :  None : False : False : NonNegativeReals
+                0.057753 :     0 : 32.296575620807246 :  None : False : False : NonNegativeReals
+                0.082247 :     0 : 31.737901399195476 :  None : False : False : NonNegativeReals
+                     0.1 :     0 : 31.370567227231046 :  None : False : False : NonNegativeReals
             Cc : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
                        0 :     0 :   2.74943773137456 :  None :  True :  True : NonNegativeReals
                 0.007753 :     0 :  2.748054361762812 :  None : False : False : NonNegativeReals
                 0.032247 :     0 : 2.8363365502856066 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :  2.960994889482016 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :  3.024560194895879 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :  3.213988585108225 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :  3.330237852491419 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 2.9609948894820137 :  None : False : False : NonNegativeReals
+                0.057753 :     0 : 3.0245601948958765 :  None : False : False : NonNegativeReals
+                0.082247 :     0 :   3.21398858510822 :  None : False : False : NonNegativeReals
+                     0.1 :     0 : 3.3302378524914134 :  None : False : False : NonNegativeReals
             Cm : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
                        0 :     0 :  3.633950405628219 :  None :  True :  True : NonNegativeReals
                 0.007753 :     0 :  3.619680041633702 :  None : False : False : NonNegativeReals
-                0.032247 :     0 : 3.5767180069232047 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :  3.547504086562782 :  None : False : False : NonNegativeReals
-                0.057753 :     0 : 3.5352283201783985 :  None : False : False : NonNegativeReals
+                0.032247 :     0 : 3.5767180069232043 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 3.5475040865627814 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :  3.535228320178398 :  None : False : False : NonNegativeReals
                 0.082247 :     0 :  3.498271175677661 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :   3.47314054369356 :  None : False : False : NonNegativeReals
+                     0.1 :     0 : 3.4731405436935594 :  None : False : False : NonNegativeReals
             Fa0 : Size=7, Index=finite_block.time
                 Key      : Lower : Value             : Upper : Fixed : Stale : Domain
-                       0 :    10 : 74.22382977839543 :   100 : False : False :  Reals
-                0.007753 :    10 : 74.22382977839585 :   100 : False : False :  Reals
-                0.032247 :    10 : 74.22382977839585 :   100 : False : False :  Reals
-                    0.05 :    10 : 74.22382977839585 :   100 : False : False :  Reals
-                0.057753 :    10 : 74.22380585862408 :   100 : False : False :  Reals
-                0.082247 :    10 : 74.22380585862408 :   100 : False : False :  Reals
-                     0.1 :    10 : 74.22380585862408 :   100 : False : False :  Reals
+                       0 :    10 : 74.22382977839507 :   100 : False : False :  Reals
+                0.007753 :    10 : 74.22382977839551 :   100 : False : False :  Reals
+                0.032247 :    10 : 74.22382977839551 :   100 : False : False :  Reals
+                    0.05 :    10 : 74.22382977839551 :   100 : False : False :  Reals
+                0.057753 :    10 : 74.22380585862372 :   100 : False : False :  Reals
+                0.082247 :    10 : 74.22380585862372 :   100 : False : False :  Reals
+                     0.1 :    10 : 74.22380585862372 :   100 : False : False :  Reals
             T : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
                        0 :     0 :  339.7951413008544 :  None :  True :  True : NonNegativeReals
                 0.007753 :     0 : 340.01700081149704 :  None : False : False : NonNegativeReals
-                0.032247 :     0 :  342.9622522573544 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :  346.5411545570896 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :  348.3121000091442 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :  353.5400328570199 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :  356.7291347927112 :  None : False : False : NonNegativeReals
+                0.032247 :     0 : 342.96225225735435 :  None : False : False : NonNegativeReals
+                    0.05 :     0 :  346.5411545570895 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :  348.3121000091441 :  None : False : False : NonNegativeReals
+                0.082247 :     0 : 353.54003285701975 :  None : False : False : NonNegativeReals
+                     0.1 :     0 :   356.729134792711 :  None : False : False : NonNegativeReals
             dCadt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None :   5.085921064275832 :  None : False : False :  Reals
-                0.032247 :  None : -0.3706804936982569 :  None : False : False :  Reals
-                    0.05 :  None :  -2.668563664296254 :  None : False : False :  Reals
-                0.057753 :  None :   -3.01622139327492 :  None : False : False :  Reals
-                0.082247 :  None : -2.4061219133799616 :  None : False : False :  Reals
-                     0.1 :  None : -1.3355120273892105 :  None : False : False :  Reals
+                0.007753 :  None :   5.085921064275795 :  None : False : False :  Reals
+                0.032247 :  None : -0.3706804936982481 :  None : False : False :  Reals
+                    0.05 :  None :  -2.668563664296205 :  None : False : False :  Reals
+                0.057753 :  None :  -3.016221393274864 :  None : False : False :  Reals
+                0.082247 :  None : -2.4061219133799607 :  None : False : False :  Reals
+                     0.1 :  None : -1.3355120273892178 :  None : False : False :  Reals
             dCbdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None : -19.046834798817383 :  None : False : False :  Reals
-                0.032247 :  None :  -22.78749854989399 :  None : False : False :  Reals
-                    0.05 :  None : -23.918554525924968 :  None : False : False :  Reals
-                0.057753 :  None : -23.775893232829574 :  None : False : False :  Reals
-                0.082247 :  None : -21.689696191366068 :  None : False : False :  Reals
-                     0.1 :  None : -19.615349001166997 :  None : False : False :  Reals
+                0.007753 :  None : -19.046834798817194 :  None : False : False :  Reals
+                0.032247 :  None :  -22.78749854989378 :  None : False : False :  Reals
+                    0.05 :  None :  -23.91855452592472 :  None : False : False :  Reals
+                0.057753 :  None :  -23.77589323282932 :  None : False : False :  Reals
+                0.082247 :  None : -21.689696191365897 :  None : False : False :  Reals
+                     0.1 :  None : -19.615349001166855 :  None : False : False :  Reals
             dCcdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                0.007753 :  None : 0.8691443241282534 :  None : False : False :  Reals
-                0.032247 :  None : 5.9023163367790135 :  None : False : False :  Reals
-                    0.05 :  None :  7.912270011051228 :  None : False : False :  Reals
-                0.057753 :  None :  8.138935265975368 :  None : False : False :  Reals
-                0.082247 :  None :  7.164589881109107 :  None : False : False :  Reals
-                     0.1 :  None :   5.84629500989538 :  None : False : False :  Reals
+                0.007753 :  None : 0.8691443241282365 :  None : False : False :  Reals
+                0.032247 :  None :  5.902316336778953 :  None : False : False :  Reals
+                    0.05 :  None :  7.912270011051133 :  None : False : False :  Reals
+                0.057753 :  None :  8.138935265975267 :  None : False : False :  Reals
+                0.082247 :  None : 7.1645898811090625 :  None : False : False :  Reals
+                     0.1 :  None :  5.846295009895347 :  None : False : False :  Reals
             dCmdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None : -1.8193720184102409 :  None : False : False :  Reals
-                0.032247 :  None : -1.6900072144519829 :  None : False : False :  Reals
-                    0.05 :  None : -1.6020399404216674 :  None : False : False :  Reals
-                0.057753 :  None :  -1.565074717141053 :  None : False : False :  Reals
-                0.082247 :  None : -1.4537915045980303 :  None : False : False :  Reals
-                     0.1 :  None : -1.3781196014191615 :  None : False : False :  Reals
+                0.007753 :  None :  -1.819372018410224 :  None : False : False :  Reals
+                0.032247 :  None : -1.6900072144519644 :  None : False : False :  Reals
+                    0.05 :  None : -1.6020399404216492 :  None : False : False :  Reals
+                0.057753 :  None :  -1.565074717141034 :  None : False : False :  Reals
+                0.082247 :  None : -1.4537915045980123 :  None : False : False :  Reals
+                     0.1 :  None : -1.3781196014191437 :  None : False : False :  Reals
             dTdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                0.007753 :  None :  54.12094684767729 :  None : False : False :  Reals
-                0.032247 :  None : 175.37284932080874 :  None : False : False :  Reals
-                    0.05 :  None : 222.05587859830794 :  None : False : False :  Reals
-                0.057753 :  None : 226.09698323297752 :  None : False : False :  Reals
-                0.082247 :  None : 196.74838084583723 :  None : False : False :  Reals
-                     0.1 :  None :  160.4272612248475 :  None : False : False :  Reals
+                0.007753 :  None :  54.12094684767665 :  None : False : False :  Reals
+                0.032247 :  None : 175.37284932080718 :  None : False : False :  Reals
+                    0.05 :  None : 222.05587859830558 :  None : False : False :  Reals
+                0.057753 :  None : 226.09698323297496 :  None : False : False :  Reals
+                0.082247 :  None : 196.74838084583615 :  None : False : False :  Reals
+                     0.1 :  None : 160.42726122484666 :  None : False : False :  Reals
             mc : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :   250 :  276.1937509638003 :  1000 : False : False :  Reals
-                0.007753 :   250 : 276.19375096379963 :  1000 : False : False :  Reals
-                0.032247 :   250 : 276.19375096379963 :  1000 : False : False :  Reals
-                    0.05 :   250 : 276.19375096379963 :  1000 : False : False :  Reals
-                0.057753 :   250 :  276.1937510486908 :  1000 : False : False :  Reals
-                0.082247 :   250 :  276.1937510486908 :  1000 : False : False :  Reals
-                     0.1 :   250 :  276.1937510486908 :  1000 : False : False :  Reals
+                       0 :   250 :  276.1937509638002 :  1000 : False : False :  Reals
+                0.007753 :   250 :  276.1937509637996 :  1000 : False : False :  Reals
+                0.032247 :   250 :  276.1937509637996 :  1000 : False : False :  Reals
+                    0.05 :   250 :  276.1937509637996 :  1000 : False : False :  Reals
+                0.057753 :   250 : 276.19375104869073 :  1000 : False : False :  Reals
+                0.082247 :   250 : 276.19375104869073 :  1000 : False : False :  Reals
+                     0.1 :   250 : 276.19375104869073 :  1000 : False : False :  Reals
 
         12 Constraint Declarations
             Ca_balance : Size=6, Index=finite_block.time, Active=True
@@ -303,190 +303,190 @@
         14 Var Declarations
             Ca : Size=13, Index=infinite_block.time
                 Key      : Lower : Value                 : Upper : Fixed : Stale : Domain
-                       0 :     0 :   0.10167533979506083 :  None : False : False : NonNegativeReals
-                0.037567 :     0 :   0.06924534360833758 :  None : False : False : NonNegativeReals
-                0.166666 :     0 :   0.02602438975676927 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :   0.01569931789340031 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  0.005199909698809591 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  0.012693338162513565 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  0.010333231020127395 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  0.009070091974271286 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :   0.01729483250232854 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :  0.008784422489938932 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :   0.00838993741411802 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :   0.00830442733606851 :  None : False : False : NonNegativeReals
-                       1 :     0 : 6.555264849594203e-10 :  None : False : False : NonNegativeReals
+                       0 :     0 :   0.10167533979506169 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :   0.06924534360833803 :  None : False : False : NonNegativeReals
+                0.166666 :     0 :  0.026024389756769267 :  None : False : False : NonNegativeReals
+                0.295766 :     0 :   0.01569931789340029 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  0.005199909698809444 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  0.012693338162513394 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :   0.01033323102012734 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :   0.00907009197427132 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :   0.01729483250232853 :  None : False : False : NonNegativeReals
+                0.704234 :     0 :  0.008784422489938918 :  None : False : False : NonNegativeReals
+                0.833333 :     0 :  0.008389937414117993 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :  0.008304427336068496 :  None : False : False : NonNegativeReals
+                       1 :     0 : 6.555264849594257e-10 :  None : False : False : NonNegativeReals
             Cb : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 : 31.370567227231025 :  None : False : False : NonNegativeReals
-                0.037567 :     0 :  30.56418412156873 :  None : False : False : NonNegativeReals
+                       0 :     0 : 31.370567227231046 :  None : False : False : NonNegativeReals
+                0.037567 :     0 : 30.564184121568744 :  None : False : False : NonNegativeReals
                 0.166666 :     0 :   28.4202426231762 :  None : False : False : NonNegativeReals
-                0.295766 :     0 : 26.965165109905286 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  26.61802466099057 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 : 26.324759140349077 :  None : False : False : NonNegativeReals
-                     0.5 :     0 : 25.492238699647114 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 26.965165109905293 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  26.61802466099058 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 : 26.324759140349084 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :  25.49223869964712 :  None : False : False : NonNegativeReals
                   0.6291 :     0 : 24.914773514361087 :  None : False : False : NonNegativeReals
                 0.666667 :     0 : 24.791544830663405 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 24.667386236086116 :  None : False : False : NonNegativeReals
-                0.833333 :     0 : 24.366951494746928 :  None : False : False : NonNegativeReals
-                0.962433 :     0 : 24.209585653391844 :  None : False : False : NonNegativeReals
-                       1 :     0 : 24.180806325470492 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 24.667386236086113 :  None : False : False : NonNegativeReals
+                0.833333 :     0 :  24.36695149474692 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :  24.20958565339184 :  None : False : False : NonNegativeReals
+                       1 :     0 : 24.180806325470495 :  None : False : False : NonNegativeReals
             Cc : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  3.330237852491419 :  None : False : False : NonNegativeReals
-                0.037567 :     0 : 3.5536506523261258 :  None : False : False : NonNegativeReals
-                0.166666 :     0 :  4.115251200968921 :  None : False : False : NonNegativeReals
+                       0 :     0 : 3.3302378524914134 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :  3.553650652326121 :  None : False : False : NonNegativeReals
+                0.166666 :     0 :   4.11525120096892 :  None : False : False : NonNegativeReals
                 0.295766 :     0 :   4.48208736951134 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :   4.57565724927911 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  4.575657249279109 :  None : False : False : NonNegativeReals
                   0.3709 :     0 :  4.642379928508617 :  None : False : False : NonNegativeReals
                      0.5 :     0 :  4.849592688918327 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  4.993041033904158 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  5.017254102851055 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :  5.054302177813167 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :  5.128735423954607 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :  5.167631862315288 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :  4.993041033904159 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  5.017254102851058 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 5.0543021778131685 :  None : False : False : NonNegativeReals
+                0.833333 :     0 :  5.128735423954608 :  None : False : False : NonNegativeReals
+                0.962433 :     0 : 5.1676318623152895 :  None : False : False : NonNegativeReals
                        1 :     0 :    5.1809887320902 :  None : False : False : NonNegativeReals
             Cm : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :   3.47314054369356 :  None : False : False : NonNegativeReals
-                0.037567 :     0 : 3.4147921047945906 :  None : False : False : NonNegativeReals
+                       0 :     0 : 3.4731405436935594 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :   3.41479210479459 :  None : False : False : NonNegativeReals
                 0.166666 :     0 :  3.256418473580662 :  None : False : False : NonNegativeReals
-                0.295766 :     0 : 3.1474983742625975 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  3.122118956627521 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  3.099444695163446 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  3.036858785363471 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  2.993418828243478 :  None : False : False : NonNegativeReals
-                0.666667 :     0 : 2.9835085352327075 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :   2.97478980156752 :  None : False : False : NonNegativeReals
+                0.295766 :     0 :  3.147498374262598 :  None : False : False : NonNegativeReals
+                0.333333 :     0 : 3.1221189566275203 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 : 3.0994446951634456 :  None : False : False : NonNegativeReals
+                     0.5 :     0 : 3.0368587853634716 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 : 2.9934188282434784 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  2.983508535232707 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 2.9747898015675194 :  None : False : False : NonNegativeReals
                 0.833333 :     0 :  2.952169722462631 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :   2.94031233512589 :  None : False : False : NonNegativeReals
-                       1 :     0 :  2.938768729306118 :  None : False : False : NonNegativeReals
+                0.962433 :     0 : 2.9403123351258897 :  None : False : False : NonNegativeReals
+                       1 :     0 :  2.938768729306117 :  None : False : False : NonNegativeReals
             Fa0 : Size=13, Index=infinite_block.time
                 Key      : Lower : Value             : Upper : Fixed : Stale : Domain
-                       0 :    10 : 80.01656063675681 :   100 : False : False :  Reals
-                0.037567 :    10 : 80.01656063675746 :   100 : False : False :  Reals
-                0.166666 :    10 : 80.01653754402714 :   100 : False : False :  Reals
-                0.295766 :    10 : 80.01650366874945 :   100 : False : False :  Reals
-                0.333333 :    10 : 80.01646085514217 :   100 : False : False :  Reals
-                  0.3709 :    10 : 80.01641804153556 :   100 : False : False :  Reals
-                     0.5 :    10 : 80.01637854058367 :   100 : False : False :  Reals
-                  0.6291 :    10 : 80.01633252667376 :   100 : False : False :  Reals
-                0.666667 :    10 : 80.01629029209988 :   100 : False : False :  Reals
-                0.704234 :    10 : 80.01624805752665 :   100 : False : False :  Reals
-                0.833333 :    10 : 80.01620431838651 :   100 : False : False :  Reals
-                0.962433 :    10 : 80.01614048173471 :   100 : False : False :  Reals
-                       1 :    10 : 80.01614048173406 :   100 : False : False :  Reals
+                       0 :    10 : 80.01656063675684 :   100 : False : False :  Reals
+                0.037567 :    10 : 80.01656063675749 :   100 : False : False :  Reals
+                0.166666 :    10 : 80.01653754402717 :   100 : False : False :  Reals
+                0.295766 :    10 : 80.01650366874948 :   100 : False : False :  Reals
+                0.333333 :    10 : 80.01646085514221 :   100 : False : False :  Reals
+                  0.3709 :    10 : 80.01641804153559 :   100 : False : False :  Reals
+                     0.5 :    10 :  80.0163785405837 :   100 : False : False :  Reals
+                  0.6291 :    10 : 80.01633252667379 :   100 : False : False :  Reals
+                0.666667 :    10 : 80.01629029209991 :   100 : False : False :  Reals
+                0.704234 :    10 : 80.01624805752668 :   100 : False : False :  Reals
+                0.833333 :    10 : 80.01620431838654 :   100 : False : False :  Reals
+                0.962433 :    10 : 80.01614048173474 :   100 : False : False :  Reals
+                       1 :    10 : 80.01614048173408 :   100 : False : False :  Reals
             T : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  356.7291347927112 :  None : False : False : NonNegativeReals
-                0.037567 :     0 : 362.76203095137186 :  None : False : False : NonNegativeReals
+                       0 :     0 :   356.729134792711 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :  362.7620309513718 :  None : False : False : NonNegativeReals
                 0.166666 :     0 :  377.0724845690809 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :  385.3039101853499 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  387.2841210097151 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 : 388.52181717845446 :  None : False : False : NonNegativeReals
-                     0.5 :     0 : 392.17473906450704 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 : 394.23707282092124 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 385.30391018534993 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  387.2841210097153 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  388.5218171784547 :  None : False : False : NonNegativeReals
+                     0.5 :     0 : 392.17473906450715 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :  394.2370728209212 :  None : False : False : NonNegativeReals
                 0.666667 :     0 : 394.41437690323284 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 394.96588936274713 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :  395.6513891240703 :  None : False : False : NonNegativeReals
+                0.704234 :     0 :  394.9658893627472 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 395.65138912407036 :  None : False : False : NonNegativeReals
                 0.962433 :     0 : 395.86477805141806 :  None : False : False : NonNegativeReals
                        1 :     0 :  396.1015499549467 :  None : False : False : NonNegativeReals
             dCadt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :  -0.7083242536896203 :  None : False : False :  Reals
-                0.166666 :  None : -0.08431781350855143 :  None : False : False :  Reals
-                0.295766 :  None : -0.19870293167189806 :  None : False : False :  Reals
-                  0.3709 :  None :  0.12842251434082277 :  None : False : False :  Reals
-                     0.5 :  None : -0.08950890396370761 :  None : False : False :  Reals
-                  0.6291 :  None :  0.14541663702930469 :  None : False : False :  Reals
-                0.704234 :  None : -0.15432892451726826 :  None : False : False :  Reals
-                0.833333 :  None :  0.07317928339689139 :  None : False : False :  Reals
-                0.962433 :  None : -0.14954229964759155 :  None : False : False :  Reals
+                0.037567 :  None :  -0.7083242536896293 :  None : False : False :  Reals
+                0.166666 :  None : -0.08431781350855129 :  None : False : False :  Reals
+                0.295766 :  None : -0.19870293167190034 :  None : False : False :  Reals
+                  0.3709 :  None :  0.12842251434082258 :  None : False : False :  Reals
+                     0.5 :  None : -0.08950890396370625 :  None : False : False :  Reals
+                  0.6291 :  None :  0.14541663702930405 :  None : False : False :  Reals
+                0.704234 :  None :  -0.1543289245172684 :  None : False : False :  Reals
+                0.833333 :  None :  0.07317928339689136 :  None : False : False :  Reals
+                0.962433 :  None :  -0.1495422996475913 :  None : False : False :  Reals
             dCbdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.037567 :  None :  -20.23093942174556 :  None : False : False :  Reals
-                0.166666 :  None : -13.460923649983846 :  None : False : False :  Reals
-                0.295766 :  None :  -9.559093781188194 :  None : False : False :  Reals
-                  0.3709 :  None :  -7.492251305931313 :  None : False : False :  Reals
-                     0.5 :  None : -5.4329570172230985 :  None : False : False :  Reals
-                  0.6291 :  None :  -3.540960182159718 :  None : False : False :  Reals
-                0.704234 :  None : -3.0587484741630275 :  None : False : False :  Reals
-                0.833333 :  None : -1.6843134925937122 :  None : False : False :  Reals
-                0.962433 :  None : -0.8423323897528482 :  None : False : False :  Reals
+                0.037567 :  None : -20.230939421745642 :  None : False : False :  Reals
+                0.166666 :  None : -13.460923649983876 :  None : False : False :  Reals
+                0.295766 :  None :  -9.559093781188237 :  None : False : False :  Reals
+                  0.3709 :  None : -7.4922513059313545 :  None : False : False :  Reals
+                     0.5 :  None :  -5.432957017223152 :  None : False : False :  Reals
+                  0.6291 :  None : -3.5409601821597443 :  None : False : False :  Reals
+                0.704234 :  None : -3.0587484741630533 :  None : False : False :  Reals
+                0.833333 :  None : -1.6843134925937076 :  None : False : False :  Reals
+                0.962433 :  None : -0.8423323897529318 :  None : False : False :  Reals
             dCcdt : Size=9, Index=infinite_block.time
-                Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.037567 :  None :    5.52577861066268 :  None : False : False :  Reals
-                0.166666 :  None :  3.3851659587857714 :  None : False : False :  Reals
-                0.295766 :  None :  2.5084987911300693 :  None : False : False :  Reals
-                  0.3709 :  None :   1.752075973311186 :  None : False : False :  Reals
-                     0.5 :  None :  1.4080728961792988 :  None : False : False :  Reals
-                  0.6291 :  None :  0.7642438729059723 :  None : False : False :  Reals
-                0.704234 :  None :  0.8710315021932172 :  None : False : False :  Reals
-                0.833333 :  None : 0.36050448069726465 :  None : False : False :  Reals
-                0.962433 :  None :  0.3204970928096784 :  None : False : False :  Reals
+                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
+                0.037567 :  None :   5.52577861066271 :  None : False : False :  Reals
+                0.166666 :  None :  3.385165958785781 :  None : False : False :  Reals
+                0.295766 :  None : 2.5084987911300747 :  None : False : False :  Reals
+                  0.3709 :  None : 1.7520759733111915 :  None : False : False :  Reals
+                     0.5 :  None : 1.4080728961793032 :  None : False : False :  Reals
+                  0.6291 :  None : 0.7642438729059784 :  None : False : False :  Reals
+                0.704234 :  None : 0.8710315021932127 :  None : False : False :  Reals
+                0.833333 :  None : 0.3605044806972617 :  None : False : False :  Reals
+                0.962433 :  None : 0.3204970928096658 :  None : False : False :  Reals
             dCmdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
                 0.037567 :  None :  -1.4718128325025641 :  None : False : False :  Reals
-                0.166666 :  None :  -1.0084642839073905 :  None : False : False :  Reals
-                0.295766 :  None :  -0.7056812445957618 :  None : False : False :  Reals
-                  0.3709 :  None :  -0.5745237215629473 :  None : False : False :  Reals
-                     0.5 :  None :  -0.4028433401573805 :  None : False : False :  Reals
-                  0.6291 :  None :  -0.2779164912701032 :  None : False : False :  Reals
-                0.704234 :  None : -0.21896461756487698 :  None : False : False :  Reals
-                0.833333 :  None :  -0.1324976391977453 :  None : False : False :  Reals
-                0.962433 :  None :  -0.0522295469162654 :  None : False : False :  Reals
+                0.166666 :  None :  -1.0084642839073918 :  None : False : False :  Reals
+                0.295766 :  None :  -0.7056812445957648 :  None : False : False :  Reals
+                  0.3709 :  None :  -0.5745237215629481 :  None : False : False :  Reals
+                     0.5 :  None : -0.40284334015738327 :  None : False : False :  Reals
+                  0.6291 :  None :  -0.2779164912701034 :  None : False : False :  Reals
+                0.704234 :  None :  -0.2189646175648774 :  None : False : False :  Reals
+                0.833333 :  None :  -0.1324976391977524 :  None : False : False :  Reals
+                0.962433 :  None : -0.05222954691628482 :  None : False : False :  Reals
             dTdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                0.037567 :  None :    147.47432611796 :  None : False : False :  Reals
-                0.166666 :  None :  80.76344995045665 :  None : False : False :  Reals
-                0.295766 :  None :  53.29833509913427 :  None : False : False :  Reals
-                  0.3709 :  None :  32.22270142462066 :  None : False : False :  Reals
-                     0.5 :  None : 23.251526782579134 :  None : False : False :  Reals
-                  0.6291 :  None :  7.581465360024156 :  None : False : False :  Reals
-                0.704234 :  None : 11.878762296672301 :  None : False : False :  Reals
-                0.833333 :  None : 1.1111746817384958 :  None : False : False :  Reals
-                0.962433 :  None :  4.564845392543085 :  None : False : False :  Reals
+                0.037567 :  None : 147.47432611796083 :  None : False : False :  Reals
+                0.166666 :  None :   80.7634499504568 :  None : False : False :  Reals
+                0.295766 :  None :  53.29833509913418 :  None : False : False :  Reals
+                  0.3709 :  None :  32.22270142461974 :  None : False : False :  Reals
+                     0.5 :  None : 23.251526782578946 :  None : False : False :  Reals
+                  0.6291 :  None :  7.581465360024959 :  None : False : False :  Reals
+                0.704234 :  None : 11.878762296672114 :  None : False : False :  Reals
+                0.833333 :  None :  1.111174681738587 :  None : False : False :  Reals
+                0.962433 :  None :  4.564845392541177 :  None : False : False :  Reals
             dphidt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :   13.779250862210533 :  None : False : False :  Reals
-                0.166666 :  None :   4.8905917602180065 :  None : False : False :  Reals
-                0.295766 :  None :   1.8117107203416964 :  None : False : False :  Reals
-                  0.3709 :  None :    1.001715982195973 :  None : False : False :  Reals
-                     0.5 :  None :   0.3517796694513115 :  None : False : False :  Reals
-                  0.6291 :  None :   0.1162590841039347 :  None : False : False :  Reals
-                0.704234 :  None :  0.05803183189522688 :  None : False : False :  Reals
-                0.833333 :  None : 0.017115717534040967 :  None : False : False :  Reals
-                0.962433 :  None : 0.017575137473895053 :  None : False : False :  Reals
+                0.037567 :  None :   13.779250862210617 :  None : False : False :  Reals
+                0.166666 :  None :    4.890591760218006 :  None : False : False :  Reals
+                0.295766 :  None :   1.8117107203416767 :  None : False : False :  Reals
+                  0.3709 :  None :   1.0017159821959338 :  None : False : False :  Reals
+                     0.5 :  None :   0.3517796694513023 :  None : False : False :  Reals
+                  0.6291 :  None :  0.11625908410393664 :  None : False : False :  Reals
+                0.704234 :  None : 0.058031831895222964 :  None : False : False :  Reals
+                0.833333 :  None : 0.017115717534036907 :  None : False : False :  Reals
+                0.962433 :  None :  0.01757513747388627 :  None : False : False :  Reals
             mc : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :   250 :  298.8898473749891 :  1000 : False : False :  Reals
-                0.037567 :   250 : 298.88984737498873 :  1000 : False : False :  Reals
-                0.166666 :   250 :  298.8898468976416 :  1000 : False : False :  Reals
-                0.295766 :   250 :  298.8898472112162 :  1000 : False : False :  Reals
-                0.333333 :   250 : 298.88984750690906 :  1000 : False : False :  Reals
-                  0.3709 :   250 : 298.88984780260154 :  1000 : False : False :  Reals
-                     0.5 :   250 :  298.8898482703762 :  1000 : False : False :  Reals
-                  0.6291 :   250 :  298.8898488097281 :  1000 : False : False :  Reals
-                0.666667 :   250 :  298.8898494372763 :  1000 : False : False :  Reals
-                0.704234 :   250 :  298.8898500648242 :  1000 : False : False :  Reals
-                0.833333 :   250 : 298.88985060712076 :  1000 : False : False :  Reals
-                0.962433 :   250 : 298.88985190616745 :  1000 : False : False :  Reals
-                       1 :   250 :  298.8898519061678 :  1000 : False : False :  Reals
+                       0 :   250 :  298.8898473749888 :  1000 : False : False :  Reals
+                0.037567 :   250 : 298.88984737498845 :  1000 : False : False :  Reals
+                0.166666 :   250 : 298.88984689764123 :  1000 : False : False :  Reals
+                0.295766 :   250 : 298.88984721121585 :  1000 : False : False :  Reals
+                0.333333 :   250 :  298.8898475069087 :  1000 : False : False :  Reals
+                  0.3709 :   250 :  298.8898478026012 :  1000 : False : False :  Reals
+                     0.5 :   250 : 298.88984827037586 :  1000 : False : False :  Reals
+                  0.6291 :   250 :  298.8898488097278 :  1000 : False : False :  Reals
+                0.666667 :   250 : 298.88984943727604 :  1000 : False : False :  Reals
+                0.704234 :   250 :  298.8898500648239 :  1000 : False : False :  Reals
+                0.833333 :   250 :  298.8898506071205 :  1000 : False : False :  Reals
+                0.962433 :   250 :  298.8898519061671 :  1000 : False : False :  Reals
+                       1 :   250 : 298.88985190616745 :  1000 : False : False :  Reals
             phi : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
                        0 :     0 :                  0 :  None :  True :  True : NonNegativeReals
-                0.037567 :     0 :  0.585190511103849 :  None : False : False : NonNegativeReals
-                0.166666 :     0 : 1.7278192674687767 :  None : False : False : NonNegativeReals
-                0.295766 :     0 : 2.0979474019263207 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  2.168137498425245 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  2.210674073943114 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :   2.29358360503226 :  None : False : False : NonNegativeReals
+                0.037567 :     0 : 0.5851905111038528 :  None : False : False : NonNegativeReals
+                0.166666 :     0 : 1.7278192674687851 :  None : False : False : NonNegativeReals
+                0.295766 :     0 :  2.097947401926327 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :   2.16813749842525 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  2.210674073943118 :  None : False : False : NonNegativeReals
+                     0.5 :     0 : 2.2935836050322607 :  None : False : False : NonNegativeReals
                   0.6291 :     0 : 2.3193370248078327 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :   2.32376952611664 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 2.3263082772436547 :  None : False : False : NonNegativeReals
-                0.833333 :     0 : 2.3307138964196974 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :  2.332508049811605 :  None : False : False : NonNegativeReals
-                       1 :     0 :  2.333305823749184 :  None : False : False : NonNegativeReals
+                0.666667 :     0 : 2.3237695261166413 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 2.3263082772436556 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 2.3307138964196983 :  None : False : False : NonNegativeReals
+                0.962433 :     0 : 2.3325080498116053 :  None : False : False : NonNegativeReals
+                       1 :     0 : 2.3333058237491846 :  None : False : False : NonNegativeReals
 
         18 Constraint Declarations
             Ca_balance : Size=9, Index=infinite_block.time, Active=True
@@ -660,4 +660,4 @@
 
         43 Declarations: time MV_index CV_index Measured_index Unmeasured_index DV_index Ca Cb Cc Cm T Fb0 UA Fa0 mc dCadt dCbdt dCcdt dCmdt dTdt setpoints initial_values phi dphidt stage_cost_index terminal_cost Ca_time_cont_eq dCadt_disc_eq Cb_time_cont_eq dCbdt_disc_eq Cc_time_cont_eq dCcdt_disc_eq Cm_time_cont_eq dCmdt_disc_eq T_time_cont_eq dTdt_disc_eq phi_time_cont_eq dphidt_disc_eq Ca_balance Cb_balance Cc_balance Cm_balance energy_balance
 
-8 Declarations: finite_block infinite_block link_T_constraint link_Cm_constraint link_Cb_constraint link_Cc_constraint link_Ca_constraint objective
+8 Declarations: finite_block infinite_block link_Cb_constraint link_Ca_constraint link_T_constraint link_Cc_constraint link_Cm_constraint objective

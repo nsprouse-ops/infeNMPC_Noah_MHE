@@ -2,7 +2,7 @@ import pyomo.environ as pyo
 from make_model import _make_infinite_horizon_model, _make_finite_horizon_model
 from indexing_tools import _add_time_indexed_expression
 
-def _make_infinite_horizon_controller(options, data=None):
+def _make_infinite_horizon_controller(options, data=None, equations_module: str = "model_equations"):
     """
     Create and solve a Pyomo model for infinite-horizon NMPC.
 
@@ -18,7 +18,7 @@ def _make_infinite_horizon_controller(options, data=None):
         pyo.ConcreteModel: The solved infinite-horizon Pyomo model instance.
     """
     m = pyo.ConcreteModel()
-    m = _make_infinite_horizon_model(m, options)
+    m = _make_infinite_horizon_model(m, options, equations_module=equations_module)
 
     if data is not None:
         # Load initial data into the model
@@ -120,7 +120,7 @@ def _make_infinite_horizon_controller(options, data=None):
     return m
 
 
-def _make_finite_horizon_controller(options, data=None):
+def _make_finite_horizon_controller(options, data=None, equations_module: str = "model_equations"):
     """
     Create and solve a Pyomo model for finite-horizon NMPC.
 
@@ -136,7 +136,7 @@ def _make_finite_horizon_controller(options, data=None):
         pyo.ConcreteModel: The solved finite-horizon Pyomo model instance.
     """
     m = pyo.ConcreteModel()
-    m = _make_finite_horizon_model(m, options)
+    m = _make_finite_horizon_model(m, options, equations_module=equations_module)
 
     if data is not None:
         print("Loading initial data into finite horizon controller")

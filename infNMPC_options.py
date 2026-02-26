@@ -52,16 +52,21 @@ class Options:
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
         self.measurement_noise_amplitude = 0.01
+        self.measurement_noise_seeded = False
+        self.measurement_noise_seed = 12345
         #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
-        self.mhe_arrival_default_lambda = 4.35
+        self.mhe_arrival_default_lambda = 4.35   #this does nothing currently
+        self.theta_arrival_weight = 2.896791672836122 #weights for state arrival
+        self.F_state_weight = 0.028242645556093914 #weights on residuals
         self.mhe_arrival_weights = {}
-        self.mhe_min_window = 3
-        self.mhe_state_error_default = 1e-3 #x
+        self.mhe_d_arrival_weight = 577.5297988468589 #arrival weight for d (D)
+        self.mhe_w_weight_R = 0.20968546850485084 #weights on w (R)
+        self.mhe_state_error_default = 1e-3 #with noise these are really irrelavent
         self.mhe_state_error = {}
-        self.mhe_output_error_default = 1e-3 #y
+        self.mhe_output_error_default = 1e-3
         self.mhe_output_error = {}
 
         # Display/Data Output options

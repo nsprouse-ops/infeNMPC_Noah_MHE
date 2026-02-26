@@ -23,6 +23,10 @@ idaes.cfg.ipopt.options.max_iter = 6000
 idaes.cfg.ipopt.options.halt_on_ampl_error = "yes"
 idaes.cfg.ipopt.options.bound_relax_factor = 0
 
+PLANT_EQUATIONS_MODULE = "model_equations_true"
+CONTROLLER_EQUATIONS_MODULE = "model_equations"
+MHE_EQUATIONS_MODULE = "model_equations"
+
 
 def _make_plant(options):
     """
@@ -43,7 +47,7 @@ def _make_plant(options):
     plant_options.nfe_finite = 1
     plant_options.infinite_horizon = False
 
-    m = _make_finite_horizon_model(m, plant_options)
+    m = _make_finite_horizon_model(m, plant_options, equations_module=PLANT_EQUATIONS_MODULE)
 
     print('Generating Plant')
     
@@ -78,13 +82,19 @@ def _mpc_loop(options):
     Returns:
         None
     """
+    print(
+        "Equation modules -> "
+        f"Plant: {PLANT_EQUATIONS_MODULE}, "
+        f"Controller: {CONTROLLER_EQUATIONS_MODULE}, "
+        f"MHE: {MHE_EQUATIONS_MODULE}"
+    )
     if options.infinite_horizon:
         if options.initialization_assist:
             controller = _assist_initialization_infinite(options)
             t0_controller = controller.finite_block.time.first()
             state_vars = controller.finite_block.state_vars
         else:
-            controller = _make_infinite_horizon_controller(options)
+            controller = _make_infinite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
             t0_controller = controller.finite_block.time.first()
             state_vars = controller.finite_block.state_vars
     else:
@@ -93,9 +103,14 @@ def _mpc_loop(options):
             t0_controller = controller.time.first()
             state_vars = controller.state_vars
         else:
-            controller = _make_finite_horizon_controller(options)
+            controller = _make_finite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
             t0_controller = controller.time.first()
             state_vars = controller.state_vars
+
+    if options.infinite_horizon:
+        controller_setpoints = controller.finite_block.steady_state_values
+    else:
+        controller_setpoints = controller.steady_state_values
 
     plant = _make_plant(options)
 
@@ -146,13 +161,20 @@ def _mpc_loop(options):
     noise_amplitude = float(getattr(options, "measurement_noise_amplitude", 0.0))
     if noise_amplitude < 0.0 or noise_amplitude > 1.0:
         raise ValueError("measurement_noise_amplitude must be between 0 and 1.")
-    noise_vector = np.random.normal(loc=0.0, scale=1.0, size=options.num_horizons)
+    noise_seeded = bool(getattr(options, "measurement_noise_seeded", False))
+    noise_seed = int(getattr(options, "measurement_noise_seed", 0))
+    rng = np.random.default_rng(noise_seed) if noise_seeded else np.random.default_rng()
+    noise_vector = rng.normal(loc=0.0, scale=1.0, size=options.num_horizons)
     noise_vector = noise_vector - float(np.mean(noise_vector))
     max_abs_noise = float(np.max(np.abs(noise_vector)))
     if max_abs_noise > 0.0:
         noise_vector = noise_vector / max_abs_noise
     else:
         noise_vector = np.zeros(options.num_horizons)
+    if noise_seeded:
+        print(f"Measurement noise seed: {noise_seed}")
+    else:
+        print("Measurement noise seed: random (not seeded)")
     print("Measurement noise vector:", noise_vector.tolist())
 
     def _as_list(v):
@@ -385,7 +407,16 @@ def _mpc_loop(options):
         time_series.append(simulation_time)
 
         if options.live_plot:
-            _update_live_plot(fig, axes, time_series, io_live_plot_array, plant, mhe_state_hist=mhe_state_hist)
+            _update_live_plot(
+                fig,
+                axes,
+                time_series,
+                io_live_plot_array,
+                plant,
+                mhe_state_hist=mhe_state_hist,
+                setpoint_values=controller_setpoints,
+                io_true_data_array=io_data_array,
+            )
 
         model_data = plant.interface.get_data_at_time(new_data_time)
         model_data.shift_time_points(simulation_time - plant.time.first() - options.sampling_time)
@@ -422,6 +453,7 @@ def _mpc_loop(options):
         # keep measured states from plant; replace only unmeasured with MHE xhat
         # Build arrival-cost prior from previous MHE model at the current window start
         prior_xhat = None
+        prior_d = None
         warm_start_x0 = None
         if prev_mhe_model is not None:
             try:
@@ -434,12 +466,20 @@ def _mpc_loop(options):
                             prior_xhat[name] = pyo.value(_add_time_indexed_expression(prev_mhe_model, name, t_prior))
                         except Exception:
                             continue
+                if hasattr(prev_mhe_model, "fe_k") and hasattr(prev_mhe_model, "d"):
+                    prev_k = list(prev_mhe_model.fe_k)
+                    if prev_k:
+                        k_prior = prev_k[1] if len(prev_k) > 1 else prev_k[0]
+                        try:
+                            prior_d = pyo.value(prev_mhe_model.d[k_prior])
+                        except Exception:
+                            prior_d = None
             except Exception:
                 prior_xhat = None
+                prior_d = None
         if prior_xhat is not None and len(prior_xhat) == 0:
             # Keep bootstrap term active until we have at least one valid prior state.
             prior_xhat = None
-
         try:
             mhe_result = solve_mhe_no_arrival_cost(
                 options=options,
@@ -448,7 +488,9 @@ def _mpc_loop(options):
                 solver_name="ipopt",
                 tee=False,
                 prior_xhat=prior_xhat,
+                prior_d=prior_d,
                 warm_start_x0=warm_start_x0,
+                equations_module=MHE_EQUATIONS_MODULE,
             )
         except ValueError:
             mhe_result = None
@@ -494,9 +536,10 @@ def _mpc_loop(options):
                 mhe_consecutive_ok += 1
             else:
                 mhe_consecutive_ok = 0
-                if current_mhe_window != 10:
-                    current_mhe_window = 10
-                    print("Adaptive MHE window reset to: 10")
+                reset_window = int(options.MHE_window)
+                if current_mhe_window != reset_window:
+                    current_mhe_window = reset_window
+                    print(f"Adaptive MHE window reset to: {reset_window}")
 
             if mhe_consecutive_ok >= 1 and current_mhe_window > mhe_min_window:
                 current_mhe_window -= 1
@@ -551,8 +594,18 @@ def _mpc_loop(options):
         options,
         mhe_state_hist=mhe_state_hist,
         true_state_hist=true_state_hist,
+        setpoint_values=controller_setpoints,
     )
     print(f"MHE skipped count: {mhe_skipped}")
+    return {
+        "time_series": time_series,
+        "io_data_array": io_data_array,
+        "cv_index": list(plant.CV_index),
+        "setpoint_values": controller_setpoints,
+        "mhe_state_hist": mhe_state_hist,
+        "true_state_hist": true_state_hist,
+        "mhe_skipped": mhe_skipped,
+    }
 
 
 if __name__ == "__main__":
