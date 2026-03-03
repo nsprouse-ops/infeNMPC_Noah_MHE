@@ -68,6 +68,20 @@ def _make_steady_state_model(m, options, equations_module: str = "model_equation
 
     m = equations_write(m)
 
+    # Optionally fix selected variables for steady-state solves (e.g., estimated disturbances)
+    fixed_vars = getattr(options, "steady_state_fixed_vars", None)
+    if isinstance(fixed_vars, dict):
+        for var_name, val in fixed_vars.items():
+            if not hasattr(m, var_name):
+                continue
+            comp = getattr(m, var_name)
+            if isinstance(comp, pyo.Var):
+                if comp.is_indexed():
+                    for idx in comp.index_set():
+                        comp[idx].fix(float(val))
+                else:
+                    comp.fix(float(val))
+
     for var in deriv_vars:
         for idx in var.index_set():
             # Check if last index is time
@@ -120,7 +134,8 @@ def _solve_steady_state_model(m, target, options):
         m.objective = pyo.Objective(expr=sum(m.tracking_cost[:, 0]))
     
     solver = pyo.SolverFactory('ipopt')
-    solver.solve(m, tee=options.tee_flag)
+    res = solver.solve(m, tee=options.tee_flag)
+    pyo.assert_optimal_termination(res)
 
     m.ss_obj_value = pyo.value(m.objective)
 

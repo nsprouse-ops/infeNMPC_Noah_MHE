@@ -28,7 +28,10 @@ def variables_initialize(m):
 
     # ---- Parameters (Disturbances) ----
     m.Fb0 = pyo.Param(initialize=453.6, mutable=False)  # B feed rate
-    m.UA = pyo.Param(initialize=7262, mutable=False)    # Heat transfer coefficient * area
+    m.UA = pyo.Param(initialize=7000, mutable=False)    # Heat transfer coefficient * area
+
+    # ---- disturbance state
+    m.d_UA = pyo.Var(m.time, initialize=0, bounds=(-1000,1000))
 
     # ---- Manipulated Inputs ----
     m.Fa0 = pyo.Var(m.time, initialize=35, bounds=(10,100))    # A feed rate
@@ -74,7 +77,8 @@ def equations_write(m):
     Fm0 = 45.4      # Feed rate of inert/miscellaneous stream [mol/min]
 
     # ---- Algebraic Equations ----
-    m.k = {t: 1.696e13 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
+    m.k = {t: 1.696e14 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
+    m.UA_eff = {t: m.UA + m.d_UA[t] for t in m.time}
     m.ra = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
     m.rb = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
     m.rc = {t: m.k[t] * m.Ca[t] for t in m.time}
@@ -84,7 +88,7 @@ def equations_write(m):
     m.Nm = {t: m.Cm[t] * V for t in m.time}
     m.ThetaCp = {t: 35 + m.Fb0 / m.Fa0[t] * 18 + Fm0 / m.Fa0[t] * 19.5 for t in m.time}
     m.v0 = {t: m.Fa0[t] / 14.8 + m.Fb0 / 55.3 + Fm0 / 24.7 for t in m.time}
-    m.Ta2 = {t: m.T[t] - ((m.T[t] - Ta1) * exp(0 - (m.UA / (CpW * m.mc[t])))) for t in m.time}
+    m.Ta2 = {t: m.T[t] - ((m.T[t] - Ta1) * exp(0 - (m.UA_eff[t] / (CpW * m.mc[t])))) for t in m.time}
     m.Ca0 = {t: m.Fa0[t] / m.v0[t] for t in m.time}
     m.Cb0 = {t: m.Fb0 / m.v0[t] for t in m.time}
     m.Cm0 = {t: Fm0 / m.v0[t] for t in m.time}

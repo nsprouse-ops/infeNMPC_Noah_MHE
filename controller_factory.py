@@ -111,7 +111,8 @@ def _make_infinite_horizon_controller(options, data=None, equations_module: str 
     print('Infinite Horizon Controller Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    solver.solve(m, tee=options.tee_flag)
+    res = solver.solve(m, tee=options.tee_flag)
+    pyo.assert_optimal_termination(res)
 
     if True:  # Toggle to False to disable model display
         with open("model_output.txt", "w") as f:
@@ -190,7 +191,8 @@ def _make_finite_horizon_controller(options, data=None, equations_module: str = 
     print('Finite Horizon Controller Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    solver.solve(m, tee=options.tee_flag)
+    res = solver.solve(m, tee=options.tee_flag)
+    pyo.assert_optimal_termination(res)
 
     if True:  # Toggle to False to disable model display
         with open("model_output.txt", "w") as f:

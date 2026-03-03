@@ -27,6 +27,15 @@ PLANT_EQUATIONS_MODULE = "model_equations_true"
 CONTROLLER_EQUATIONS_MODULE = "model_equations"
 MHE_EQUATIONS_MODULE = "model_equations"
 
+def _require_optimal_termination(results, context: str):
+    if not pyo.check_optimal_termination(results):
+        status = getattr(results.solver, "status", "unknown")
+        term = getattr(results.solver, "termination_condition", "unknown")
+        raise RuntimeError(
+            f"{context} failed to reach optimal solution. "
+            f"status={status}, termination={term}"
+        )
+
 
 def _make_plant(options):
     """
@@ -62,7 +71,8 @@ def _make_plant(options):
     print('Plant Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    solver.solve(m, tee=options.tee_flag)
+    res = solver.solve(m, tee=options.tee_flag)
+    _require_optimal_termination(res, "Plant initial solve")
 
     return m
 
@@ -193,6 +203,18 @@ def _mpc_loop(options):
         noisy = [ya_i + ys_i * noise_factor for ya_i, ys_i in zip(ya, ys)]
         return _restore_shape(y_actual, noisy)
 
+    def _fix_passed_disturbances_on_controller(controller_model, disturbance_values):
+        if options.infinite_horizon:
+            blocks = [controller_model.finite_block, controller_model.infinite_block]
+        else:
+            blocks = [controller_model]
+        for blk in blocks:
+            for name, val in disturbance_values.items():
+                if hasattr(blk, name):
+                    var = getattr(blk, name)
+                    for t in var.index_set():
+                        var[t].fix(float(val))
+
     # Get initial CV values only if they correspond to a differential state
     differential_state_keys = set()
     for sv in state_vars:
@@ -251,14 +273,19 @@ def _mpc_loop(options):
     if options.infinite_horizon:
         terminal_cost_prev = 1
         first_stage_cost_prev = 1
+    passed_disturbance_values = {"d_UA": 0.0}
+    options.steady_state_fixed_vars = {"d_UA": float(passed_disturbance_values["d_UA"])}
 
     for i in loop_iter:
+        controller_rebuilt_this_iter = False
 
         simulation_time = (i + 1) * options.sampling_time
         noise_factor = noise_amplitude * float(noise_vector[i])
 
         start_time = time.process_time()
-        solver.solve(controller, tee=options.tee_flag)
+        _fix_passed_disturbances_on_controller(controller, passed_disturbance_values)
+        res_controller = solver.solve(controller, tee=options.tee_flag)
+        _require_optimal_termination(res_controller, "Controller solve")
         end_time = time.process_time()
 
         # if i == 1:  # Toggle to False to disable model display
@@ -355,7 +382,8 @@ def _mpc_loop(options):
             )
 
         plant.interface.load_data(input_data, time_points=new_data_time)
-        solver.solve(plant, tee=options.tee_flag)
+        res_plant = solver.solve(plant, tee=options.tee_flag)
+        _require_optimal_termination(res_plant, "Plant propagation solve")
 
         # Get CV and MV values at the sampling time
         full_data = plant.interface.get_data_at_time(options.sampling_time)
@@ -453,7 +481,7 @@ def _mpc_loop(options):
         # keep measured states from plant; replace only unmeasured with MHE xhat
         # Build arrival-cost prior from previous MHE model at the current window start
         prior_xhat = None
-        prior_d = None
+        prior_d_ua = None
         warm_start_x0 = None
         if prev_mhe_model is not None:
             try:
@@ -466,17 +494,14 @@ def _mpc_loop(options):
                             prior_xhat[name] = pyo.value(_add_time_indexed_expression(prev_mhe_model, name, t_prior))
                         except Exception:
                             continue
-                if hasattr(prev_mhe_model, "fe_k") and hasattr(prev_mhe_model, "d"):
-                    prev_k = list(prev_mhe_model.fe_k)
-                    if prev_k:
-                        k_prior = prev_k[1] if len(prev_k) > 1 else prev_k[0]
+                    if hasattr(prev_mhe_model, "d_UA"):
                         try:
-                            prior_d = pyo.value(prev_mhe_model.d[k_prior])
+                            prior_d_ua = float(pyo.value(_add_time_indexed_expression(prev_mhe_model, "d_UA", t_prior)))
                         except Exception:
-                            prior_d = None
+                            prior_d_ua = None
             except Exception:
                 prior_xhat = None
-                prior_d = None
+                prior_d_ua = None
         if prior_xhat is not None and len(prior_xhat) == 0:
             # Keep bootstrap term active until we have at least one valid prior state.
             prior_xhat = None
@@ -488,7 +513,7 @@ def _mpc_loop(options):
                 solver_name="ipopt",
                 tee=False,
                 prior_xhat=prior_xhat,
-                prior_d=prior_d,
+                prior_d_ua=prior_d_ua,
                 warm_start_x0=warm_start_x0,
                 equations_module=MHE_EQUATIONS_MODULE,
             )
@@ -548,6 +573,42 @@ def _mpc_loop(options):
 
             prev_mhe_model = mhe_result.model
             prev_mhe_xhat = dict(mhe_result.xhat)
+            # Pass terminal disturbance estimates (if present) into the next MPC solve.
+            tf_mhe = mhe_result.model.time.last()
+            prev_passed_d_ua = float(passed_disturbance_values.get("d_UA", 0.0))
+            for d_name in ("d_UA",):
+                if hasattr(mhe_result.model, d_name):
+                    try:
+                        passed_disturbance_values[d_name] = float(
+                            pyo.value(_add_time_indexed_expression(mhe_result.model, d_name, tf_mhe))
+                        )
+                    except Exception:
+                        continue
+            d_ua_step_delta = float(passed_disturbance_values.get("d_UA", 0.0)) - prev_passed_d_ua
+            c_actual = full_tf_data.get_data_from_key(_get_variable_key_for_data(plant, "Cc"))
+            if isinstance(c_actual, list):
+                c_actual = c_actual[0] if len(c_actual) > 0 else np.nan
+            c_estimated = mhe_result.xhat.get("Cc", np.nan)
+            print("Disturbances fixed for next MPC solve:", passed_disturbance_values)
+            print(f"Cactual-Cestimated: {float(c_actual) - float(c_estimated)}")
+            print(f"d_UA_passed-d_UA_passed(k-1): {d_ua_step_delta}")
+            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and abs(d_ua_step_delta) >= 0.5:
+                options.steady_state_fixed_vars = {"d_UA": float(passed_disturbance_values["d_UA"])}
+                print(
+                    f"Re-solving controller steady-state targets with fixed d_UA={float(passed_disturbance_values['d_UA'])}"
+                )
+                if options.infinite_horizon:
+                    controller = _make_infinite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
+                    t0_controller = controller.finite_block.time.first()
+                    state_vars = controller.finite_block.state_vars
+                    controller_setpoints = controller.finite_block.steady_state_values
+                else:
+                    controller = _make_finite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
+                    t0_controller = controller.time.first()
+                    state_vars = controller.state_vars
+                    controller_setpoints = controller.steady_state_values
+                _fix_passed_disturbances_on_controller(controller, passed_disturbance_values)
+                controller_rebuilt_this_iter = True
             for name in unmeasured_names:
                 if name in mhe_result.xhat:
                     key = _get_variable_key_for_data(plant, name)
@@ -573,8 +634,11 @@ def _mpc_loop(options):
                 true_state_hist[name].append(full_tf_data.get_data_from_key(key))
         plant.interface.load_data(tf_data)
 
-        controller.interface.shift_values_by_time(options.sampling_time)
-        controller.interface.load_data(tf_data, time_points=t0_controller)
+        if not controller_rebuilt_this_iter:
+            controller.interface.shift_values_by_time(options.sampling_time)
+            controller.interface.load_data(tf_data, time_points=t0_controller)
+        else:
+            controller.interface.load_data(tf_data, time_points=t0_controller)
         
         if options.remove_collocation:
             if options.infinite_horizon:

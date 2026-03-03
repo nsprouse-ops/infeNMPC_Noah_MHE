@@ -51,7 +51,7 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-        self.measurement_noise_amplitude = 0.01
+        self.measurement_noise_amplitude = 0.00
         self.measurement_noise_seeded = False
         self.measurement_noise_seed = 12345
         #list(m.CV_index) + list(m.MV_index) is order
@@ -59,15 +59,19 @@ class Options:
         self.gamma = 0.05
         self.beta = 1.2
         self.mhe_arrival_default_lambda = 4.35   #this does nothing currently
-        self.theta_arrival_weight = 2.896791672836122 #weights for state arrival
-        self.F_state_weight = 0.028242645556093914 #weights on residuals
+        self.theta_arrival_weight =95.93125069353201 #weights for state arrival
+        self.F_state_weight = 3.691310878592334 #weights on residuals
+        self.mhe_e_ua_weight = 0.002720946335344285 #0.002720946335344285
+        self.mhe_d_ua_bootstrap_weight =.00005#.01
+        self.mhe_d_ua_arrival_weight =.00005#.03
+        self.mhe_e_ua_bound = 20
+        self.mhe_d_ua_max_step = 100
         self.mhe_arrival_weights = {}
-        self.mhe_d_arrival_weight = 577.5297988468589 #arrival weight for d (D)
-        self.mhe_w_weight_R = 0.20968546850485084 #weights on w (R)
         self.mhe_state_error_default = 1e-3 #with noise these are really irrelavent
         self.mhe_state_error = {}
         self.mhe_output_error_default = 1e-3
         self.mhe_output_error = {}
+        self.rebuild_setpoints_on_d_ua_change = True
 
         # Display/Data Output options
         self.live_plot = True
