@@ -51,7 +51,7 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-        self.measurement_noise_amplitude = 0.00
+        self.measurement_noise_amplitude = 0.01
         self.measurement_noise_seeded = False
         self.measurement_noise_seed = 12345
         #list(m.CV_index) + list(m.MV_index) is order
@@ -59,16 +59,16 @@ class Options:
         self.gamma = 0.05
         self.beta = 1.2
         self.mhe_arrival_default_lambda = 4.35   #this does nothing currently
-        self.theta_arrival_weight =110 #weights for state arrival
-        self.F_state_weight = 3.7 #3.691310878592334 #weights on residuals
-        self.mhe_e_ua_weight = .005#0.002720946335344285
-        self.mhe_e_k_weight = .005
-        self.mhe_d_ua_arrival_weight =3#.00005
-        self.mhe_d_k_arrival_weight = 3
-        self.mhe_e_ua_bound = 2.5
-        self.mhe_e_k_bound = 5
-        self.mhe_d_ua_max_step = 100
-        self.mhe_d_k_max_step = 200
+        self.theta_arrival_weight =200 #weights for state arrival
+        self.F_state_weight = .5 #3.691310878592334 #weights on residuals
+        self.mhe_e_ua_weight = 1#0.002720946335344285
+        self.mhe_e_k_weight = self.mhe_e_ua_weight
+        self.mhe_d_ua_arrival_weight =10#.00005
+        self.mhe_d_k_arrival_weight = self.mhe_d_ua_arrival_weight
+        self.mhe_e_ua_bound = .015
+        self.mhe_e_k_bound = self.mhe_e_ua_bound
+        self.mhe_d_ua_max_step = .015
+        self.mhe_d_k_max_step = self.mhe_d_ua_max_step
         self.mhe_arrival_weights = {}
         self.mhe_state_error_default = 1e-3 #with noise these are really irrelavent
         self.mhe_state_error = {}

@@ -273,7 +273,7 @@ def _mpc_loop(options):
     if options.infinite_horizon:
         terminal_cost_prev = 1
         first_stage_cost_prev = 1
-    passed_disturbance_values = {"d_UA": 0.0, "d_k": 0.0}
+    passed_disturbance_values = {"d_UA": 1.0, "d_k": 1.0}
     d_ua_sent_hist = [float(passed_disturbance_values["d_UA"])]
     d_k_sent_hist = [float(passed_disturbance_values["d_k"])]
     options.steady_state_fixed_vars = {
@@ -608,8 +608,8 @@ def _mpc_loop(options):
             print(f"Cactual-Cestimated: {float(c_actual) - float(c_estimated)}")
             print(f"d_UA_passed-d_UA_passed(k-1): {d_ua_step_delta}")
             print(f"d_k_passed-d_k_passed(k-1): {d_k_step_delta}")
-            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and (
-                abs(d_ua_step_delta) >= 0.5 or abs(d_k_step_delta) >= 0.5
+            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and (mhe_result.M_eff >= current_mhe_window) and (
+                abs(d_ua_step_delta) >= 0.02 or abs(d_k_step_delta) >= 0.02
             ):
                 options.steady_state_fixed_vars = {
                     "d_UA": float(passed_disturbance_values["d_UA"]),

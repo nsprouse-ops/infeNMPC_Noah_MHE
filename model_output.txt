@@ -1,7 +1,7 @@
 1 Objective Declarations
     objective : Size=1, Index=None, Active=True
         Key  : Active : Sense    : Expression
-        None :   True : minimize : (finite_block.Cc[0.05] - 5.180000630352289)**2 + 0.01*(finite_block.T[0.05] - 396.09999996178243)**2 + 0.01*(finite_block.Fa0[0.05] - 80.3538183720399)**2 + 0.001*(finite_block.mc[0.05] - 324.62662265819245)**2 + (finite_block.Cc[0.1] - 5.180000630352289)**2 + 0.01*(finite_block.T[0.1] - 396.09999996178243)**2 + 0.01*(finite_block.Fa0[0.1] - 80.3538183720399)**2 + 0.001*(finite_block.mc[0.1] - 324.62662265819245)**2 + 50000.0*(finite_block.Fa0[0.007753] - finite_block.Fa0[0])**2 + 50000.0*(finite_block.mc[0.007753] - finite_block.mc[0])**2 + 50000.0*(finite_block.Fa0[0.032247] - finite_block.Fa0[0.007753])**2 + 50000.0*(finite_block.mc[0.032247] - finite_block.mc[0.007753])**2 + 50000.0*(finite_block.Fa0[0.05] - finite_block.Fa0[0.032247])**2 + 50000.0*(finite_block.mc[0.05] - finite_block.mc[0.032247])**2 + 50000.0*(finite_block.Fa0[0.057753] - finite_block.Fa0[0.05])**2 + 50000.0*(finite_block.mc[0.057753] - finite_block.mc[0.05])**2 + 50000.0*(finite_block.Fa0[0.082247] - finite_block.Fa0[0.057753])**2 + 50000.0*(finite_block.mc[0.082247] - finite_block.mc[0.057753])**2 + 50000.0*(finite_block.Fa0[0.1] - finite_block.Fa0[0.082247])**2 + 50000.0*(finite_block.mc[0.1] - finite_block.mc[0.082247])**2 + 50000.0*(infinite_block.Fa0[0.037567] - infinite_block.Fa0[0])**2 + 50000.0*(infinite_block.mc[0.037567] - infinite_block.mc[0])**2 + 50000.0*(infinite_block.Fa0[0.166666] - infinite_block.Fa0[0.037567])**2 + 50000.0*(infinite_block.mc[0.166666] - infinite_block.mc[0.037567])**2 + 50000.0*(infinite_block.Fa0[0.295766] - infinite_block.Fa0[0.166666])**2 + 50000.0*(infinite_block.mc[0.295766] - infinite_block.mc[0.166666])**2 + 50000.0*(infinite_block.Fa0[0.333333] - infinite_block.Fa0[0.295766])**2 + 50000.0*(infinite_block.mc[0.333333] - infinite_block.mc[0.295766])**2 + 50000.0*(infinite_block.Fa0[0.3709] - infinite_block.Fa0[0.333333])**2 + 50000.0*(infinite_block.mc[0.3709] - infinite_block.mc[0.333333])**2 + 50000.0*(infinite_block.Fa0[0.5] - infinite_block.Fa0[0.3709])**2 + 50000.0*(infinite_block.mc[0.5] - infinite_block.mc[0.3709])**2 + 50000.0*(infinite_block.Fa0[0.6291] - infinite_block.Fa0[0.5])**2 + 50000.0*(infinite_block.mc[0.6291] - infinite_block.mc[0.5])**2 + 50000.0*(infinite_block.Fa0[0.666667] - infinite_block.Fa0[0.6291])**2 + 50000.0*(infinite_block.mc[0.666667] - infinite_block.mc[0.6291])**2 + 50000.0*(infinite_block.Fa0[0.704234] - infinite_block.Fa0[0.666667])**2 + 50000.0*(infinite_block.mc[0.704234] - infinite_block.mc[0.666667])**2 + 50000.0*(infinite_block.Fa0[0.833333] - infinite_block.Fa0[0.704234])**2 + 50000.0*(infinite_block.mc[0.833333] - infinite_block.mc[0.704234])**2 + 50000.0*(infinite_block.Fa0[0.962433] - infinite_block.Fa0[0.833333])**2 + 50000.0*(infinite_block.mc[0.962433] - infinite_block.mc[0.833333])**2 + 50000.0*(infinite_block.Fa0[1] - infinite_block.Fa0[0.962433])**2 + 50000.0*(infinite_block.mc[1] - infinite_block.mc[0.962433])**2 + 23.999999999999996*infinite_block.phi[1]
+        None :   True : minimize : (finite_block.Cc[0.05] - 5.180001123440914)**2 + 0.01*(finite_block.T[0.05] - 396.09999995248296)**2 + 0.01*(finite_block.Fa0[0.05] - 80.35239140513501)**2 + 0.001*(finite_block.mc[0.05] - 283.04989743176725)**2 + (finite_block.Cc[0.1] - 5.180001123440914)**2 + 0.01*(finite_block.T[0.1] - 396.09999995248296)**2 + 0.01*(finite_block.Fa0[0.1] - 80.35239140513501)**2 + 0.001*(finite_block.mc[0.1] - 283.04989743176725)**2 + 50000.0*(finite_block.Fa0[0.007753] - finite_block.Fa0[0])**2 + 50000.0*(finite_block.mc[0.007753] - finite_block.mc[0])**2 + 50000.0*(finite_block.Fa0[0.032247] - finite_block.Fa0[0.007753])**2 + 50000.0*(finite_block.mc[0.032247] - finite_block.mc[0.007753])**2 + 50000.0*(finite_block.Fa0[0.05] - finite_block.Fa0[0.032247])**2 + 50000.0*(finite_block.mc[0.05] - finite_block.mc[0.032247])**2 + 50000.0*(finite_block.Fa0[0.057753] - finite_block.Fa0[0.05])**2 + 50000.0*(finite_block.mc[0.057753] - finite_block.mc[0.05])**2 + 50000.0*(finite_block.Fa0[0.082247] - finite_block.Fa0[0.057753])**2 + 50000.0*(finite_block.mc[0.082247] - finite_block.mc[0.057753])**2 + 50000.0*(finite_block.Fa0[0.1] - finite_block.Fa0[0.082247])**2 + 50000.0*(finite_block.mc[0.1] - finite_block.mc[0.082247])**2 + 50000.0*(infinite_block.Fa0[0.037567] - infinite_block.Fa0[0])**2 + 50000.0*(infinite_block.mc[0.037567] - infinite_block.mc[0])**2 + 50000.0*(infinite_block.Fa0[0.166666] - infinite_block.Fa0[0.037567])**2 + 50000.0*(infinite_block.mc[0.166666] - infinite_block.mc[0.037567])**2 + 50000.0*(infinite_block.Fa0[0.295766] - infinite_block.Fa0[0.166666])**2 + 50000.0*(infinite_block.mc[0.295766] - infinite_block.mc[0.166666])**2 + 50000.0*(infinite_block.Fa0[0.333333] - infinite_block.Fa0[0.295766])**2 + 50000.0*(infinite_block.mc[0.333333] - infinite_block.mc[0.295766])**2 + 50000.0*(infinite_block.Fa0[0.3709] - infinite_block.Fa0[0.333333])**2 + 50000.0*(infinite_block.mc[0.3709] - infinite_block.mc[0.333333])**2 + 50000.0*(infinite_block.Fa0[0.5] - infinite_block.Fa0[0.3709])**2 + 50000.0*(infinite_block.mc[0.5] - infinite_block.mc[0.3709])**2 + 50000.0*(infinite_block.Fa0[0.6291] - infinite_block.Fa0[0.5])**2 + 50000.0*(infinite_block.mc[0.6291] - infinite_block.mc[0.5])**2 + 50000.0*(infinite_block.Fa0[0.666667] - infinite_block.Fa0[0.6291])**2 + 50000.0*(infinite_block.mc[0.666667] - infinite_block.mc[0.6291])**2 + 50000.0*(infinite_block.Fa0[0.704234] - infinite_block.Fa0[0.666667])**2 + 50000.0*(infinite_block.mc[0.704234] - infinite_block.mc[0.666667])**2 + 50000.0*(infinite_block.Fa0[0.833333] - infinite_block.Fa0[0.704234])**2 + 50000.0*(infinite_block.mc[0.833333] - infinite_block.mc[0.704234])**2 + 50000.0*(infinite_block.Fa0[0.962433] - infinite_block.Fa0[0.833333])**2 + 50000.0*(infinite_block.mc[0.962433] - infinite_block.mc[0.833333])**2 + 50000.0*(infinite_block.Fa0[1] - infinite_block.Fa0[0.962433])**2 + 50000.0*(infinite_block.mc[1] - infinite_block.mc[0.962433])**2 + 23.999999999999996*infinite_block.phi[1]
 
 5 Constraint Declarations
     link_Ca_constraint : Size=1, Index={()}, Active=True
@@ -61,149 +61,149 @@
         14 Var Declarations
             Ca : Size=7, Index=finite_block.time
                 Key      : Lower : Value                  : Upper : Fixed : Stale : Domain
-                       0 :     0 :     1.4266385151247039 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 :     2.9824232374886592 :  None : False : False : NonNegativeReals
-                0.032247 :     0 :      1.491095700781287 :  None : False : False : NonNegativeReals
-                    0.05 :     0 : 5.6429377221666045e-09 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :     3.4330628478407523 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :     2.3903079884443446 :  None : False : False : NonNegativeReals
-                     0.1 :     0 : 1.8991654096764506e-08 :  None : False : False : NonNegativeReals
+                       0 :     0 :    0.33401679751283175 :  None :  True :  True : NonNegativeReals
+                0.007753 :     0 :     0.6274670868241683 :  None : False : False : NonNegativeReals
+                0.032247 :     0 :     0.2185579594643885 :  None : False : False : NonNegativeReals
+                    0.05 :     0 :   0.006003099666106779 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :     0.2781921252228665 :  None : False : False : NonNegativeReals
+                0.082247 :     0 :     0.0691643293147872 :  None : False : False : NonNegativeReals
+                     0.1 :     0 : 1.3433835060702431e-08 :  None : False : False : NonNegativeReals
             Cb : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  34.82856592095117 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 :  36.07286186373374 :  None : False : False : NonNegativeReals
-                0.032247 :     0 :  33.64872265732562 :  None : False : False : NonNegativeReals
-                    0.05 :     0 : 31.527773694622052 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :  34.69729551918821 :  None : False : False : NonNegativeReals
-                0.082247 :     0 : 32.865317571083274 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :  29.94211024211146 :  None : False : False : NonNegativeReals
+                       0 :     0 : 33.735944202908264 :  None :  True :  True : NonNegativeReals
+                0.007753 :     0 :  33.71188318832293 :  None : False : False : NonNegativeReals
+                0.032247 :     0 :  32.35237491105944 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 31.498179508255763 :  None : False : False : NonNegativeReals
+                0.057753 :     0 : 31.501951989077916 :  None : False : False : NonNegativeReals
+                0.082247 :     0 :  30.48931016068075 :  None : False : False : NonNegativeReals
+                     0.1 :     0 :  29.87771810926658 :  None : False : False : NonNegativeReals
             Cc : Size=7, Index=finite_block.time
-                Key      : Lower : Value                 : Upper : Fixed : Stale : Domain
-                       0 :     0 :    1.4789209503075282 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 : 5.819505798440932e-08 :  None : False : False : NonNegativeReals
-                0.032247 :     0 :    1.7215107749605936 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :     3.368030799368636 :  None : False : False : NonNegativeReals
-                0.057753 :     0 : 6.545660727855535e-08 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :     1.237505790686991 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :    3.7593134756872084 :  None : False : False : NonNegativeReals
+                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
+                       0 :     0 :  2.571542668025765 :  None :  True :  True : NonNegativeReals
+                0.007753 :     0 : 2.3564423436744533 :  None : False : False : NonNegativeReals
+                0.032247 :     0 :  2.999923938760346 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 3.3708117884220608 :  None : False : False : NonNegativeReals
+                0.057753 :     0 : 3.1648579696643986 :  None : False : False : NonNegativeReals
+                0.082247 :     0 : 3.5721877803800823 :  None : False : False : NonNegativeReals
+                     0.1 :     0 :  3.775203060150488 :  None : False : False : NonNegativeReals
             Cm : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 : 3.6339504055448524 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 :  3.610467220581058 :  None : False : False : NonNegativeReals
-                0.032247 :     0 : 3.5401424114325284 :  None : False : False : NonNegativeReals
-                    0.05 :     0 : 3.4926576808359293 :  None : False : False : NonNegativeReals
-                0.057753 :     0 : 3.4727892847065145 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :  3.413289639824449 :  None : False : False : NonNegativeReals
-                     0.1 :     0 : 3.3731142786332895 :  None : False : False : NonNegativeReals
+                       0 :     0 :  3.633950405512356 :  None :  True :  True : NonNegativeReals
+                0.007753 :     0 :   3.61001318155353 :  None : False : False : NonNegativeReals
+                0.032247 :     0 : 3.5383473716530403 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 3.4899739966251624 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :  3.469738033789466 :  None : False : False : NonNegativeReals
+                0.082247 :     0 :  3.409153453536514 :  None : False : False : NonNegativeReals
+                     0.1 :     0 :  3.368259746674462 :  None : False : False : NonNegativeReals
             Fa0 : Size=7, Index=finite_block.time
                 Key      : Lower : Value             : Upper : Fixed : Stale : Domain
-                       0 :    10 : 98.78764190372262 :   100 : False : False :  Reals
-                0.007753 :    10 : 98.78764190372337 :   100 : False : False :  Reals
-                0.032247 :    10 : 98.78764190372337 :   100 : False : False :  Reals
-                    0.05 :    10 : 98.78764190372337 :   100 : False : False :  Reals
-                0.057753 :    10 : 98.78764138136535 :   100 : False : False :  Reals
-                0.082247 :    10 : 98.78764138136535 :   100 : False : False :  Reals
-                     0.1 :    10 : 98.78764138136535 :   100 : False : False :  Reals
+                       0 :    10 : 99.99987323353996 :   100 : False : False :  Reals
+                0.007753 :    10 : 99.99987324071036 :   100 : False : False :  Reals
+                0.032247 :    10 : 99.99987324071036 :   100 : False : False :  Reals
+                    0.05 :    10 : 99.99987324071036 :   100 : False : False :  Reals
+                0.057753 :    10 : 99.99987250381105 :   100 : False : False :  Reals
+                0.082247 :    10 : 99.99987250381105 :   100 : False : False :  Reals
+                     0.1 :    10 : 99.99987250381105 :   100 : False : False :  Reals
             T : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  319.0205296905336 :  None :  True :  True : NonNegativeReals
-                0.007753 :     0 : 283.23389319750396 :  None : False : False : NonNegativeReals
-                0.032247 :     0 : 327.27727068499956 :  None : False : False : NonNegativeReals
-                    0.05 :     0 :   368.052227602731 :  None : False : False : NonNegativeReals
-                0.057753 :     0 :  285.0932967115903 :  None : False : False : NonNegativeReals
-                0.082247 :     0 :  317.9553503685189 :  None : False : False : NonNegativeReals
-                     0.1 :     0 :  380.7894273952932 :  None : False : False : NonNegativeReals
+                       0 :     0 :  336.2184363503924 :  None :  True :  True : NonNegativeReals
+                0.007753 :     0 : 331.53171378524416 :  None : False : False : NonNegativeReals
+                0.032247 :     0 : 349.87109647708155 :  None : False : False : NonNegativeReals
+                    0.05 :     0 : 360.68700727108336 :  None : False : False : NonNegativeReals
+                0.057753 :     0 :  356.0785429429371 :  None : False : False : NonNegativeReals
+                0.082247 :     0 : 368.48761619692146 :  None : False : False : NonNegativeReals
+                     0.1 :     0 :  375.0166331058898 :  None : False : False : NonNegativeReals
             dCadt : Size=6, Index=finite_block.time
-                Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None :  109.07010915930572 :  None : False : False :  Reals
-                0.032247 :  None : -140.06704215610347 :  None : False : False :  Reals
-                    0.05 :  None :  19.757524453802553 :  None : False : False :  Reals
-                0.057753 :  None :   277.2449853446704 :  None : False : False :  Reals
-                0.082247 :  None : -207.91041369950574 :  None : False : False :  Reals
-                     0.1 :  None :  19.757509225757133 :  None : False : False :  Reals
+                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
+                0.007753 :  None : 17.890340547062394 :  None : False : False :  Reals
+                0.032247 :  None : -29.63913781558688 :  None : False : False :  Reals
+                    0.05 :  None :  17.05846589397369 :  None : False : False :  Reals
+                0.057753 :  None : 19.060446900186456 :  None : False : False :  Reals
+                0.082247 :  None :  -18.5696656555943 :  None : False : False :  Reals
+                     0.1 :  None :  19.99996318111285 :  None : False : False :  Reals
             dCbdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None :   69.40840532512819 :  None : False : False :  Reals
-                0.032247 :  None : -176.61027654418123 :  None : False : False :  Reals
-                    0.05 :  None : -14.680056420036477 :  None : False : False :  Reals
-                0.057753 :  None :   243.6884450294871 :  None : False : False :  Reals
-                0.082247 :  None : -238.82851352017116 :  None : False : False :  Reals
-                     0.1 :  None :  -9.379062317575848 :  None : False : False :  Reals
+                0.007753 :  None : -22.535648250593685 :  None : False : False :  Reals
+                0.032247 :  None :  -66.87161985039023 :  None : False : False :  Reals
+                    0.05 :  None : -18.018445715991795 :  None : False : False :  Reals
+                0.057753 :  None : -15.114727645710754 :  None : False : False :  Reals
+                0.082247 :  None :  -50.04512514269867 :  None : False : False :  Reals
+                     0.1 :  None :  -9.653228069347788 :  None : False : False :  Reals
             dCcdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None :  -99.28307774490963 :  None : False : False :  Reals
-                0.032247 :  None :  149.08455145008296 :  None : False : False :  Reals
-                    0.05 :  None :  -11.25961202782064 :  None : False : False :  Reals
-                0.057753 :  None :  -268.9644809166145 :  None : False : False :  Reals
-                0.082247 :  None :  215.53984927502773 :  None : False : False :  Reals
-                     0.1 :  None : -12.567688480923803 :  None : False : False :  Reals
+                0.007753 :  None :  -7.914712067386706 :  None : False : False :  Reals
+                0.032247 :  None :  38.826727759631346 :  None : False : False :  Reals
+                    0.05 :  None :  -8.402790452443597 :  None : False : False :  Reals
+                0.057753 :  None :  -10.62728658333329 :  None : False : False :  Reals
+                0.082247 :  None :  26.336636839454297 :  None : False : False :  Reals
+                     0.1 :  None : -12.682659932650973 :  None : False : False :  Reals
             dCmdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None :  -2.990101692808815 :  None : False : False :  Reals
-                0.032247 :  None :  -2.754999822028357 :  None : False : False :  Reals
-                    0.05 :  None :  -2.596254293502456 :  None : False : False :  Reals
-                0.057753 :  None : -2.5298325160396464 :  None : False : False :  Reals
-                0.082247 :  None : -2.3309200986100387 :  None : False : False :  Reals
-                     0.1 :  None :  -2.196610419426556 :  None : False : False :  Reals
+                0.007753 :  None : -3.0477212487572976 :  None : False : False :  Reals
+                0.032247 :  None : -2.8069623036165234 :  None : False : False :  Reals
+                    0.05 :  None : -2.6444535318495777 :  None : False : False :  Reals
+                0.057753 :  None : -2.5764714417958605 :  None : False : False :  Reals
+                0.082247 :  None :  -2.372939525942016 :  None : False : False :  Reals
+                     0.1 :  None :  -2.235558455226516 :  None : False : False :  Reals
             dTdt : Size=6, Index=finite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.007753 :  None : -2363.4982238008397 :  None : False : False :  Reals
-                0.032247 :  None :   3714.442542088381 :  None : False : False :  Reals
-                    0.05 :  None : -300.03503977684016 :  None : False : False :  Reals
-                0.057753 :  None :  -6585.031048544275 :  None : False : False :  Reals
-                0.082247 :  None :   5411.222439907729 :  None : False : False :  Reals
-                     0.1 :  None : -358.24457073998406 :  None : False : False :  Reals
+                0.007753 :  None : -107.29472052527987 :  None : False : False :  Reals
+                0.032247 :  None :  1061.5200676389006 :  None : False : False :  Reals
+                    0.05 :  None : -128.30858143533632 :  None : False : False :  Reals
+                0.057753 :  None : -187.58959969491008 :  None : False : False :  Reals
+                0.082247 :  None :   751.6329713769793 :  None : False : False :  Reals
+                     0.1 :  None : -251.99484997074248 :  None : False : False :  Reals
             d_UA : Size=6, Index=finite_block.time
-                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                0.007753 : -1000 :  999.9882149814352 :  1000 : False : False :  Reals
-                0.032247 : -1000 : -999.9992295525429 :  1000 : False : False :  Reals
-                    0.05 : -1000 : -999.9984220508285 :  1000 : False : False :  Reals
-                0.057753 : -1000 :  999.9765507755975 :  1000 : False : False :  Reals
-                0.082247 : -1000 : -999.9986609235655 :  1000 : False : False :  Reals
-                     0.1 : -1000 : -999.9982217277326 :  1000 : False : False :  Reals
+                Key      : Lower  : Value                  : Upper : Fixed : Stale : Domain
+                0.007753 : 0.0001 :  0.0001000414729844309 :     2 : False : False :  Reals
+                0.032247 : 0.0001 : 0.00010002032947719585 :     2 : False : False :  Reals
+                    0.05 : 0.0001 : 0.00010008098806246367 :     2 : False : False :  Reals
+                0.057753 : 0.0001 : 0.00010004290582340961 :     2 : False : False :  Reals
+                0.082247 : 0.0001 : 0.00010002435918869177 :     2 : False : False :  Reals
+                     0.1 : 0.0001 : 0.00010009748108727176 :     2 : False : False :  Reals
             d_k : Size=6, Index=finite_block.time
-                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                0.007753 : -2000 : -33.54140029334107 :  2000 : False : False :  Reals
-                0.032247 : -2000 :  85.13838627477301 :  2000 : False : False :  Reals
-                    0.05 : -2000 :  290.2162754634368 :  2000 : False : False :  Reals
-                0.057753 : -2000 : -78.65583814830367 :  2000 : False : False :  Reals
-                0.082247 : -2000 :  83.59945053939501 :  2000 : False : False :  Reals
-                     0.1 : -2000 :  82.71705052271108 :  2000 : False : False :  Reals
+                Key      : Lower  : Value                  : Upper : Fixed : Stale : Domain
+                0.007753 : 0.0001 : 0.00010026097104952709 :     2 : False : False :  Reals
+                0.032247 : 0.0001 :      1.999999903758634 :     2 : False : False :  Reals
+                    0.05 : 0.0001 :     1.9999982228026536 :     2 : False : False :  Reals
+                0.057753 : 0.0001 : 0.00010124381885833732 :     2 : False : False :  Reals
+                0.082247 : 0.0001 :      1.338143505591447 :     2 : False : False :  Reals
+                     0.1 : 0.0001 :     1.3202310888580686 :     2 : False : False :  Reals
             mc : Size=7, Index=finite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :   250 : 323.68694709149736 :  1000 : False : False :  Reals
-                0.007753 :   250 :  323.6869470914973 :  1000 : False : False :  Reals
-                0.032247 :   250 :  323.6869470914973 :  1000 : False : False :  Reals
-                    0.05 :   250 :  323.6869470914973 :  1000 : False : False :  Reals
-                0.057753 :   250 :  323.6869470948793 :  1000 : False : False :  Reals
-                0.082247 :   250 :  323.6869470948793 :  1000 : False : False :  Reals
-                     0.1 :   250 :  323.6869470948793 :  1000 : False : False :  Reals
+                       0 :   250 :  283.0499019350533 :  1000 : False : False :  Reals
+                0.007753 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
+                0.032247 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
+                    0.05 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
+                0.057753 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
+                0.082247 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
+                     0.1 :   250 : 283.04990193505324 :  1000 : False : False :  Reals
 
-        12 Constraint Declarations
+        13 Constraint Declarations
             Ca_balance : Size=6, Index=finite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                             : Upper : Active
-                0.007753 :   0.0 : finite_block.dCadt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.007753]/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.007753]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753]) + finite_block.d_k[0.007753])*finite_block.Ca[0.007753]) :   0.0 :   True
-                0.032247 :   0.0 : finite_block.dCadt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.032247]/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.032247]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247]) + finite_block.d_k[0.032247])*finite_block.Ca[0.032247]) :   0.0 :   True
-                    0.05 :   0.0 :                                 finite_block.dCadt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.05]/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.05]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05]) + finite_block.d_k[0.05])*finite_block.Ca[0.05]) :   0.0 :   True
-                0.057753 :   0.0 : finite_block.dCadt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.057753]/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.057753]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753]) + finite_block.d_k[0.057753])*finite_block.Ca[0.057753]) :   0.0 :   True
-                0.082247 :   0.0 : finite_block.dCadt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.082247]/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.082247]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247]) + finite_block.d_k[0.082247])*finite_block.Ca[0.082247]) :   0.0 :   True
-                     0.1 :   0.0 :                                         finite_block.dCadt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.1]/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.1]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1]) + finite_block.d_k[0.1])*finite_block.Ca[0.1]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                         : Upper : Active
+                0.007753 :   0.0 : finite_block.dCadt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.007753]/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.007753]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753])*finite_block.d_k[0.007753]*finite_block.Ca[0.007753]) :   0.0 :   True
+                0.032247 :   0.0 : finite_block.dCadt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.032247]/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.032247]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247])*finite_block.d_k[0.032247]*finite_block.Ca[0.032247]) :   0.0 :   True
+                    0.05 :   0.0 :                                 finite_block.dCadt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.05]/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.05]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05])*finite_block.d_k[0.05]*finite_block.Ca[0.05]) :   0.0 :   True
+                0.057753 :   0.0 : finite_block.dCadt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.057753]/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.057753]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753])*finite_block.d_k[0.057753]*finite_block.Ca[0.057753]) :   0.0 :   True
+                0.082247 :   0.0 : finite_block.dCadt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.082247]/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.082247]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247])*finite_block.d_k[0.082247]*finite_block.Ca[0.082247]) :   0.0 :   True
+                     0.1 :   0.0 :                                         finite_block.dCadt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(finite_block.Fa0[0.1]/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433) - finite_block.Ca[0.1]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1])*finite_block.d_k[0.1]*finite_block.Ca[0.1]) :   0.0 :   True
             Cb_balance : Size=6, Index=finite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                        : Upper : Active
-                0.007753 :   0.0 : finite_block.dCbdt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.007753]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753]) + finite_block.d_k[0.007753])*finite_block.Ca[0.007753]) :   0.0 :   True
-                0.032247 :   0.0 : finite_block.dCbdt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.032247]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247]) + finite_block.d_k[0.032247])*finite_block.Ca[0.032247]) :   0.0 :   True
-                    0.05 :   0.0 :                             finite_block.dCbdt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.05]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05]) + finite_block.d_k[0.05])*finite_block.Ca[0.05]) :   0.0 :   True
-                0.057753 :   0.0 : finite_block.dCbdt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.057753]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753]) + finite_block.d_k[0.057753])*finite_block.Ca[0.057753]) :   0.0 :   True
-                0.082247 :   0.0 : finite_block.dCbdt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.082247]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247]) + finite_block.d_k[0.082247])*finite_block.Ca[0.082247]) :   0.0 :   True
-                     0.1 :   0.0 :                                    finite_block.dCbdt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.1]) - (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1]) + finite_block.d_k[0.1])*finite_block.Ca[0.1]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                    : Upper : Active
+                0.007753 :   0.0 : finite_block.dCbdt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.007753]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753])*finite_block.d_k[0.007753]*finite_block.Ca[0.007753]) :   0.0 :   True
+                0.032247 :   0.0 : finite_block.dCbdt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.032247]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247])*finite_block.d_k[0.032247]*finite_block.Ca[0.032247]) :   0.0 :   True
+                    0.05 :   0.0 :                             finite_block.dCbdt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.05]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05])*finite_block.d_k[0.05]*finite_block.Ca[0.05]) :   0.0 :   True
+                0.057753 :   0.0 : finite_block.dCbdt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.057753]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753])*finite_block.d_k[0.057753]*finite_block.Ca[0.057753]) :   0.0 :   True
+                0.082247 :   0.0 : finite_block.dCbdt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.082247]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247])*finite_block.d_k[0.082247]*finite_block.Ca[0.082247]) :   0.0 :   True
+                     0.1 :   0.0 :                                    finite_block.dCbdt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cb[0.1]) - 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1])*finite_block.d_k[0.1]*finite_block.Ca[0.1]) :   0.0 :   True
             Cc_balance : Size=6, Index=finite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                        : Upper : Active
-                0.007753 :   0.0 : finite_block.dCcdt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.007753]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753]) + finite_block.d_k[0.007753])*finite_block.Ca[0.007753]) :   0.0 :   True
-                0.032247 :   0.0 : finite_block.dCcdt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.032247]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247]) + finite_block.d_k[0.032247])*finite_block.Ca[0.032247]) :   0.0 :   True
-                    0.05 :   0.0 :                         finite_block.dCcdt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.05]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05]) + finite_block.d_k[0.05])*finite_block.Ca[0.05]) :   0.0 :   True
-                0.057753 :   0.0 : finite_block.dCcdt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.057753]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753]) + finite_block.d_k[0.057753])*finite_block.Ca[0.057753]) :   0.0 :   True
-                0.082247 :   0.0 : finite_block.dCcdt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.082247]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247]) + finite_block.d_k[0.082247])*finite_block.Ca[0.082247]) :   0.0 :   True
-                     0.1 :   0.0 :                               finite_block.dCcdt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.1]) + (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1]) + finite_block.d_k[0.1])*finite_block.Ca[0.1]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                    : Upper : Active
+                0.007753 :   0.0 : finite_block.dCcdt[0.007753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.007753]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753])*finite_block.d_k[0.007753]*finite_block.Ca[0.007753]) :   0.0 :   True
+                0.032247 :   0.0 : finite_block.dCcdt[0.032247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.032247] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.032247]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247])*finite_block.d_k[0.032247]*finite_block.Ca[0.032247]) :   0.0 :   True
+                    0.05 :   0.0 :                         finite_block.dCcdt[0.05] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.05] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.05]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05])*finite_block.d_k[0.05]*finite_block.Ca[0.05]) :   0.0 :   True
+                0.057753 :   0.0 : finite_block.dCcdt[0.057753] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.057753] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.057753]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753])*finite_block.d_k[0.057753]*finite_block.Ca[0.057753]) :   0.0 :   True
+                0.082247 :   0.0 : finite_block.dCcdt[0.082247] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.082247] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.082247]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247])*finite_block.d_k[0.082247]*finite_block.Ca[0.082247]) :   0.0 :   True
+                     0.1 :   0.0 :                               finite_block.dCcdt[0.1] - (1/(5/(0.06756756756756756*finite_block.Fa0[0.1] + 8.202531645569621 + 1.8380566801619433))*(- finite_block.Cc[0.1]) + 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1])*finite_block.d_k[0.1]*finite_block.Ca[0.1]) :   0.0 :   True
             Cm_balance : Size=6, Index=finite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                                        : Upper : Active
                 0.007753 :   0.0 : finite_block.dCmdt[0.007753] - 1/(5/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433))*(45.4/(0.06756756756756756*finite_block.Fa0[0.007753] + 8.202531645569621 + 1.8380566801619433) - finite_block.Cm[0.007753]) :   0.0 :   True
@@ -259,13 +259,21 @@
                 0.082247 :   0.0 : finite_block.dTdt[0.082247] - (34.787753826796326*finite_block.T[0.05] - 71.35680169380808*finite_block.T[0.057753] + 15.505102572168191*finite_block.T[0.082247] + 21.063945294843634*finite_block.T[0.1]) :   0.0 :   True
                      0.1 :   0.0 :     finite_block.dTdt[0.1] - (-59.99999999999986*finite_block.T[0.05] + 110.63945294843609*finite_block.T[0.057753] - 150.63945294843614*finite_block.T[0.082247] + 100.00000000000001*finite_block.T[0.1]) :   0.0 :   True
             energy_balance : Size=6, Index=finite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      : Upper : Active
-                0.007753 :   0.0 : finite_block.dTdt[0.007753] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753]) + finite_block.d_k[0.007753])*finite_block.Ca[0.007753]*5*-20013 - (finite_block.Fa0[0.007753]*(35 + 453.6/finite_block.Fa0[0.007753]*18 + 45.4/finite_block.Fa0[0.007753]*19.5)*(finite_block.T[0.007753] - 297) + 18*finite_block.mc[0.007753]*(finite_block.T[0.007753] - (finite_block.T[0.007753] - 288.7)*exp(- (7000 + finite_block.d_UA[0.007753])/(18*finite_block.mc[0.007753])) - 288.7)))/(175*finite_block.Ca[0.007753] + 90*finite_block.Cb[0.007753] + 230*finite_block.Cc[0.007753] + 97.5*finite_block.Cm[0.007753]) :   0.0 :   True
-                0.032247 :   0.0 : finite_block.dTdt[0.032247] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247]) + finite_block.d_k[0.032247])*finite_block.Ca[0.032247]*5*-20013 - (finite_block.Fa0[0.032247]*(35 + 453.6/finite_block.Fa0[0.032247]*18 + 45.4/finite_block.Fa0[0.032247]*19.5)*(finite_block.T[0.032247] - 297) + 18*finite_block.mc[0.032247]*(finite_block.T[0.032247] - (finite_block.T[0.032247] - 288.7)*exp(- (7000 + finite_block.d_UA[0.032247])/(18*finite_block.mc[0.032247])) - 288.7)))/(175*finite_block.Ca[0.032247] + 90*finite_block.Cb[0.032247] + 230*finite_block.Cc[0.032247] + 97.5*finite_block.Cm[0.032247]) :   0.0 :   True
-                    0.05 :   0.0 :                                                                     finite_block.dTdt[0.05] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05]) + finite_block.d_k[0.05])*finite_block.Ca[0.05]*5*-20013 - (finite_block.Fa0[0.05]*(35 + 453.6/finite_block.Fa0[0.05]*18 + 45.4/finite_block.Fa0[0.05]*19.5)*(finite_block.T[0.05] - 297) + 18*finite_block.mc[0.05]*(finite_block.T[0.05] - (finite_block.T[0.05] - 288.7)*exp(- (7000 + finite_block.d_UA[0.05])/(18*finite_block.mc[0.05])) - 288.7)))/(175*finite_block.Ca[0.05] + 90*finite_block.Cb[0.05] + 230*finite_block.Cc[0.05] + 97.5*finite_block.Cm[0.05]) :   0.0 :   True
-                0.057753 :   0.0 : finite_block.dTdt[0.057753] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753]) + finite_block.d_k[0.057753])*finite_block.Ca[0.057753]*5*-20013 - (finite_block.Fa0[0.057753]*(35 + 453.6/finite_block.Fa0[0.057753]*18 + 45.4/finite_block.Fa0[0.057753]*19.5)*(finite_block.T[0.057753] - 297) + 18*finite_block.mc[0.057753]*(finite_block.T[0.057753] - (finite_block.T[0.057753] - 288.7)*exp(- (7000 + finite_block.d_UA[0.057753])/(18*finite_block.mc[0.057753])) - 288.7)))/(175*finite_block.Ca[0.057753] + 90*finite_block.Cb[0.057753] + 230*finite_block.Cc[0.057753] + 97.5*finite_block.Cm[0.057753]) :   0.0 :   True
-                0.082247 :   0.0 : finite_block.dTdt[0.082247] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247]) + finite_block.d_k[0.082247])*finite_block.Ca[0.082247]*5*-20013 - (finite_block.Fa0[0.082247]*(35 + 453.6/finite_block.Fa0[0.082247]*18 + 45.4/finite_block.Fa0[0.082247]*19.5)*(finite_block.T[0.082247] - 297) + 18*finite_block.mc[0.082247]*(finite_block.T[0.082247] - (finite_block.T[0.082247] - 288.7)*exp(- (7000 + finite_block.d_UA[0.082247])/(18*finite_block.mc[0.082247])) - 288.7)))/(175*finite_block.Ca[0.082247] + 90*finite_block.Cb[0.082247] + 230*finite_block.Cc[0.082247] + 97.5*finite_block.Cm[0.082247]) :   0.0 :   True
-                     0.1 :   0.0 :                                                                                      finite_block.dTdt[0.1] - (- (20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1]) + finite_block.d_k[0.1])*finite_block.Ca[0.1]*5*-20013 - (finite_block.Fa0[0.1]*(35 + 453.6/finite_block.Fa0[0.1]*18 + 45.4/finite_block.Fa0[0.1]*19.5)*(finite_block.T[0.1] - 297) + 18*finite_block.mc[0.1]*(finite_block.T[0.1] - (finite_block.T[0.1] - 288.7)*exp(- (7000 + finite_block.d_UA[0.1])/(18*finite_block.mc[0.1])) - 288.7)))/(175*finite_block.Ca[0.1] + 90*finite_block.Cb[0.1] + 230*finite_block.Cc[0.1] + 97.5*finite_block.Cm[0.1]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              : Upper : Active
+                0.007753 :   0.0 : finite_block.dTdt[0.007753] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753])*finite_block.d_k[0.007753]*finite_block.Ca[0.007753]*5*-20013 - (finite_block.Fa0[0.007753]*(35 + 453.6/finite_block.Fa0[0.007753]*18 + 45.4/finite_block.Fa0[0.007753]*19.5)*(finite_block.T[0.007753] - 297) + 18*finite_block.mc[0.007753]*(finite_block.T[0.007753] - (finite_block.T[0.007753] - 288.7)*exp(- 7000*finite_block.d_UA[0.007753]/(18*finite_block.mc[0.007753])) - 288.7)))/(175*finite_block.Ca[0.007753] + 90*finite_block.Cb[0.007753] + 230*finite_block.Cc[0.007753] + 97.5*finite_block.Cm[0.007753]) :   0.0 :   True
+                0.032247 :   0.0 : finite_block.dTdt[0.032247] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247])*finite_block.d_k[0.032247]*finite_block.Ca[0.032247]*5*-20013 - (finite_block.Fa0[0.032247]*(35 + 453.6/finite_block.Fa0[0.032247]*18 + 45.4/finite_block.Fa0[0.032247]*19.5)*(finite_block.T[0.032247] - 297) + 18*finite_block.mc[0.032247]*(finite_block.T[0.032247] - (finite_block.T[0.032247] - 288.7)*exp(- 7000*finite_block.d_UA[0.032247]/(18*finite_block.mc[0.032247])) - 288.7)))/(175*finite_block.Ca[0.032247] + 90*finite_block.Cb[0.032247] + 230*finite_block.Cc[0.032247] + 97.5*finite_block.Cm[0.032247]) :   0.0 :   True
+                    0.05 :   0.0 :                                                                     finite_block.dTdt[0.05] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05])*finite_block.d_k[0.05]*finite_block.Ca[0.05]*5*-20013 - (finite_block.Fa0[0.05]*(35 + 453.6/finite_block.Fa0[0.05]*18 + 45.4/finite_block.Fa0[0.05]*19.5)*(finite_block.T[0.05] - 297) + 18*finite_block.mc[0.05]*(finite_block.T[0.05] - (finite_block.T[0.05] - 288.7)*exp(- 7000*finite_block.d_UA[0.05]/(18*finite_block.mc[0.05])) - 288.7)))/(175*finite_block.Ca[0.05] + 90*finite_block.Cb[0.05] + 230*finite_block.Cc[0.05] + 97.5*finite_block.Cm[0.05]) :   0.0 :   True
+                0.057753 :   0.0 : finite_block.dTdt[0.057753] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753])*finite_block.d_k[0.057753]*finite_block.Ca[0.057753]*5*-20013 - (finite_block.Fa0[0.057753]*(35 + 453.6/finite_block.Fa0[0.057753]*18 + 45.4/finite_block.Fa0[0.057753]*19.5)*(finite_block.T[0.057753] - 297) + 18*finite_block.mc[0.057753]*(finite_block.T[0.057753] - (finite_block.T[0.057753] - 288.7)*exp(- 7000*finite_block.d_UA[0.057753]/(18*finite_block.mc[0.057753])) - 288.7)))/(175*finite_block.Ca[0.057753] + 90*finite_block.Cb[0.057753] + 230*finite_block.Cc[0.057753] + 97.5*finite_block.Cm[0.057753]) :   0.0 :   True
+                0.082247 :   0.0 : finite_block.dTdt[0.082247] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247])*finite_block.d_k[0.082247]*finite_block.Ca[0.082247]*5*-20013 - (finite_block.Fa0[0.082247]*(35 + 453.6/finite_block.Fa0[0.082247]*18 + 45.4/finite_block.Fa0[0.082247]*19.5)*(finite_block.T[0.082247] - 297) + 18*finite_block.mc[0.082247]*(finite_block.T[0.082247] - (finite_block.T[0.082247] - 288.7)*exp(- 7000*finite_block.d_UA[0.082247]/(18*finite_block.mc[0.082247])) - 288.7)))/(175*finite_block.Ca[0.082247] + 90*finite_block.Cb[0.082247] + 230*finite_block.Cc[0.082247] + 97.5*finite_block.Cm[0.082247]) :   0.0 :   True
+                     0.1 :   0.0 :                                                                                      finite_block.dTdt[0.1] - (- 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1])*finite_block.d_k[0.1]*finite_block.Ca[0.1]*5*-20013 - (finite_block.Fa0[0.1]*(35 + 453.6/finite_block.Fa0[0.1]*18 + 45.4/finite_block.Fa0[0.1]*19.5)*(finite_block.T[0.1] - 297) + 18*finite_block.mc[0.1]*(finite_block.T[0.1] - (finite_block.T[0.1] - 288.7)*exp(- 7000*finite_block.d_UA[0.1]/(18*finite_block.mc[0.1])) - 288.7)))/(175*finite_block.Ca[0.1] + 90*finite_block.Cb[0.1] + 230*finite_block.Cc[0.1] + 97.5*finite_block.Cm[0.1]) :   0.0 :   True
+            k_eff_lb : Size=6, Index=finite_block.time, Active=True
+                Key      : Lower : Body                                                                                         : Upper : Active
+                0.007753 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.007753])*finite_block.d_k[0.007753] :  +Inf :   True
+                0.032247 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.032247])*finite_block.d_k[0.032247] :  +Inf :   True
+                    0.05 : 1e-06 :         20000000000000.0*exp(-9064.921992954201/finite_block.T[0.05])*finite_block.d_k[0.05] :  +Inf :   True
+                0.057753 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.057753])*finite_block.d_k[0.057753] :  +Inf :   True
+                0.082247 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/finite_block.T[0.082247])*finite_block.d_k[0.082247] :  +Inf :   True
+                     0.1 : 1e-06 :           20000000000000.0*exp(-9064.921992954201/finite_block.T[0.1])*finite_block.d_k[0.1] :  +Inf :   True
             mc_interpolation_constraints : Size=4, Index={1, 2, 3, 4}, Active=True
                 Key : Lower : Body                                              : Upper : Active
                   1 :   0.0 : finite_block.mc[0.007753] - finite_block.mc[0.05] :   0.0 :   True
@@ -278,7 +286,7 @@
                 Key  : Dimen : Domain   : Size : Members
                 None :     1 : [0..0.1] :    7 : {0, 0.007753, 0.032247, 0.05, 0.057753, 0.082247, 0.1}
 
-        37 Declarations: time MV_index CV_index Measured_index Unmeasured_index DV_index Ca Cb Cc Cm T Fb0 UA d_UA d_k Fa0 mc dCadt dCbdt dCcdt dCmdt dTdt setpoints initial_values dCadt_disc_eq dCbdt_disc_eq dCcdt_disc_eq dCmdt_disc_eq dTdt_disc_eq Fa0_interpolation_constraints mc_interpolation_constraints Ca_balance Cb_balance Cc_balance Cm_balance energy_balance stage_cost_index
+        38 Declarations: time MV_index CV_index Measured_index Unmeasured_index DV_index Ca Cb Cc Cm T Fb0 UA d_UA d_k Fa0 mc dCadt dCbdt dCcdt dCmdt dTdt setpoints initial_values dCadt_disc_eq dCbdt_disc_eq dCcdt_disc_eq dCmdt_disc_eq dTdt_disc_eq Fa0_interpolation_constraints mc_interpolation_constraints Ca_balance Cb_balance Cc_balance Cm_balance energy_balance k_eff_lb stage_cost_index
     infinite_block : Size=1, Index=None, Active=True
         6 Set Declarations
             CV_index : Size=1, Index=None, Ordered=Insertion
@@ -319,262 +327,262 @@
         16 Var Declarations
             Ca : Size=13, Index=infinite_block.time
                 Key      : Lower : Value                  : Upper : Fixed : Stale : Domain
-                       0 :     0 : 1.8991654096764506e-08 :  None : False : False : NonNegativeReals
-                0.037567 :     0 :   0.005255568381000661 :  None : False : False : NonNegativeReals
-                0.166666 :     0 :   0.004548465620989477 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :  0.0040474316457173014 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :   0.009440360224889867 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :   0.003897619623317084 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :   0.003758254972220341 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :   0.004773368693960285 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  2.803409453043608e-07 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :  0.0037450683395424448 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :   0.015782096405046214 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :    0.03570799287539042 :  None : False : False : NonNegativeReals
-                       1 :     0 :    0.04471202647721446 :  None : False : False : NonNegativeReals
+                       0 :     0 : 1.3433835060702431e-08 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :   0.008324865353586246 :  None : False : False : NonNegativeReals
+                0.166666 :     0 :  0.0039072260398914675 :  None : False : False : NonNegativeReals
+                0.295766 :     0 :  0.0033864847156410164 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :   0.014309268628354995 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  0.0035512018187505517 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :   0.003486808101104798 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :   0.007823964921084765 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  2.651365641319335e-07 :  None : False : False : NonNegativeReals
+                0.704234 :     0 :  0.0034960818344732534 :  None : False : False : NonNegativeReals
+                0.833333 :     0 :       0.00878315210856 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :   0.024267796457002826 :  None : False : False : NonNegativeReals
+                       1 :     0 :    0.03456199587114925 :  None : False : False : NonNegativeReals
             Cb : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  29.94211024211146 :  None : False : False : NonNegativeReals
-                0.037567 :     0 : 29.296637385605667 :  None : False : False : NonNegativeReals
-                0.166666 :     0 :  27.53153934790383 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :  26.31991695126955 :  None : False : False : NonNegativeReals
-                0.333333 :     0 : 26.043427855475482 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 : 25.786227306315077 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  25.09234720087323 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 : 24.613018388634455 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  24.49885203494277 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 24.406452914876557 :  None : False : False : NonNegativeReals
-                0.833333 :     0 : 24.169650593535376 :  None : False : False : NonNegativeReals
-                0.962433 :     0 : 24.059903921206065 :  None : False : False : NonNegativeReals
-                       1 :     0 :  24.05220856714777 :  None : False : False : NonNegativeReals
+                       0 :     0 :  29.87771810926658 :  None : False : False : NonNegativeReals
+                0.037567 :     0 : 29.247541269473967 :  None : False : False : NonNegativeReals
+                0.166666 :     0 : 27.511449153068803 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 26.321721738320797 :  None : False : False : NonNegativeReals
+                0.333333 :     0 : 26.055788032966138 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 : 25.797816661971275 :  None : False : False : NonNegativeReals
+                     0.5 :     0 : 25.116055396589793 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :  24.64811341034385 :  None : False : False : NonNegativeReals
+                0.666667 :     0 : 24.532688225439212 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 24.441591776209428 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 24.201914893748533 :  None : False : False : NonNegativeReals
+                0.962433 :     0 : 24.089564841555827 :  None : False : False : NonNegativeReals
+                       1 :     0 : 24.083352945838044 :  None : False : False : NonNegativeReals
             Cc : Size=13, Index=infinite_block.time
-                Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 : 3.7593134756872084 :  None : False : False : NonNegativeReals
-                0.037567 :     0 : 3.9146334622698644 :  None : False : False : NonNegativeReals
-                0.166666 :     0 :  4.350726537850125 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :  4.650087219220981 :  None : False : False : NonNegativeReals
-                0.333333 :     0 : 4.7142522763307015 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  4.781894791776565 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  4.953223534774914 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  5.070739412882096 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  5.102506685067186 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 5.1224866329616106 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :   5.17185388898746 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :   5.18392635319606 :  None : False : False : NonNegativeReals
-                       1 :     0 :  5.179043106545652 :  None : False : False : NonNegativeReals
+                Key      : Lower : Value             : Upper : Fixed : Stale : Domain
+                       0 :     0 : 3.775203060150488 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :  3.92443664649302 :  None : False : False : NonNegativeReals
+                0.166666 :     0 : 4.356167055264659 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 4.650139714834023 :  None : False : False : NonNegativeReals
+                0.333333 :     0 : 4.707534801708351 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 : 4.779295905206285 :  None : False : False : NonNegativeReals
+                     0.5 :     0 : 4.947577698911704 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 : 5.059781445853106 :  None : False : False : NonNegativeReals
+                0.666667 :     0 : 5.094157184841669 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 5.114003216544024 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 5.169164126791311 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :  5.18522432469496 :  None : False : False : NonNegativeReals
+                       1 :     0 : 5.179003214834859 :  None : False : False : NonNegativeReals
             Cm : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 : 3.3731142786332895 :  None : False : False : NonNegativeReals
-                0.037567 :     0 :  3.324055768283839 :  None : False : False : NonNegativeReals
-                0.166666 :     0 : 3.1910380758669077 :  None : False : False : NonNegativeReals
-                0.295766 :     0 : 3.0997314579811945 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  3.078480330652557 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  3.059507811405114 :  None : False : False : NonNegativeReals
-                     0.5 :     0 : 3.0072065947937068 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  2.970993395478067 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  2.962746221094471 :  None : False : False : NonNegativeReals
-                0.704234 :     0 : 2.9554979177069063 :  None : False : False : NonNegativeReals
-                0.833333 :     0 : 2.9367378825100015 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :  2.926961848452064 :  None : False : False : NonNegativeReals
-                       1 :     0 : 2.9257028791571447 :  None : False : False : NonNegativeReals
+                       0 :     0 :  3.368259746674462 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :  3.320123010107809 :  None : False : False : NonNegativeReals
+                0.166666 :     0 : 3.1895718162661812 :  None : False : False : NonNegativeReals
+                0.295766 :     0 :  3.099917350029165 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  3.079045098532235 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  3.060407651124033 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :  3.009014423579736 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 : 2.9734092294341745 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  2.965297137625113 :  None : False : False : NonNegativeReals
+                0.704234 :     0 : 2.9581658127667683 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 2.9396979442956543 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :   2.93006046769794 :  None : False : False : NonNegativeReals
+                       1 :     0 : 2.9288160707551802 :  None : False : False : NonNegativeReals
             Fa0 : Size=13, Index=infinite_block.time
                 Key      : Lower : Value             : Upper : Fixed : Stale : Domain
-                       0 :    10 : 81.04132089168696 :   100 : False : False :  Reals
-                0.037567 :    10 :   81.041320891687 :   100 : False : False :  Reals
-                0.166666 :    10 : 81.04131731004021 :   100 : False : False :  Reals
-                0.295766 :    10 : 81.04131109452011 :   100 : False : False :  Reals
-                0.333333 :    10 : 81.04130433796647 :   100 : False : False :  Reals
-                  0.3709 :    10 : 81.04129758141286 :   100 : False : False :  Reals
-                     0.5 :    10 :  81.0412906611849 :   100 : False : False :  Reals
-                  0.6291 :    10 :  81.0412839964487 :   100 : False : False :  Reals
-                0.666667 :    10 : 81.04127770761872 :   100 : False : False :  Reals
-                0.704234 :    10 : 81.04127141878878 :   100 : False : False :  Reals
-                0.833333 :    10 : 81.04126565892687 :   100 : False : False :  Reals
-                0.962433 :    10 : 81.04126152290937 :   100 : False : False :  Reals
-                       1 :    10 : 81.04126152290934 :   100 : False : False :  Reals
+                       0 :    10 : 80.79745147521439 :   100 : False : False :  Reals
+                0.037567 :    10 : 80.79745147521442 :   100 : False : False :  Reals
+                0.166666 :    10 : 80.79744877286142 :   100 : False : False :  Reals
+                0.295766 :    10 : 80.79744507864959 :   100 : False : False :  Reals
+                0.333333 :    10 :  80.7974410591856 :   100 : False : False :  Reals
+                  0.3709 :    10 : 80.79743703972167 :   100 : False : False :  Reals
+                     0.5 :    10 :  80.7974328282548 :   100 : False : False :  Reals
+                  0.6291 :    10 : 80.79742861314226 :   100 : False : False :  Reals
+                0.666667 :    10 :  80.7974245764508 :   100 : False : False :  Reals
+                0.704234 :    10 : 80.79742053975937 :   100 : False : False :  Reals
+                0.833333 :    10 : 80.79741680227637 :   100 : False : False :  Reals
+                0.962433 :    10 : 80.79741412944381 :   100 : False : False :  Reals
+                       1 :    10 : 80.79741412944377 :   100 : False : False :  Reals
             T : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :     0 :  380.7894273952932 :  None : False : False : NonNegativeReals
-                0.037567 :     0 :  383.1713044541976 :  None : False : False : NonNegativeReals
-                0.166666 :     0 : 389.60946800565426 :  None : False : False : NonNegativeReals
-                0.295766 :     0 :  393.5116297328271 :  None : False : False : NonNegativeReals
-                0.333333 :     0 : 394.20283890887583 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  395.1454899201165 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  396.0847503781745 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 : 396.01810672345204 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  396.2901549928392 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :  396.1811925778798 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :  396.0756864251213 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :  396.1117322146151 :  None : False : False : NonNegativeReals
-                       1 :     0 :  396.0971377611574 :  None : False : False : NonNegativeReals
+                       0 :     0 :  375.0166331058898 :  None : False : False : NonNegativeReals
+                0.037567 :     0 :   381.536522572287 :  None : False : False : NonNegativeReals
+                0.166666 :     0 :  394.3588680680648 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 396.51860198491147 :  None : False : False : NonNegativeReals
+                0.333333 :     0 :  395.9300837320191 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  396.0699872605893 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :  396.1212743449159 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 : 396.07566467197324 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  396.1509703623617 :  None : False : False : NonNegativeReals
+                0.704234 :     0 :  396.1223501297147 :  None : False : False : NonNegativeReals
+                0.833333 :     0 : 396.09384684744117 :  None : False : False : NonNegativeReals
+                0.962433 :     0 : 396.10296912466634 :  None : False : False : NonNegativeReals
+                       1 :     0 : 396.09943259834967 :  None : False : False : NonNegativeReals
             dCadt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :  0.09272514879272363 :  None : False : False :  Reals
-                0.166666 :  None : -0.05417932336811903 :  None : False : False :  Reals
-                0.295766 :  None :   0.0959175558710006 :  None : False : False :  Reals
-                  0.3709 :  None : -0.10068659173753934 :  None : False : False :  Reals
-                     0.5 :  None :  0.05095966147357197 :  None : False : False :  Reals
-                  0.6291 :  None : -0.08280152546145973 :  None : False : False :  Reals
-                0.704234 :  None :  0.09371514818998612 :  None : False : False :  Reals
-                0.833333 :  None :  0.10827693672228432 :  None : False : False :  Reals
-                0.962433 :  None :  0.21592909421340697 :  None : False : False :  Reals
+                0.037567 :  None :  0.13685072350741964 :  None : False : False :  Reals
+                0.166666 :  None : -0.11220742550275338 :  None : False : False :  Reals
+                0.295766 :  None :  0.19722126793791256 :  None : False : False :  Reals
+                  0.3709 :  None : -0.19597158401763898 :  None : False : False :  Reals
+                     0.5 :  None :  0.10576115503482357 :  None : False : False :  Reals
+                  0.6291 :  None :  -0.1277831926755635 :  None : False : False :  Reals
+                0.704234 :  None :  0.07116856904598041 :  None : False : False :  Reals
+                0.833333 :  None :  0.04559351930096106 :  None : False : False :  Reals
+                0.962433 :  None :   0.2291488652730667 :  None : False : False :  Reals
             dCbdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :  -16.317784341282483 :  None : False : False :  Reals
-                0.166666 :  None :   -11.27791220929805 :  None : False : False :  Reals
-                0.295766 :  None :   -7.743368005321583 :  None : False : False :  Reals
-                  0.3709 :  None :  -6.4754394052830015 :  None : False : False :  Reals
-                     0.5 :  None :   -4.408946489207631 :  None : False : False :  Reals
-                  0.6291 :  None :  -3.1516317109674605 :  None : False : False :  Reals
-                0.704234 :  None :   -2.319605392828123 :  None : False : False :  Reals
-                0.833333 :  None :  -1.3455519433013614 :  None : False : False :  Reals
-                0.962433 :  None : -0.35126577383045116 :  None : False : False :  Reals
+                0.037567 :  None :   -15.96620879752984 :  None : False : False :  Reals
+                0.166666 :  None :  -11.130451582512277 :  None : False : False :  Reals
+                0.295766 :  None :   -7.501954771381416 :  None : False : False :  Reals
+                  0.3709 :  None :   -6.458559271735701 :  None : False : False :  Reals
+                     0.5 :  None :  -4.2779961767213806 :  None : False : False :  Reals
+                  0.6291 :  None :  -3.1460918679109002 :  None : False : False :  Reals
+                0.704234 :  None :   -2.303500295558323 :  None : False : False :  Reals
+                0.833333 :  None :  -1.3864787665990528 :  None : False : False :  Reals
+                0.962433 :  None : -0.33095955040183034 :  None : False : False :  Reals
             dCcdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :   3.9567774287343203 :  None : False : False :  Reals
-                0.166666 :  None :   2.8237786023262648 :  None : False : False :  Reals
-                0.295766 :  None :   1.8385261678426628 :  None : False : False :  Reals
-                  0.3709 :  None :   1.6737381758557348 :  None : False : False :  Reals
-                     0.5 :  None :    1.049579079485942 :  None : False : False :  Reals
-                  0.6291 :  None :   0.8400745250422673 :  None : False : False :  Reals
-                0.704234 :  None :   0.5018024837982854 :  None : False : False :  Reals
-                0.833333 :  None :  0.25047388697995193 :  None : False : False :  Reals
-                0.962433 :  None : -0.07596652440466621 :  None : False : False :  Reals
+                0.037567 :  None :   3.8367846517957935 :  None : False : False :  Reals
+                0.166666 :  None :   2.8310997390300257 :  None : False : False :  Reals
+                0.295766 :  None :   1.7026486437739774 :  None : False : False :  Reals
+                  0.3709 :  None :   1.7413449923656124 :  None : False : False :  Reals
+                     0.5 :  None :   0.9759868933688934 :  None : False : False :  Reals
+                  0.6291 :  None :   0.8725893650572094 :  None : False : False :  Reals
+                0.704234 :  None :   0.5148112686797267 :  None : False : False :  Reals
+                0.833333 :  None :   0.3077885872365473 :  None : False : False :  Reals
+                0.962433 :  None : -0.09093496799365633 :  None : False : False :  Reals
             dCmdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :    -1.23719072713776 :  None : False : False :  Reals
-                0.166666 :  None :  -0.8461588751246005 :  None : False : False :  Reals
-                0.295766 :  None :  -0.5910048929046344 :  None : False : False :  Reals
-                  0.3709 :  None : -0.48059355338623355 :  None : False : False :  Reals
-                     0.5 :  None :  -0.3362329814844864 :  None : False : False :  Reals
-                  0.6291 :  None : -0.23135955961420548 :  None : False : False :  Reals
-                0.704234 :  None : -0.18194059098314527 :  None : False : False :  Reals
-                0.833333 :  None : -0.10960437336197472 :  None : False : False :  Reals
-                0.962433 :  None :  -0.0427609046293417 :  None : False : False :  Reals
+                0.037567 :  None :  -1.2140120286956104 :  None : False : False :  Reals
+                0.166666 :  None :  -0.8306670495901596 :  None : False : False :  Reals
+                0.295766 :  None :  -0.5804420154175041 :  None : False : False :  Reals
+                  0.3709 :  None :  -0.4721374080321931 :  None : False : False :  Reals
+                     0.5 :  None : -0.33049211081173857 :  None : False : False :  Reals
+                  0.6291 :  None :  -0.2275507355148976 :  None : False : False :  Reals
+                0.704234 :  None : -0.17902663540627228 :  None : False : False :  Reals
+                0.833333 :  None : -0.10796414052701696 :  None : False : False :  Reals
+                0.962433 :  None : -0.04222665594170128 :  None : False : False :  Reals
             dTdt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :   60.268734356779866 :  None : False : False :  Reals
-                0.166666 :  None :    39.75945694458483 :  None : False : False :  Reals
-                0.295766 :  None :   20.981123743557806 :  None : False : False :  Reals
-                  0.3709 :  None :   19.818244178663488 :  None : False : False :  Reals
-                     0.5 :  None :  -0.9438446227986775 :  None : False : False :  Reals
-                  0.6291 :  None :   4.2348758386783905 :  None : False : False :  Reals
-                0.704234 :  None :  -2.2955763503553275 :  None : False : False :  Reals
-                0.833333 :  None :  0.19603066323312038 :  None : False : False :  Reals
-                0.962433 :  None : -0.10266089757639191 :  None : False : False :  Reals
+                0.037567 :  None :   154.76275642919086 :  None : False : False :  Reals
+                0.166666 :  None :    50.95288327691464 :  None : False : False :  Reals
+                0.295766 :  None :  -10.421877044564459 :  None : False : False :  Reals
+                  0.3709 :  None :    2.694556298919714 :  None : False : False :  Reals
+                     0.5 :  None :  -0.9390166591760887 :  None : False : False :  Reals
+                  0.6291 :  None :    1.193441192320856 :  None : False : False :  Reals
+                0.704234 :  None :  -0.6051621923438041 :  None : False : False :  Reals
+                0.833333 :  None :  0.04426420784133503 :  None : False : False :  Reals
+                0.962433 :  None : -0.02226894813883842 :  None : False : False :  Reals
             d_UA : Size=9, Index=infinite_block.time
-                Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.037567 : -1000 :  -999.9998236436574 :  1000 : False : False :  Reals
-                0.166666 : -1000 :  -999.9997685287128 :  1000 : False : False :  Reals
-                0.295766 : -1000 :   -999.998838288425 :  1000 : False : False :  Reals
-                  0.3709 : -1000 :  -999.9964125492621 :  1000 : False : False :  Reals
-                     0.5 : -1000 :  115.19071370874659 :  1000 : False : False :  Reals
-                  0.6291 : -1000 :   39.22551476642578 :  1000 : False : False :  Reals
-                0.704234 : -1000 :   89.59160136538104 :  1000 : False : False :  Reals
-                0.833333 : -1000 :  -67.89598632355403 :  1000 : False : False :  Reals
-                0.962433 : -1000 : -212.45040127856558 :  1000 : False : False :  Reals
+                Key      : Lower  : Value                  : Upper : Fixed : Stale : Domain
+                0.037567 : 0.0001 : 0.00010001472693898452 :     2 : False : False :  Reals
+                0.166666 : 0.0001 :     0.5416275705227726 :     2 : False : False :  Reals
+                0.295766 : 0.0001 :     1.2554390947174014 :     2 : False : False :  Reals
+                  0.3709 : 0.0001 :      1.239567234555833 :     2 : False : False :  Reals
+                     0.5 : 0.0001 :      1.141306951181456 :     2 : False : False :  Reals
+                  0.6291 : 0.0001 :      1.206669013671576 :     2 : False : False :  Reals
+                0.704234 : 0.0001 :      1.159687652569662 :     2 : False : False :  Reals
+                0.833333 : 0.0001 :     1.1586565677206815 :     2 : False : False :  Reals
+                0.962433 : 0.0001 :     1.1255085703970893 :     2 : False : False :  Reals
             d_k : Size=9, Index=infinite_block.time
-                Key      : Lower : Value               : Upper : Fixed : Stale : Domain
-                0.037567 : -2000 :  1999.9973303498537 :  2000 : False : False :  Reals
-                0.166666 : -2000 :   1999.995703058865 :  2000 : False : False :  Reals
-                0.295766 : -2000 :   1999.986598196304 :  2000 : False : False :  Reals
-                  0.3709 : -2000 :  1999.9584406673089 :  2000 : False : False :  Reals
-                     0.5 : -2000 :  1999.9649031736762 :  2000 : False : False :  Reals
-                  0.6291 : -2000 :   1112.305866794279 :  2000 : False : False :  Reals
-                0.704234 : -2000 :   1999.858910521399 :  2000 : False : False :  Reals
-                0.833333 : -2000 : -1276.4638338427183 :  2000 : False : False :  Reals
-                0.962433 : -2000 :  -1852.696341476784 :  2000 : False : False :  Reals
+                Key      : Lower  : Value              : Upper : Fixed : Stale : Domain
+                0.037567 : 0.0001 : 1.9999990708101523 :     2 : False : False :  Reals
+                0.166666 : 0.0001 : 1.9999945822591811 :     2 : False : False :  Reals
+                0.295766 : 0.0001 :  1.999982029681557 :     2 : False : False :  Reals
+                  0.3709 : 0.0001 : 1.9999568182071443 :     2 : False : False :  Reals
+                     0.5 : 0.0001 : 1.9999820493762603 :     2 : False : False :  Reals
+                  0.6291 : 0.0001 : 0.9016161083285088 :     2 : False : False :  Reals
+                0.704234 : 0.0001 :  1.999941875595731 :     2 : False : False :  Reals
+                0.833333 : 0.0001 : 0.7976517682937833 :     2 : False : False :  Reals
+                0.962433 : 0.0001 : 0.2876266471847933 :     2 : False : False :  Reals
             dphidt : Size=9, Index=infinite_block.time
                 Key      : Lower : Value                : Upper : Fixed : Stale : Domain
-                0.037567 :  None :   3.2820355520254285 :  None : False : False :  Reals
-                0.166666 :  None :   1.1455232961988262 :  None : False : False :  Reals
-                0.295766 :  None :   0.3863385730606179 :  None : False : False :  Reals
-                  0.3709 :  None :  0.19982622599817002 :  None : False : False :  Reals
-                     0.5 :  None :   0.0748902640409812 :  None : False : False :  Reals
-                  0.6291 :  None : 0.027708687209867952 :  None : False : False :  Reals
-                0.704234 :  None : 0.016091592390530575 :  None : False : False :  Reals
-                0.833333 :  None :  0.01574001733376683 :  None : False : False :  Reals
-                0.962433 :  None :  0.06448362804424743 :  None : False : False :  Reals
+                0.037567 :  None :    3.704599900185715 :  None : False : False :  Reals
+                0.166666 :  None :   0.7313128172854654 :  None : False : False :  Reals
+                0.295766 :  None :    0.311757929265003 :  None : False : False :  Reals
+                  0.3709 :  None :   0.1884833951068414 :  None : False : False :  Reals
+                     0.5 :  None :  0.07467439059994567 :  None : False : False :  Reals
+                  0.6291 :  None : 0.027206837318216253 :  None : False : False :  Reals
+                0.704234 :  None :  0.01258044251541617 :  None : False : False :  Reals
+                0.833333 :  None :  0.00686713525932622 :  None : False : False :  Reals
+                0.962433 :  None : 0.027234782284547846 :  None : False : False :  Reals
             mc : Size=13, Index=infinite_block.time
                 Key      : Lower : Value              : Upper : Fixed : Stale : Domain
-                       0 :   250 :  324.5201328272855 :  1000 : False : False :  Reals
-                0.037567 :   250 :  324.5201328272855 :  1000 : False : False :  Reals
-                0.166666 :   250 : 324.52013289361713 :  1000 : False : False :  Reals
-                0.295766 :   250 :  324.5201330063084 :  1000 : False : False :  Reals
-                0.333333 :   250 : 324.52013312460224 :  1000 : False : False :  Reals
-                  0.3709 :   250 :   324.520133242896 :  1000 : False : False :  Reals
-                     0.5 :   250 :  324.5201333591958 :  1000 : False : False :  Reals
-                  0.6291 :   250 :  324.5201334653988 :  1000 : False : False :  Reals
-                0.666667 :   250 :  324.5201335637689 :  1000 : False : False :  Reals
-                0.704234 :   250 :  324.5201336621391 :  1000 : False : False :  Reals
-                0.833333 :   250 : 324.52013375111966 :  1000 : False : False :  Reals
-                0.962433 :   250 :  324.5201338153174 :  1000 : False : False :  Reals
-                       1 :   250 :  324.5201338153174 :  1000 : False : False :  Reals
+                       0 :   250 : 283.04989770242804 :  1000 : False : False :  Reals
+                0.037567 :   250 :   283.049897702428 :  1000 : False : False :  Reals
+                0.166666 :   250 :   283.049897702428 :  1000 : False : False :  Reals
+                0.295766 :   250 :  283.0498977024279 :  1000 : False : False :  Reals
+                0.333333 :   250 : 283.04989770242787 :  1000 : False : False :  Reals
+                  0.3709 :   250 : 283.04989770242776 :  1000 : False : False :  Reals
+                     0.5 :   250 : 283.04989770242764 :  1000 : False : False :  Reals
+                  0.6291 :   250 : 283.04989770242753 :  1000 : False : False :  Reals
+                0.666667 :   250 :  283.0498977024274 :  1000 : False : False :  Reals
+                0.704234 :   250 :  283.0498977024273 :  1000 : False : False :  Reals
+                0.833333 :   250 : 283.04989770242713 :  1000 : False : False :  Reals
+                0.962433 :   250 :  283.0498977024271 :  1000 : False : False :  Reals
+                       1 :   250 :  283.0498977024271 :  1000 : False : False :  Reals
             phi : Size=13, Index=infinite_block.time
                 Key      : Lower : Value               : Upper : Fixed : Stale : Domain
                        0 :     0 :                   0 :  None :  True :  True : NonNegativeReals
-                0.037567 :     0 :  0.1394692605896522 :  None : False : False : NonNegativeReals
-                0.166666 :     0 : 0.41044899934514184 :  None : False : False : NonNegativeReals
-                0.295766 :     0 : 0.49451248876383747 :  None : False : False : NonNegativeReals
-                0.333333 :     0 :  0.5093709164622935 :  None : False : False : NonNegativeReals
-                  0.3709 :     0 :  0.5178144643532446 :  None : False : False : NonNegativeReals
-                     0.5 :     0 :  0.5347108673304645 :  None : False : False : NonNegativeReals
-                  0.6291 :     0 :  0.5404971087321172 :  None : False : False : NonNegativeReals
-                0.666667 :     0 :  0.5415338822393572 :  None : False : False : NonNegativeReals
-                0.704234 :     0 :  0.5423005244339686 :  None : False : False : NonNegativeReals
-                0.833333 :     0 :  0.5438270643774707 :  None : False : False : NonNegativeReals
-                0.962433 :     0 :   0.548477293666879 :  None : False : False : NonNegativeReals
-                       1 :     0 :  0.5513263954254283 :  None : False : False : NonNegativeReals
+                0.037567 :     0 : 0.16375633711861426 :  None : False : False : NonNegativeReals
+                0.166666 :     0 :  0.4226192288624923 :  None : False : False : NonNegativeReals
+                0.295766 :     0 : 0.46247533211855363 :  None : False : False : NonNegativeReals
+                0.333333 :     0 : 0.48022714357862284 :  None : False : False : NonNegativeReals
+                  0.3709 :     0 :  0.4881465105532962 :  None : False : False : NonNegativeReals
+                     0.5 :     0 :  0.5044195847467273 :  None : False : False : NonNegativeReals
+                  0.6291 :     0 :  0.5102822810786282 :  None : False : False : NonNegativeReals
+                0.666667 :     0 :  0.5112613961456123 :  None : False : False : NonNegativeReals
+                0.704234 :     0 :  0.5118503423623545 :  None : False : False : NonNegativeReals
+                0.833333 :     0 :  0.5128250907417424 :  None : False : False : NonNegativeReals
+                0.962433 :     0 :  0.5147457717397893 :  None : False : False : NonNegativeReals
+                       1 :     0 :  0.5159653397023015 :  None : False : False : NonNegativeReals
 
-        18 Constraint Declarations
+        19 Constraint Declarations
             Ca_balance : Size=9, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                                 : Upper : Active
-                0.037567 :   0.0 :      0.998588720511*infinite_block.dCadt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.037567]/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.037567]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567]) + infinite_block.d_k[0.037567])*infinite_block.Ca[0.037567]) :   0.0 :   True
-                0.166666 :   0.0 :      0.972222444444*infinite_block.dCadt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.166666]/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.166666]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666]) + infinite_block.d_k[0.166666])*infinite_block.Ca[0.166666]) :   0.0 :   True
-                0.295766 :   0.0 :      0.912522473244*infinite_block.dCadt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.295766]/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.295766]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766]) + infinite_block.d_k[0.295766])*infinite_block.Ca[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :                          0.86243319*infinite_block.dCadt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.3709]/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.3709]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709]) + infinite_block.d_k[0.3709])*infinite_block.Ca[0.3709]) :   0.0 :   True
-                     0.5 :   0.0 :                                                        0.75*infinite_block.dCadt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.5]/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.5]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5]) + infinite_block.d_k[0.5])*infinite_block.Ca[0.5]) :   0.0 :   True
-                  0.6291 :   0.0 :                          0.60423319*infinite_block.dCadt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.6291]/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.6291]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291]) + infinite_block.d_k[0.6291])*infinite_block.Ca[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 :      0.504054473244*infinite_block.dCadt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.704234]/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.704234]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234]) + infinite_block.d_k[0.704234])*infinite_block.Ca[0.704234]) :   0.0 :   True
-                0.833333 :   0.0 :      0.305556111111*infinite_block.dCadt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.833333]/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.833333]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333]) + infinite_block.d_k[0.833333])*infinite_block.Ca[0.833333]) :   0.0 :   True
-                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCadt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.962433]/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.962433]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433]) + infinite_block.d_k[0.962433])*infinite_block.Ca[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                             : Upper : Active
+                0.037567 :   0.0 :      0.998588720511*infinite_block.dCadt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.037567]/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.037567]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567])*infinite_block.d_k[0.037567]*infinite_block.Ca[0.037567]) :   0.0 :   True
+                0.166666 :   0.0 :      0.972222444444*infinite_block.dCadt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.166666]/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.166666]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666])*infinite_block.d_k[0.166666]*infinite_block.Ca[0.166666]) :   0.0 :   True
+                0.295766 :   0.0 :      0.912522473244*infinite_block.dCadt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.295766]/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.295766]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766])*infinite_block.d_k[0.295766]*infinite_block.Ca[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :                          0.86243319*infinite_block.dCadt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.3709]/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.3709]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709])*infinite_block.d_k[0.3709]*infinite_block.Ca[0.3709]) :   0.0 :   True
+                     0.5 :   0.0 :                                                        0.75*infinite_block.dCadt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.5]/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.5]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5])*infinite_block.d_k[0.5]*infinite_block.Ca[0.5]) :   0.0 :   True
+                  0.6291 :   0.0 :                          0.60423319*infinite_block.dCadt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.6291]/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.6291]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291])*infinite_block.d_k[0.6291]*infinite_block.Ca[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 :      0.504054473244*infinite_block.dCadt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.704234]/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.704234]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234])*infinite_block.d_k[0.704234]*infinite_block.Ca[0.704234]) :   0.0 :   True
+                0.833333 :   0.0 :      0.305556111111*infinite_block.dCadt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.833333]/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.833333]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333])*infinite_block.d_k[0.833333]*infinite_block.Ca[0.833333]) :   0.0 :   True
+                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCadt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(infinite_block.Fa0[0.962433]/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Ca[0.962433]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433])*infinite_block.d_k[0.962433]*infinite_block.Ca[0.962433]) :   0.0 :   True
             Ca_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                       : Upper : Active
-                0.333333 :   0.0 : infinite_block.Ca[0.333333] - (-0.9999999999999982*infinite_block.Ca[0] + 1.6666666666666643*infinite_block.Ca[0.037567] - 1.333333333333329*infinite_block.Ca[0.166666] + 1.6666666666666634*infinite_block.Ca[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.Ca[0.666667] - (-0.9999999999999982*infinite_block.Ca[0.333333] + 1.6666666666666643*infinite_block.Ca[0.3709] - 1.333333333333329*infinite_block.Ca[0.5] + 1.6666666666666634*infinite_block.Ca[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.Ca[1] - (-0.9999999999999982*infinite_block.Ca[0.666667] + 1.6666666666666643*infinite_block.Ca[0.704234] - 1.333333333333329*infinite_block.Ca[0.833333] + 1.6666666666666634*infinite_block.Ca[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                        : Upper : Active
+                0.333333 :   0.0 : infinite_block.Ca[0.333333] - (-0.9999999999999964*infinite_block.Ca[0] + 1.6666666666666536*infinite_block.Ca[0.037567] - 1.3333333333333242*infinite_block.Ca[0.166666] + 1.6666666666666616*infinite_block.Ca[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.Ca[0.666667] - (-0.9999999999999964*infinite_block.Ca[0.333333] + 1.6666666666666536*infinite_block.Ca[0.3709] - 1.3333333333333242*infinite_block.Ca[0.5] + 1.6666666666666616*infinite_block.Ca[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.Ca[1] - (-0.9999999999999964*infinite_block.Ca[0.666667] + 1.6666666666666536*infinite_block.Ca[0.704234] - 1.3333333333333242*infinite_block.Ca[0.833333] + 1.6666666666666616*infinite_block.Ca[0.962433]) :   0.0 :   True
             Cb_balance : Size=9, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                          : Upper : Active
-                0.037567 :   0.0 :      0.998588720511*infinite_block.dCbdt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.037567]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567]) + infinite_block.d_k[0.037567])*infinite_block.Ca[0.037567]) :   0.0 :   True
-                0.166666 :   0.0 :      0.972222444444*infinite_block.dCbdt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.166666]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666]) + infinite_block.d_k[0.166666])*infinite_block.Ca[0.166666]) :   0.0 :   True
-                0.295766 :   0.0 :      0.912522473244*infinite_block.dCbdt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.295766]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766]) + infinite_block.d_k[0.295766])*infinite_block.Ca[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :                        0.86243319*infinite_block.dCbdt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.3709]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709]) + infinite_block.d_k[0.3709])*infinite_block.Ca[0.3709]) :   0.0 :   True
-                     0.5 :   0.0 :                                                   0.75*infinite_block.dCbdt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.5]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5]) + infinite_block.d_k[0.5])*infinite_block.Ca[0.5]) :   0.0 :   True
-                  0.6291 :   0.0 :                        0.60423319*infinite_block.dCbdt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.6291]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291]) + infinite_block.d_k[0.6291])*infinite_block.Ca[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 :      0.504054473244*infinite_block.dCbdt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.704234]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234]) + infinite_block.d_k[0.704234])*infinite_block.Ca[0.704234]) :   0.0 :   True
-                0.833333 :   0.0 :      0.305556111111*infinite_block.dCbdt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.833333]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333]) + infinite_block.d_k[0.833333])*infinite_block.Ca[0.833333]) :   0.0 :   True
-                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCbdt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.962433]) - (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433]) + infinite_block.d_k[0.962433])*infinite_block.Ca[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                      : Upper : Active
+                0.037567 :   0.0 :      0.998588720511*infinite_block.dCbdt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.037567]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567])*infinite_block.d_k[0.037567]*infinite_block.Ca[0.037567]) :   0.0 :   True
+                0.166666 :   0.0 :      0.972222444444*infinite_block.dCbdt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.166666]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666])*infinite_block.d_k[0.166666]*infinite_block.Ca[0.166666]) :   0.0 :   True
+                0.295766 :   0.0 :      0.912522473244*infinite_block.dCbdt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.295766]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766])*infinite_block.d_k[0.295766]*infinite_block.Ca[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :                        0.86243319*infinite_block.dCbdt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.3709]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709])*infinite_block.d_k[0.3709]*infinite_block.Ca[0.3709]) :   0.0 :   True
+                     0.5 :   0.0 :                                                   0.75*infinite_block.dCbdt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.5]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5])*infinite_block.d_k[0.5]*infinite_block.Ca[0.5]) :   0.0 :   True
+                  0.6291 :   0.0 :                        0.60423319*infinite_block.dCbdt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.6291]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291])*infinite_block.d_k[0.6291]*infinite_block.Ca[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 :      0.504054473244*infinite_block.dCbdt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.704234]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234])*infinite_block.d_k[0.704234]*infinite_block.Ca[0.704234]) :   0.0 :   True
+                0.833333 :   0.0 :      0.305556111111*infinite_block.dCbdt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.833333]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333])*infinite_block.d_k[0.833333]*infinite_block.Ca[0.833333]) :   0.0 :   True
+                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCbdt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(453.6/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cb[0.962433]) - 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433])*infinite_block.d_k[0.962433]*infinite_block.Ca[0.962433]) :   0.0 :   True
             Cb_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                       : Upper : Active
-                0.333333 :   0.0 : infinite_block.Cb[0.333333] - (-0.9999999999999982*infinite_block.Cb[0] + 1.6666666666666643*infinite_block.Cb[0.037567] - 1.333333333333329*infinite_block.Cb[0.166666] + 1.6666666666666634*infinite_block.Cb[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.Cb[0.666667] - (-0.9999999999999982*infinite_block.Cb[0.333333] + 1.6666666666666643*infinite_block.Cb[0.3709] - 1.333333333333329*infinite_block.Cb[0.5] + 1.6666666666666634*infinite_block.Cb[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.Cb[1] - (-0.9999999999999982*infinite_block.Cb[0.666667] + 1.6666666666666643*infinite_block.Cb[0.704234] - 1.333333333333329*infinite_block.Cb[0.833333] + 1.6666666666666634*infinite_block.Cb[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                        : Upper : Active
+                0.333333 :   0.0 : infinite_block.Cb[0.333333] - (-0.9999999999999964*infinite_block.Cb[0] + 1.6666666666666536*infinite_block.Cb[0.037567] - 1.3333333333333242*infinite_block.Cb[0.166666] + 1.6666666666666616*infinite_block.Cb[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.Cb[0.666667] - (-0.9999999999999964*infinite_block.Cb[0.333333] + 1.6666666666666536*infinite_block.Cb[0.3709] - 1.3333333333333242*infinite_block.Cb[0.5] + 1.6666666666666616*infinite_block.Cb[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.Cb[1] - (-0.9999999999999964*infinite_block.Cb[0.666667] + 1.6666666666666536*infinite_block.Cb[0.704234] - 1.3333333333333242*infinite_block.Cb[0.833333] + 1.6666666666666616*infinite_block.Cb[0.962433]) :   0.0 :   True
             Cc_balance : Size=9, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                        : Upper : Active
-                0.037567 :   0.0 :      0.998588720511*infinite_block.dCcdt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.037567]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567]) + infinite_block.d_k[0.037567])*infinite_block.Ca[0.037567]) :   0.0 :   True
-                0.166666 :   0.0 :      0.972222444444*infinite_block.dCcdt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.166666]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666]) + infinite_block.d_k[0.166666])*infinite_block.Ca[0.166666]) :   0.0 :   True
-                0.295766 :   0.0 :      0.912522473244*infinite_block.dCcdt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.295766]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766]) + infinite_block.d_k[0.295766])*infinite_block.Ca[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :                      0.86243319*infinite_block.dCcdt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.3709]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709]) + infinite_block.d_k[0.3709])*infinite_block.Ca[0.3709]) :   0.0 :   True
-                     0.5 :   0.0 :                                              0.75*infinite_block.dCcdt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.5]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5]) + infinite_block.d_k[0.5])*infinite_block.Ca[0.5]) :   0.0 :   True
-                  0.6291 :   0.0 :                      0.60423319*infinite_block.dCcdt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.6291]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291]) + infinite_block.d_k[0.6291])*infinite_block.Ca[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 :      0.504054473244*infinite_block.dCcdt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.704234]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234]) + infinite_block.d_k[0.704234])*infinite_block.Ca[0.704234]) :   0.0 :   True
-                0.833333 :   0.0 :      0.305556111111*infinite_block.dCcdt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.833333]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333]) + infinite_block.d_k[0.833333])*infinite_block.Ca[0.833333]) :   0.0 :   True
-                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCcdt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.962433]) + (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433]) + infinite_block.d_k[0.962433])*infinite_block.Ca[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                    : Upper : Active
+                0.037567 :   0.0 :      0.998588720511*infinite_block.dCcdt[0.037567] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.037567]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567])*infinite_block.d_k[0.037567]*infinite_block.Ca[0.037567]) :   0.0 :   True
+                0.166666 :   0.0 :      0.972222444444*infinite_block.dCcdt[0.166666] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.166666] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.166666]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666])*infinite_block.d_k[0.166666]*infinite_block.Ca[0.166666]) :   0.0 :   True
+                0.295766 :   0.0 :      0.912522473244*infinite_block.dCcdt[0.295766] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.295766] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.295766]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766])*infinite_block.d_k[0.295766]*infinite_block.Ca[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :                      0.86243319*infinite_block.dCcdt[0.3709] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.3709] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.3709]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709])*infinite_block.d_k[0.3709]*infinite_block.Ca[0.3709]) :   0.0 :   True
+                     0.5 :   0.0 :                                              0.75*infinite_block.dCcdt[0.5] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.5] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.5]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5])*infinite_block.d_k[0.5]*infinite_block.Ca[0.5]) :   0.0 :   True
+                  0.6291 :   0.0 :                      0.60423319*infinite_block.dCcdt[0.6291] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.6291] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.6291]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291])*infinite_block.d_k[0.6291]*infinite_block.Ca[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 :      0.504054473244*infinite_block.dCcdt[0.704234] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.704234] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.704234]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234])*infinite_block.d_k[0.704234]*infinite_block.Ca[0.704234]) :   0.0 :   True
+                0.833333 :   0.0 :      0.305556111111*infinite_block.dCcdt[0.833333] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.833333]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333])*infinite_block.d_k[0.833333]*infinite_block.Ca[0.833333]) :   0.0 :   True
+                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCcdt[0.962433] - (1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(- infinite_block.Cc[0.962433]) + 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433])*infinite_block.d_k[0.962433]*infinite_block.Ca[0.962433]) :   0.0 :   True
             Cc_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                       : Upper : Active
-                0.333333 :   0.0 : infinite_block.Cc[0.333333] - (-0.9999999999999982*infinite_block.Cc[0] + 1.6666666666666643*infinite_block.Cc[0.037567] - 1.333333333333329*infinite_block.Cc[0.166666] + 1.6666666666666634*infinite_block.Cc[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.Cc[0.666667] - (-0.9999999999999982*infinite_block.Cc[0.333333] + 1.6666666666666643*infinite_block.Cc[0.3709] - 1.333333333333329*infinite_block.Cc[0.5] + 1.6666666666666634*infinite_block.Cc[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.Cc[1] - (-0.9999999999999982*infinite_block.Cc[0.666667] + 1.6666666666666643*infinite_block.Cc[0.704234] - 1.333333333333329*infinite_block.Cc[0.833333] + 1.6666666666666634*infinite_block.Cc[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                        : Upper : Active
+                0.333333 :   0.0 : infinite_block.Cc[0.333333] - (-0.9999999999999964*infinite_block.Cc[0] + 1.6666666666666536*infinite_block.Cc[0.037567] - 1.3333333333333242*infinite_block.Cc[0.166666] + 1.6666666666666616*infinite_block.Cc[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.Cc[0.666667] - (-0.9999999999999964*infinite_block.Cc[0.333333] + 1.6666666666666536*infinite_block.Cc[0.3709] - 1.3333333333333242*infinite_block.Cc[0.5] + 1.6666666666666616*infinite_block.Cc[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.Cc[1] - (-0.9999999999999964*infinite_block.Cc[0.666667] + 1.6666666666666536*infinite_block.Cc[0.704234] - 1.3333333333333242*infinite_block.Cc[0.833333] + 1.6666666666666616*infinite_block.Cc[0.962433]) :   0.0 :   True
             Cm_balance : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                                                                    : Upper : Active
                 0.037567 :   0.0 :      0.998588720511*infinite_block.dCmdt[0.037567] - 1/(5/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433))*(45.4/(0.06756756756756756*infinite_block.Fa0[0.037567] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cm[0.037567]) :   0.0 :   True
@@ -587,115 +595,126 @@
                 0.833333 :   0.0 :      0.305556111111*infinite_block.dCmdt[0.833333] - 1/(5/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433))*(45.4/(0.06756756756756756*infinite_block.Fa0[0.833333] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cm[0.833333]) :   0.0 :   True
                 0.962433 :   0.0 : 0.07372272051100004*infinite_block.dCmdt[0.962433] - 1/(5/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433))*(45.4/(0.06756756756756756*infinite_block.Fa0[0.962433] + 8.202531645569621 + 1.8380566801619433) - infinite_block.Cm[0.962433]) :   0.0 :   True
             Cm_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                       : Upper : Active
-                0.333333 :   0.0 : infinite_block.Cm[0.333333] - (-0.9999999999999982*infinite_block.Cm[0] + 1.6666666666666643*infinite_block.Cm[0.037567] - 1.333333333333329*infinite_block.Cm[0.166666] + 1.6666666666666634*infinite_block.Cm[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.Cm[0.666667] - (-0.9999999999999982*infinite_block.Cm[0.333333] + 1.6666666666666643*infinite_block.Cm[0.3709] - 1.333333333333329*infinite_block.Cm[0.5] + 1.6666666666666634*infinite_block.Cm[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.Cm[1] - (-0.9999999999999982*infinite_block.Cm[0.666667] + 1.6666666666666643*infinite_block.Cm[0.704234] - 1.333333333333329*infinite_block.Cm[0.833333] + 1.6666666666666634*infinite_block.Cm[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                        : Upper : Active
+                0.333333 :   0.0 : infinite_block.Cm[0.333333] - (-0.9999999999999964*infinite_block.Cm[0] + 1.6666666666666536*infinite_block.Cm[0.037567] - 1.3333333333333242*infinite_block.Cm[0.166666] + 1.6666666666666616*infinite_block.Cm[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.Cm[0.666667] - (-0.9999999999999964*infinite_block.Cm[0.333333] + 1.6666666666666536*infinite_block.Cm[0.3709] - 1.3333333333333242*infinite_block.Cm[0.5] + 1.6666666666666616*infinite_block.Cm[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.Cm[1] - (-0.9999999999999964*infinite_block.Cm[0.666667] + 1.6666666666666536*infinite_block.Cm[0.704234] - 1.3333333333333242*infinite_block.Cm[0.833333] + 1.6666666666666616*infinite_block.Cm[0.962433]) :   0.0 :   True
             T_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                  : Upper : Active
-                0.333333 :   0.0 : infinite_block.T[0.333333] - (-0.9999999999999982*infinite_block.T[0] + 1.6666666666666643*infinite_block.T[0.037567] - 1.333333333333329*infinite_block.T[0.166666] + 1.6666666666666634*infinite_block.T[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.T[0.666667] - (-0.9999999999999982*infinite_block.T[0.333333] + 1.6666666666666643*infinite_block.T[0.3709] - 1.333333333333329*infinite_block.T[0.5] + 1.6666666666666634*infinite_block.T[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.T[1] - (-0.9999999999999982*infinite_block.T[0.666667] + 1.6666666666666643*infinite_block.T[0.704234] - 1.333333333333329*infinite_block.T[0.833333] + 1.6666666666666634*infinite_block.T[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                   : Upper : Active
+                0.333333 :   0.0 : infinite_block.T[0.333333] - (-0.9999999999999964*infinite_block.T[0] + 1.6666666666666536*infinite_block.T[0.037567] - 1.3333333333333242*infinite_block.T[0.166666] + 1.6666666666666616*infinite_block.T[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.T[0.666667] - (-0.9999999999999964*infinite_block.T[0.333333] + 1.6666666666666536*infinite_block.T[0.3709] - 1.3333333333333242*infinite_block.T[0.5] + 1.6666666666666616*infinite_block.T[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.T[1] - (-0.9999999999999964*infinite_block.T[0.666667] + 1.6666666666666536*infinite_block.T[0.704234] - 1.3333333333333242*infinite_block.T[0.833333] + 1.6666666666666616*infinite_block.T[0.962433]) :   0.0 :   True
             dCadt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                 : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dCadt[0.037567] - (-18.00001800001799*infinite_block.Ca[0] + 15.000015000014985*infinite_block.Ca[0.037567] + 3.491936876766547*infinite_block.Ca[0.166666] - 0.49193387676354217*infinite_block.Ca[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dCadt[0.166666] - (9.000009000009006*infinite_block.Ca[0] - 17.182475547994116*infinite_block.Ca[0.037567] + 6.000006000006027*infinite_block.Ca[0.166666] + 2.1824605479790793*infinite_block.Ca[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dCadt[0.295766] - (-18.000018000018052*infinite_block.Ca[0] + 30.49196387679363*infinite_block.Ca[0.037567] - 27.491960876790564*infinite_block.Ca[0.166666] + 15.000015000014983*infinite_block.Ca[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dCadt[0.3709] - (-17.999964000071987*infinite_block.Ca[0.333333] + 14.999970000059983*infinite_block.Ca[0.3709] + 3.4919264009768676*infinite_block.Ca[0.5] - 0.4919324009648634*infinite_block.Ca[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dCadt[0.5] - (8.999982000036004*infinite_block.Ca[0.333333] - 17.182424000670565*infinite_block.Ca[0.3709] + 5.999988000024026*infinite_block.Ca[0.5] + 2.1824540006105297*infinite_block.Ca[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dCadt[0.6291] - (-17.999964000072048*infinite_block.Ca[0.333333] + 30.491872401084947*infinite_block.Ca[0.3709] - 27.49187840107288*infinite_block.Ca[0.5] + 14.99997000005998*infinite_block.Ca[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dCadt[0.704234] - (-18.00001800001799*infinite_block.Ca[0.666667] + 15.000015000014985*infinite_block.Ca[0.704234] + 3.491936876766547*infinite_block.Ca[0.833333] - 0.49193387676354217*infinite_block.Ca[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dCadt[0.833333] - (9.000009000009006*infinite_block.Ca[0.666667] - 17.182475547994116*infinite_block.Ca[0.704234] + 6.000006000006027*infinite_block.Ca[0.833333] + 2.1824605479790793*infinite_block.Ca[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dCadt[0.962433] - (-18.000018000018052*infinite_block.Ca[0.666667] + 30.49196387679363*infinite_block.Ca[0.704234] - 27.491960876790564*infinite_block.Ca[0.833333] + 15.000015000014983*infinite_block.Ca[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dCadt[0.037567] - (-18.000018000017995*infinite_block.Ca[0] + 15.00001500001499*infinite_block.Ca[0.037567] + 3.491936876766543*infinite_block.Ca[0.166666] - 0.49193387676354283*infinite_block.Ca[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dCadt[0.166666] - (9.000009000009001*infinite_block.Ca[0] - 17.182475547994116*infinite_block.Ca[0.037567] + 6.0000060000060165*infinite_block.Ca[0.166666] + 2.182460547979083*infinite_block.Ca[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dCadt[0.295766] - (-18.000018000018045*infinite_block.Ca[0] + 30.49196387679358*infinite_block.Ca[0.037567] - 27.491960876790543*infinite_block.Ca[0.166666] + 15.00001500001498*infinite_block.Ca[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dCadt[0.3709] - (-17.999964000071994*infinite_block.Ca[0.333333] + 14.999970000059989*infinite_block.Ca[0.3709] + 3.4919264009768636*infinite_block.Ca[0.5] - 0.49193240096486407*infinite_block.Ca[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dCadt[0.5] - (8.999982000035999*infinite_block.Ca[0.333333] - 17.182424000670565*infinite_block.Ca[0.3709] + 5.9999880000240156*infinite_block.Ca[0.5] + 2.1824540006105333*infinite_block.Ca[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dCadt[0.6291] - (-17.99996400007204*infinite_block.Ca[0.333333] + 30.491872401084898*infinite_block.Ca[0.3709] - 27.49187840107286*infinite_block.Ca[0.5] + 14.999970000059978*infinite_block.Ca[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dCadt[0.704234] - (-18.000018000017995*infinite_block.Ca[0.666667] + 15.00001500001499*infinite_block.Ca[0.704234] + 3.491936876766543*infinite_block.Ca[0.833333] - 0.49193387676354283*infinite_block.Ca[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dCadt[0.833333] - (9.000009000009001*infinite_block.Ca[0.666667] - 17.182475547994116*infinite_block.Ca[0.704234] + 6.0000060000060165*infinite_block.Ca[0.833333] + 2.182460547979083*infinite_block.Ca[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dCadt[0.962433] - (-18.000018000018045*infinite_block.Ca[0.666667] + 30.49196387679358*infinite_block.Ca[0.704234] - 27.491960876790543*infinite_block.Ca[0.833333] + 15.00001500001498*infinite_block.Ca[0.962433]) :   0.0 :   True
             dCbdt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                 : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dCbdt[0.037567] - (-18.00001800001799*infinite_block.Cb[0] + 15.000015000014985*infinite_block.Cb[0.037567] + 3.491936876766547*infinite_block.Cb[0.166666] - 0.49193387676354217*infinite_block.Cb[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dCbdt[0.166666] - (9.000009000009006*infinite_block.Cb[0] - 17.182475547994116*infinite_block.Cb[0.037567] + 6.000006000006027*infinite_block.Cb[0.166666] + 2.1824605479790793*infinite_block.Cb[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dCbdt[0.295766] - (-18.000018000018052*infinite_block.Cb[0] + 30.49196387679363*infinite_block.Cb[0.037567] - 27.491960876790564*infinite_block.Cb[0.166666] + 15.000015000014983*infinite_block.Cb[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dCbdt[0.3709] - (-17.999964000071987*infinite_block.Cb[0.333333] + 14.999970000059983*infinite_block.Cb[0.3709] + 3.4919264009768676*infinite_block.Cb[0.5] - 0.4919324009648634*infinite_block.Cb[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dCbdt[0.5] - (8.999982000036004*infinite_block.Cb[0.333333] - 17.182424000670565*infinite_block.Cb[0.3709] + 5.999988000024026*infinite_block.Cb[0.5] + 2.1824540006105297*infinite_block.Cb[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dCbdt[0.6291] - (-17.999964000072048*infinite_block.Cb[0.333333] + 30.491872401084947*infinite_block.Cb[0.3709] - 27.49187840107288*infinite_block.Cb[0.5] + 14.99997000005998*infinite_block.Cb[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dCbdt[0.704234] - (-18.00001800001799*infinite_block.Cb[0.666667] + 15.000015000014985*infinite_block.Cb[0.704234] + 3.491936876766547*infinite_block.Cb[0.833333] - 0.49193387676354217*infinite_block.Cb[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dCbdt[0.833333] - (9.000009000009006*infinite_block.Cb[0.666667] - 17.182475547994116*infinite_block.Cb[0.704234] + 6.000006000006027*infinite_block.Cb[0.833333] + 2.1824605479790793*infinite_block.Cb[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dCbdt[0.962433] - (-18.000018000018052*infinite_block.Cb[0.666667] + 30.49196387679363*infinite_block.Cb[0.704234] - 27.491960876790564*infinite_block.Cb[0.833333] + 15.000015000014983*infinite_block.Cb[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dCbdt[0.037567] - (-18.000018000017995*infinite_block.Cb[0] + 15.00001500001499*infinite_block.Cb[0.037567] + 3.491936876766543*infinite_block.Cb[0.166666] - 0.49193387676354283*infinite_block.Cb[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dCbdt[0.166666] - (9.000009000009001*infinite_block.Cb[0] - 17.182475547994116*infinite_block.Cb[0.037567] + 6.0000060000060165*infinite_block.Cb[0.166666] + 2.182460547979083*infinite_block.Cb[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dCbdt[0.295766] - (-18.000018000018045*infinite_block.Cb[0] + 30.49196387679358*infinite_block.Cb[0.037567] - 27.491960876790543*infinite_block.Cb[0.166666] + 15.00001500001498*infinite_block.Cb[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dCbdt[0.3709] - (-17.999964000071994*infinite_block.Cb[0.333333] + 14.999970000059989*infinite_block.Cb[0.3709] + 3.4919264009768636*infinite_block.Cb[0.5] - 0.49193240096486407*infinite_block.Cb[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dCbdt[0.5] - (8.999982000035999*infinite_block.Cb[0.333333] - 17.182424000670565*infinite_block.Cb[0.3709] + 5.9999880000240156*infinite_block.Cb[0.5] + 2.1824540006105333*infinite_block.Cb[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dCbdt[0.6291] - (-17.99996400007204*infinite_block.Cb[0.333333] + 30.491872401084898*infinite_block.Cb[0.3709] - 27.49187840107286*infinite_block.Cb[0.5] + 14.999970000059978*infinite_block.Cb[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dCbdt[0.704234] - (-18.000018000017995*infinite_block.Cb[0.666667] + 15.00001500001499*infinite_block.Cb[0.704234] + 3.491936876766543*infinite_block.Cb[0.833333] - 0.49193387676354283*infinite_block.Cb[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dCbdt[0.833333] - (9.000009000009001*infinite_block.Cb[0.666667] - 17.182475547994116*infinite_block.Cb[0.704234] + 6.0000060000060165*infinite_block.Cb[0.833333] + 2.182460547979083*infinite_block.Cb[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dCbdt[0.962433] - (-18.000018000018045*infinite_block.Cb[0.666667] + 30.49196387679358*infinite_block.Cb[0.704234] - 27.491960876790543*infinite_block.Cb[0.833333] + 15.00001500001498*infinite_block.Cb[0.962433]) :   0.0 :   True
             dCcdt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                 : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dCcdt[0.037567] - (-18.00001800001799*infinite_block.Cc[0] + 15.000015000014985*infinite_block.Cc[0.037567] + 3.491936876766547*infinite_block.Cc[0.166666] - 0.49193387676354217*infinite_block.Cc[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dCcdt[0.166666] - (9.000009000009006*infinite_block.Cc[0] - 17.182475547994116*infinite_block.Cc[0.037567] + 6.000006000006027*infinite_block.Cc[0.166666] + 2.1824605479790793*infinite_block.Cc[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dCcdt[0.295766] - (-18.000018000018052*infinite_block.Cc[0] + 30.49196387679363*infinite_block.Cc[0.037567] - 27.491960876790564*infinite_block.Cc[0.166666] + 15.000015000014983*infinite_block.Cc[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dCcdt[0.3709] - (-17.999964000071987*infinite_block.Cc[0.333333] + 14.999970000059983*infinite_block.Cc[0.3709] + 3.4919264009768676*infinite_block.Cc[0.5] - 0.4919324009648634*infinite_block.Cc[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dCcdt[0.5] - (8.999982000036004*infinite_block.Cc[0.333333] - 17.182424000670565*infinite_block.Cc[0.3709] + 5.999988000024026*infinite_block.Cc[0.5] + 2.1824540006105297*infinite_block.Cc[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dCcdt[0.6291] - (-17.999964000072048*infinite_block.Cc[0.333333] + 30.491872401084947*infinite_block.Cc[0.3709] - 27.49187840107288*infinite_block.Cc[0.5] + 14.99997000005998*infinite_block.Cc[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dCcdt[0.704234] - (-18.00001800001799*infinite_block.Cc[0.666667] + 15.000015000014985*infinite_block.Cc[0.704234] + 3.491936876766547*infinite_block.Cc[0.833333] - 0.49193387676354217*infinite_block.Cc[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dCcdt[0.833333] - (9.000009000009006*infinite_block.Cc[0.666667] - 17.182475547994116*infinite_block.Cc[0.704234] + 6.000006000006027*infinite_block.Cc[0.833333] + 2.1824605479790793*infinite_block.Cc[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dCcdt[0.962433] - (-18.000018000018052*infinite_block.Cc[0.666667] + 30.49196387679363*infinite_block.Cc[0.704234] - 27.491960876790564*infinite_block.Cc[0.833333] + 15.000015000014983*infinite_block.Cc[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dCcdt[0.037567] - (-18.000018000017995*infinite_block.Cc[0] + 15.00001500001499*infinite_block.Cc[0.037567] + 3.491936876766543*infinite_block.Cc[0.166666] - 0.49193387676354283*infinite_block.Cc[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dCcdt[0.166666] - (9.000009000009001*infinite_block.Cc[0] - 17.182475547994116*infinite_block.Cc[0.037567] + 6.0000060000060165*infinite_block.Cc[0.166666] + 2.182460547979083*infinite_block.Cc[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dCcdt[0.295766] - (-18.000018000018045*infinite_block.Cc[0] + 30.49196387679358*infinite_block.Cc[0.037567] - 27.491960876790543*infinite_block.Cc[0.166666] + 15.00001500001498*infinite_block.Cc[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dCcdt[0.3709] - (-17.999964000071994*infinite_block.Cc[0.333333] + 14.999970000059989*infinite_block.Cc[0.3709] + 3.4919264009768636*infinite_block.Cc[0.5] - 0.49193240096486407*infinite_block.Cc[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dCcdt[0.5] - (8.999982000035999*infinite_block.Cc[0.333333] - 17.182424000670565*infinite_block.Cc[0.3709] + 5.9999880000240156*infinite_block.Cc[0.5] + 2.1824540006105333*infinite_block.Cc[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dCcdt[0.6291] - (-17.99996400007204*infinite_block.Cc[0.333333] + 30.491872401084898*infinite_block.Cc[0.3709] - 27.49187840107286*infinite_block.Cc[0.5] + 14.999970000059978*infinite_block.Cc[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dCcdt[0.704234] - (-18.000018000017995*infinite_block.Cc[0.666667] + 15.00001500001499*infinite_block.Cc[0.704234] + 3.491936876766543*infinite_block.Cc[0.833333] - 0.49193387676354283*infinite_block.Cc[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dCcdt[0.833333] - (9.000009000009001*infinite_block.Cc[0.666667] - 17.182475547994116*infinite_block.Cc[0.704234] + 6.0000060000060165*infinite_block.Cc[0.833333] + 2.182460547979083*infinite_block.Cc[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dCcdt[0.962433] - (-18.000018000018045*infinite_block.Cc[0.666667] + 30.49196387679358*infinite_block.Cc[0.704234] - 27.491960876790543*infinite_block.Cc[0.833333] + 15.00001500001498*infinite_block.Cc[0.962433]) :   0.0 :   True
             dCmdt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                 : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dCmdt[0.037567] - (-18.00001800001799*infinite_block.Cm[0] + 15.000015000014985*infinite_block.Cm[0.037567] + 3.491936876766547*infinite_block.Cm[0.166666] - 0.49193387676354217*infinite_block.Cm[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dCmdt[0.166666] - (9.000009000009006*infinite_block.Cm[0] - 17.182475547994116*infinite_block.Cm[0.037567] + 6.000006000006027*infinite_block.Cm[0.166666] + 2.1824605479790793*infinite_block.Cm[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dCmdt[0.295766] - (-18.000018000018052*infinite_block.Cm[0] + 30.49196387679363*infinite_block.Cm[0.037567] - 27.491960876790564*infinite_block.Cm[0.166666] + 15.000015000014983*infinite_block.Cm[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dCmdt[0.3709] - (-17.999964000071987*infinite_block.Cm[0.333333] + 14.999970000059983*infinite_block.Cm[0.3709] + 3.4919264009768676*infinite_block.Cm[0.5] - 0.4919324009648634*infinite_block.Cm[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dCmdt[0.5] - (8.999982000036004*infinite_block.Cm[0.333333] - 17.182424000670565*infinite_block.Cm[0.3709] + 5.999988000024026*infinite_block.Cm[0.5] + 2.1824540006105297*infinite_block.Cm[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dCmdt[0.6291] - (-17.999964000072048*infinite_block.Cm[0.333333] + 30.491872401084947*infinite_block.Cm[0.3709] - 27.49187840107288*infinite_block.Cm[0.5] + 14.99997000005998*infinite_block.Cm[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dCmdt[0.704234] - (-18.00001800001799*infinite_block.Cm[0.666667] + 15.000015000014985*infinite_block.Cm[0.704234] + 3.491936876766547*infinite_block.Cm[0.833333] - 0.49193387676354217*infinite_block.Cm[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dCmdt[0.833333] - (9.000009000009006*infinite_block.Cm[0.666667] - 17.182475547994116*infinite_block.Cm[0.704234] + 6.000006000006027*infinite_block.Cm[0.833333] + 2.1824605479790793*infinite_block.Cm[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dCmdt[0.962433] - (-18.000018000018052*infinite_block.Cm[0.666667] + 30.49196387679363*infinite_block.Cm[0.704234] - 27.491960876790564*infinite_block.Cm[0.833333] + 15.000015000014983*infinite_block.Cm[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dCmdt[0.037567] - (-18.000018000017995*infinite_block.Cm[0] + 15.00001500001499*infinite_block.Cm[0.037567] + 3.491936876766543*infinite_block.Cm[0.166666] - 0.49193387676354283*infinite_block.Cm[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dCmdt[0.166666] - (9.000009000009001*infinite_block.Cm[0] - 17.182475547994116*infinite_block.Cm[0.037567] + 6.0000060000060165*infinite_block.Cm[0.166666] + 2.182460547979083*infinite_block.Cm[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dCmdt[0.295766] - (-18.000018000018045*infinite_block.Cm[0] + 30.49196387679358*infinite_block.Cm[0.037567] - 27.491960876790543*infinite_block.Cm[0.166666] + 15.00001500001498*infinite_block.Cm[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dCmdt[0.3709] - (-17.999964000071994*infinite_block.Cm[0.333333] + 14.999970000059989*infinite_block.Cm[0.3709] + 3.4919264009768636*infinite_block.Cm[0.5] - 0.49193240096486407*infinite_block.Cm[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dCmdt[0.5] - (8.999982000035999*infinite_block.Cm[0.333333] - 17.182424000670565*infinite_block.Cm[0.3709] + 5.9999880000240156*infinite_block.Cm[0.5] + 2.1824540006105333*infinite_block.Cm[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dCmdt[0.6291] - (-17.99996400007204*infinite_block.Cm[0.333333] + 30.491872401084898*infinite_block.Cm[0.3709] - 27.49187840107286*infinite_block.Cm[0.5] + 14.999970000059978*infinite_block.Cm[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dCmdt[0.704234] - (-18.000018000017995*infinite_block.Cm[0.666667] + 15.00001500001499*infinite_block.Cm[0.704234] + 3.491936876766543*infinite_block.Cm[0.833333] - 0.49193387676354283*infinite_block.Cm[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dCmdt[0.833333] - (9.000009000009001*infinite_block.Cm[0.666667] - 17.182475547994116*infinite_block.Cm[0.704234] + 6.0000060000060165*infinite_block.Cm[0.833333] + 2.182460547979083*infinite_block.Cm[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dCmdt[0.962433] - (-18.000018000018045*infinite_block.Cm[0.666667] + 30.49196387679358*infinite_block.Cm[0.704234] - 27.491960876790543*infinite_block.Cm[0.833333] + 15.00001500001498*infinite_block.Cm[0.962433]) :   0.0 :   True
             dTdt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                            : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dTdt[0.037567] - (-18.00001800001799*infinite_block.T[0] + 15.000015000014985*infinite_block.T[0.037567] + 3.491936876766547*infinite_block.T[0.166666] - 0.49193387676354217*infinite_block.T[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dTdt[0.166666] - (9.000009000009006*infinite_block.T[0] - 17.182475547994116*infinite_block.T[0.037567] + 6.000006000006027*infinite_block.T[0.166666] + 2.1824605479790793*infinite_block.T[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dTdt[0.295766] - (-18.000018000018052*infinite_block.T[0] + 30.49196387679363*infinite_block.T[0.037567] - 27.491960876790564*infinite_block.T[0.166666] + 15.000015000014983*infinite_block.T[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dTdt[0.3709] - (-17.999964000071987*infinite_block.T[0.333333] + 14.999970000059983*infinite_block.T[0.3709] + 3.4919264009768676*infinite_block.T[0.5] - 0.4919324009648634*infinite_block.T[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dTdt[0.5] - (8.999982000036004*infinite_block.T[0.333333] - 17.182424000670565*infinite_block.T[0.3709] + 5.999988000024026*infinite_block.T[0.5] + 2.1824540006105297*infinite_block.T[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dTdt[0.6291] - (-17.999964000072048*infinite_block.T[0.333333] + 30.491872401084947*infinite_block.T[0.3709] - 27.49187840107288*infinite_block.T[0.5] + 14.99997000005998*infinite_block.T[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dTdt[0.704234] - (-18.00001800001799*infinite_block.T[0.666667] + 15.000015000014985*infinite_block.T[0.704234] + 3.491936876766547*infinite_block.T[0.833333] - 0.49193387676354217*infinite_block.T[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dTdt[0.833333] - (9.000009000009006*infinite_block.T[0.666667] - 17.182475547994116*infinite_block.T[0.704234] + 6.000006000006027*infinite_block.T[0.833333] + 2.1824605479790793*infinite_block.T[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dTdt[0.962433] - (-18.000018000018052*infinite_block.T[0.666667] + 30.49196387679363*infinite_block.T[0.704234] - 27.491960876790564*infinite_block.T[0.833333] + 15.000015000014983*infinite_block.T[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dTdt[0.037567] - (-18.000018000017995*infinite_block.T[0] + 15.00001500001499*infinite_block.T[0.037567] + 3.491936876766543*infinite_block.T[0.166666] - 0.49193387676354283*infinite_block.T[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dTdt[0.166666] - (9.000009000009001*infinite_block.T[0] - 17.182475547994116*infinite_block.T[0.037567] + 6.0000060000060165*infinite_block.T[0.166666] + 2.182460547979083*infinite_block.T[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dTdt[0.295766] - (-18.000018000018045*infinite_block.T[0] + 30.49196387679358*infinite_block.T[0.037567] - 27.491960876790543*infinite_block.T[0.166666] + 15.00001500001498*infinite_block.T[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dTdt[0.3709] - (-17.999964000071994*infinite_block.T[0.333333] + 14.999970000059989*infinite_block.T[0.3709] + 3.4919264009768636*infinite_block.T[0.5] - 0.49193240096486407*infinite_block.T[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dTdt[0.5] - (8.999982000035999*infinite_block.T[0.333333] - 17.182424000670565*infinite_block.T[0.3709] + 5.9999880000240156*infinite_block.T[0.5] + 2.1824540006105333*infinite_block.T[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dTdt[0.6291] - (-17.99996400007204*infinite_block.T[0.333333] + 30.491872401084898*infinite_block.T[0.3709] - 27.49187840107286*infinite_block.T[0.5] + 14.999970000059978*infinite_block.T[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dTdt[0.704234] - (-18.000018000017995*infinite_block.T[0.666667] + 15.00001500001499*infinite_block.T[0.704234] + 3.491936876766543*infinite_block.T[0.833333] - 0.49193387676354283*infinite_block.T[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dTdt[0.833333] - (9.000009000009001*infinite_block.T[0.666667] - 17.182475547994116*infinite_block.T[0.704234] + 6.0000060000060165*infinite_block.T[0.833333] + 2.182460547979083*infinite_block.T[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dTdt[0.962433] - (-18.000018000018045*infinite_block.T[0.666667] + 30.49196387679358*infinite_block.T[0.704234] - 27.491960876790543*infinite_block.T[0.833333] + 15.00001500001498*infinite_block.T[0.962433]) :   0.0 :   True
             dphidt_disc_eq : Size=9, Index=infinite_block.time, Active=True
                 Key      : Lower : Body                                                                                                                                                                                                                                      : Upper : Active
-                0.037567 :   0.0 :        infinite_block.dphidt[0.037567] - (-18.00001800001799*infinite_block.phi[0] + 15.000015000014985*infinite_block.phi[0.037567] + 3.491936876766547*infinite_block.phi[0.166666] - 0.49193387676354217*infinite_block.phi[0.295766]) :   0.0 :   True
-                0.166666 :   0.0 :          infinite_block.dphidt[0.166666] - (9.000009000009006*infinite_block.phi[0] - 17.182475547994116*infinite_block.phi[0.037567] + 6.000006000006027*infinite_block.phi[0.166666] + 2.1824605479790793*infinite_block.phi[0.295766]) :   0.0 :   True
-                0.295766 :   0.0 :        infinite_block.dphidt[0.295766] - (-18.000018000018052*infinite_block.phi[0] + 30.49196387679363*infinite_block.phi[0.037567] - 27.491960876790564*infinite_block.phi[0.166666] + 15.000015000014983*infinite_block.phi[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :           infinite_block.dphidt[0.3709] - (-17.999964000071987*infinite_block.phi[0.333333] + 14.999970000059983*infinite_block.phi[0.3709] + 3.4919264009768676*infinite_block.phi[0.5] - 0.4919324009648634*infinite_block.phi[0.6291]) :   0.0 :   True
-                     0.5 :   0.0 :                 infinite_block.dphidt[0.5] - (8.999982000036004*infinite_block.phi[0.333333] - 17.182424000670565*infinite_block.phi[0.3709] + 5.999988000024026*infinite_block.phi[0.5] + 2.1824540006105297*infinite_block.phi[0.6291]) :   0.0 :   True
-                  0.6291 :   0.0 :             infinite_block.dphidt[0.6291] - (-17.999964000072048*infinite_block.phi[0.333333] + 30.491872401084947*infinite_block.phi[0.3709] - 27.49187840107288*infinite_block.phi[0.5] + 14.99997000005998*infinite_block.phi[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 : infinite_block.dphidt[0.704234] - (-18.00001800001799*infinite_block.phi[0.666667] + 15.000015000014985*infinite_block.phi[0.704234] + 3.491936876766547*infinite_block.phi[0.833333] - 0.49193387676354217*infinite_block.phi[0.962433]) :   0.0 :   True
-                0.833333 :   0.0 :   infinite_block.dphidt[0.833333] - (9.000009000009006*infinite_block.phi[0.666667] - 17.182475547994116*infinite_block.phi[0.704234] + 6.000006000006027*infinite_block.phi[0.833333] + 2.1824605479790793*infinite_block.phi[0.962433]) :   0.0 :   True
-                0.962433 :   0.0 : infinite_block.dphidt[0.962433] - (-18.000018000018052*infinite_block.phi[0.666667] + 30.49196387679363*infinite_block.phi[0.704234] - 27.491960876790564*infinite_block.phi[0.833333] + 15.000015000014983*infinite_block.phi[0.962433]) :   0.0 :   True
+                0.037567 :   0.0 :        infinite_block.dphidt[0.037567] - (-18.000018000017995*infinite_block.phi[0] + 15.00001500001499*infinite_block.phi[0.037567] + 3.491936876766543*infinite_block.phi[0.166666] - 0.49193387676354283*infinite_block.phi[0.295766]) :   0.0 :   True
+                0.166666 :   0.0 :          infinite_block.dphidt[0.166666] - (9.000009000009001*infinite_block.phi[0] - 17.182475547994116*infinite_block.phi[0.037567] + 6.0000060000060165*infinite_block.phi[0.166666] + 2.182460547979083*infinite_block.phi[0.295766]) :   0.0 :   True
+                0.295766 :   0.0 :         infinite_block.dphidt[0.295766] - (-18.000018000018045*infinite_block.phi[0] + 30.49196387679358*infinite_block.phi[0.037567] - 27.491960876790543*infinite_block.phi[0.166666] + 15.00001500001498*infinite_block.phi[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :          infinite_block.dphidt[0.3709] - (-17.999964000071994*infinite_block.phi[0.333333] + 14.999970000059989*infinite_block.phi[0.3709] + 3.4919264009768636*infinite_block.phi[0.5] - 0.49193240096486407*infinite_block.phi[0.6291]) :   0.0 :   True
+                     0.5 :   0.0 :                infinite_block.dphidt[0.5] - (8.999982000035999*infinite_block.phi[0.333333] - 17.182424000670565*infinite_block.phi[0.3709] + 5.9999880000240156*infinite_block.phi[0.5] + 2.1824540006105333*infinite_block.phi[0.6291]) :   0.0 :   True
+                  0.6291 :   0.0 :             infinite_block.dphidt[0.6291] - (-17.99996400007204*infinite_block.phi[0.333333] + 30.491872401084898*infinite_block.phi[0.3709] - 27.49187840107286*infinite_block.phi[0.5] + 14.999970000059978*infinite_block.phi[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 : infinite_block.dphidt[0.704234] - (-18.000018000017995*infinite_block.phi[0.666667] + 15.00001500001499*infinite_block.phi[0.704234] + 3.491936876766543*infinite_block.phi[0.833333] - 0.49193387676354283*infinite_block.phi[0.962433]) :   0.0 :   True
+                0.833333 :   0.0 :   infinite_block.dphidt[0.833333] - (9.000009000009001*infinite_block.phi[0.666667] - 17.182475547994116*infinite_block.phi[0.704234] + 6.0000060000060165*infinite_block.phi[0.833333] + 2.182460547979083*infinite_block.phi[0.962433]) :   0.0 :   True
+                0.962433 :   0.0 :  infinite_block.dphidt[0.962433] - (-18.000018000018045*infinite_block.phi[0.666667] + 30.49196387679358*infinite_block.phi[0.704234] - 27.491960876790543*infinite_block.phi[0.833333] + 15.00001500001498*infinite_block.phi[0.962433]) :   0.0 :   True
             energy_balance : Size=9, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : Upper : Active
-                0.037567 :   0.0 :      0.998588720511*infinite_block.dTdt[0.037567] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567]) + infinite_block.d_k[0.037567])*infinite_block.Ca[0.037567]*5*-20013 - (infinite_block.Fa0[0.037567]*(35 + 453.6/infinite_block.Fa0[0.037567]*18 + 45.4/infinite_block.Fa0[0.037567]*19.5)*(infinite_block.T[0.037567] - 297) + 18*infinite_block.mc[0.037567]*(infinite_block.T[0.037567] - (infinite_block.T[0.037567] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.037567])/(18*infinite_block.mc[0.037567])) - 288.7)))/(175*infinite_block.Ca[0.037567] + 90*infinite_block.Cb[0.037567] + 230*infinite_block.Cc[0.037567] + 97.5*infinite_block.Cm[0.037567]) :   0.0 :   True
-                0.166666 :   0.0 :      0.972222444444*infinite_block.dTdt[0.166666] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666]) + infinite_block.d_k[0.166666])*infinite_block.Ca[0.166666]*5*-20013 - (infinite_block.Fa0[0.166666]*(35 + 453.6/infinite_block.Fa0[0.166666]*18 + 45.4/infinite_block.Fa0[0.166666]*19.5)*(infinite_block.T[0.166666] - 297) + 18*infinite_block.mc[0.166666]*(infinite_block.T[0.166666] - (infinite_block.T[0.166666] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.166666])/(18*infinite_block.mc[0.166666])) - 288.7)))/(175*infinite_block.Ca[0.166666] + 90*infinite_block.Cb[0.166666] + 230*infinite_block.Cc[0.166666] + 97.5*infinite_block.Cm[0.166666]) :   0.0 :   True
-                0.295766 :   0.0 :      0.912522473244*infinite_block.dTdt[0.295766] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766]) + infinite_block.d_k[0.295766])*infinite_block.Ca[0.295766]*5*-20013 - (infinite_block.Fa0[0.295766]*(35 + 453.6/infinite_block.Fa0[0.295766]*18 + 45.4/infinite_block.Fa0[0.295766]*19.5)*(infinite_block.T[0.295766] - 297) + 18*infinite_block.mc[0.295766]*(infinite_block.T[0.295766] - (infinite_block.T[0.295766] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.295766])/(18*infinite_block.mc[0.295766])) - 288.7)))/(175*infinite_block.Ca[0.295766] + 90*infinite_block.Cb[0.295766] + 230*infinite_block.Cc[0.295766] + 97.5*infinite_block.Cm[0.295766]) :   0.0 :   True
-                  0.3709 :   0.0 :                                            0.86243319*infinite_block.dTdt[0.3709] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709]) + infinite_block.d_k[0.3709])*infinite_block.Ca[0.3709]*5*-20013 - (infinite_block.Fa0[0.3709]*(35 + 453.6/infinite_block.Fa0[0.3709]*18 + 45.4/infinite_block.Fa0[0.3709]*19.5)*(infinite_block.T[0.3709] - 297) + 18*infinite_block.mc[0.3709]*(infinite_block.T[0.3709] - (infinite_block.T[0.3709] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.3709])/(18*infinite_block.mc[0.3709])) - 288.7)))/(175*infinite_block.Ca[0.3709] + 90*infinite_block.Cb[0.3709] + 230*infinite_block.Cc[0.3709] + 97.5*infinite_block.Cm[0.3709]) :   0.0 :   True
-                     0.5 :   0.0 :                                                                                                     0.75*infinite_block.dTdt[0.5] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5]) + infinite_block.d_k[0.5])*infinite_block.Ca[0.5]*5*-20013 - (infinite_block.Fa0[0.5]*(35 + 453.6/infinite_block.Fa0[0.5]*18 + 45.4/infinite_block.Fa0[0.5]*19.5)*(infinite_block.T[0.5] - 297) + 18*infinite_block.mc[0.5]*(infinite_block.T[0.5] - (infinite_block.T[0.5] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.5])/(18*infinite_block.mc[0.5])) - 288.7)))/(175*infinite_block.Ca[0.5] + 90*infinite_block.Cb[0.5] + 230*infinite_block.Cc[0.5] + 97.5*infinite_block.Cm[0.5]) :   0.0 :   True
-                  0.6291 :   0.0 :                                            0.60423319*infinite_block.dTdt[0.6291] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291]) + infinite_block.d_k[0.6291])*infinite_block.Ca[0.6291]*5*-20013 - (infinite_block.Fa0[0.6291]*(35 + 453.6/infinite_block.Fa0[0.6291]*18 + 45.4/infinite_block.Fa0[0.6291]*19.5)*(infinite_block.T[0.6291] - 297) + 18*infinite_block.mc[0.6291]*(infinite_block.T[0.6291] - (infinite_block.T[0.6291] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.6291])/(18*infinite_block.mc[0.6291])) - 288.7)))/(175*infinite_block.Ca[0.6291] + 90*infinite_block.Cb[0.6291] + 230*infinite_block.Cc[0.6291] + 97.5*infinite_block.Cm[0.6291]) :   0.0 :   True
-                0.704234 :   0.0 :      0.504054473244*infinite_block.dTdt[0.704234] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234]) + infinite_block.d_k[0.704234])*infinite_block.Ca[0.704234]*5*-20013 - (infinite_block.Fa0[0.704234]*(35 + 453.6/infinite_block.Fa0[0.704234]*18 + 45.4/infinite_block.Fa0[0.704234]*19.5)*(infinite_block.T[0.704234] - 297) + 18*infinite_block.mc[0.704234]*(infinite_block.T[0.704234] - (infinite_block.T[0.704234] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.704234])/(18*infinite_block.mc[0.704234])) - 288.7)))/(175*infinite_block.Ca[0.704234] + 90*infinite_block.Cb[0.704234] + 230*infinite_block.Cc[0.704234] + 97.5*infinite_block.Cm[0.704234]) :   0.0 :   True
-                0.833333 :   0.0 :      0.305556111111*infinite_block.dTdt[0.833333] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333]) + infinite_block.d_k[0.833333])*infinite_block.Ca[0.833333]*5*-20013 - (infinite_block.Fa0[0.833333]*(35 + 453.6/infinite_block.Fa0[0.833333]*18 + 45.4/infinite_block.Fa0[0.833333]*19.5)*(infinite_block.T[0.833333] - 297) + 18*infinite_block.mc[0.833333]*(infinite_block.T[0.833333] - (infinite_block.T[0.833333] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.833333])/(18*infinite_block.mc[0.833333])) - 288.7)))/(175*infinite_block.Ca[0.833333] + 90*infinite_block.Cb[0.833333] + 230*infinite_block.Cc[0.833333] + 97.5*infinite_block.Cm[0.833333]) :   0.0 :   True
-                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dTdt[0.962433] - (- (20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433]) + infinite_block.d_k[0.962433])*infinite_block.Ca[0.962433]*5*-20013 - (infinite_block.Fa0[0.962433]*(35 + 453.6/infinite_block.Fa0[0.962433]*18 + 45.4/infinite_block.Fa0[0.962433]*19.5)*(infinite_block.T[0.962433] - 297) + 18*infinite_block.mc[0.962433]*(infinite_block.T[0.962433] - (infinite_block.T[0.962433] - 288.7)*exp(- (7000 + infinite_block.d_UA[0.962433])/(18*infinite_block.mc[0.962433])) - 288.7)))/(175*infinite_block.Ca[0.962433] + 90*infinite_block.Cb[0.962433] + 230*infinite_block.Cc[0.962433] + 97.5*infinite_block.Cm[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    : Upper : Active
+                0.037567 :   0.0 :      0.998588720511*infinite_block.dTdt[0.037567] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567])*infinite_block.d_k[0.037567]*infinite_block.Ca[0.037567]*5*-20013 - (infinite_block.Fa0[0.037567]*(35 + 453.6/infinite_block.Fa0[0.037567]*18 + 45.4/infinite_block.Fa0[0.037567]*19.5)*(infinite_block.T[0.037567] - 297) + 18*infinite_block.mc[0.037567]*(infinite_block.T[0.037567] - (infinite_block.T[0.037567] - 288.7)*exp(- 7000*infinite_block.d_UA[0.037567]/(18*infinite_block.mc[0.037567])) - 288.7)))/(175*infinite_block.Ca[0.037567] + 90*infinite_block.Cb[0.037567] + 230*infinite_block.Cc[0.037567] + 97.5*infinite_block.Cm[0.037567]) :   0.0 :   True
+                0.166666 :   0.0 :      0.972222444444*infinite_block.dTdt[0.166666] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666])*infinite_block.d_k[0.166666]*infinite_block.Ca[0.166666]*5*-20013 - (infinite_block.Fa0[0.166666]*(35 + 453.6/infinite_block.Fa0[0.166666]*18 + 45.4/infinite_block.Fa0[0.166666]*19.5)*(infinite_block.T[0.166666] - 297) + 18*infinite_block.mc[0.166666]*(infinite_block.T[0.166666] - (infinite_block.T[0.166666] - 288.7)*exp(- 7000*infinite_block.d_UA[0.166666]/(18*infinite_block.mc[0.166666])) - 288.7)))/(175*infinite_block.Ca[0.166666] + 90*infinite_block.Cb[0.166666] + 230*infinite_block.Cc[0.166666] + 97.5*infinite_block.Cm[0.166666]) :   0.0 :   True
+                0.295766 :   0.0 :      0.912522473244*infinite_block.dTdt[0.295766] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766])*infinite_block.d_k[0.295766]*infinite_block.Ca[0.295766]*5*-20013 - (infinite_block.Fa0[0.295766]*(35 + 453.6/infinite_block.Fa0[0.295766]*18 + 45.4/infinite_block.Fa0[0.295766]*19.5)*(infinite_block.T[0.295766] - 297) + 18*infinite_block.mc[0.295766]*(infinite_block.T[0.295766] - (infinite_block.T[0.295766] - 288.7)*exp(- 7000*infinite_block.d_UA[0.295766]/(18*infinite_block.mc[0.295766])) - 288.7)))/(175*infinite_block.Ca[0.295766] + 90*infinite_block.Cb[0.295766] + 230*infinite_block.Cc[0.295766] + 97.5*infinite_block.Cm[0.295766]) :   0.0 :   True
+                  0.3709 :   0.0 :                                            0.86243319*infinite_block.dTdt[0.3709] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709])*infinite_block.d_k[0.3709]*infinite_block.Ca[0.3709]*5*-20013 - (infinite_block.Fa0[0.3709]*(35 + 453.6/infinite_block.Fa0[0.3709]*18 + 45.4/infinite_block.Fa0[0.3709]*19.5)*(infinite_block.T[0.3709] - 297) + 18*infinite_block.mc[0.3709]*(infinite_block.T[0.3709] - (infinite_block.T[0.3709] - 288.7)*exp(- 7000*infinite_block.d_UA[0.3709]/(18*infinite_block.mc[0.3709])) - 288.7)))/(175*infinite_block.Ca[0.3709] + 90*infinite_block.Cb[0.3709] + 230*infinite_block.Cc[0.3709] + 97.5*infinite_block.Cm[0.3709]) :   0.0 :   True
+                     0.5 :   0.0 :                                                                                                     0.75*infinite_block.dTdt[0.5] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5])*infinite_block.d_k[0.5]*infinite_block.Ca[0.5]*5*-20013 - (infinite_block.Fa0[0.5]*(35 + 453.6/infinite_block.Fa0[0.5]*18 + 45.4/infinite_block.Fa0[0.5]*19.5)*(infinite_block.T[0.5] - 297) + 18*infinite_block.mc[0.5]*(infinite_block.T[0.5] - (infinite_block.T[0.5] - 288.7)*exp(- 7000*infinite_block.d_UA[0.5]/(18*infinite_block.mc[0.5])) - 288.7)))/(175*infinite_block.Ca[0.5] + 90*infinite_block.Cb[0.5] + 230*infinite_block.Cc[0.5] + 97.5*infinite_block.Cm[0.5]) :   0.0 :   True
+                  0.6291 :   0.0 :                                            0.60423319*infinite_block.dTdt[0.6291] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291])*infinite_block.d_k[0.6291]*infinite_block.Ca[0.6291]*5*-20013 - (infinite_block.Fa0[0.6291]*(35 + 453.6/infinite_block.Fa0[0.6291]*18 + 45.4/infinite_block.Fa0[0.6291]*19.5)*(infinite_block.T[0.6291] - 297) + 18*infinite_block.mc[0.6291]*(infinite_block.T[0.6291] - (infinite_block.T[0.6291] - 288.7)*exp(- 7000*infinite_block.d_UA[0.6291]/(18*infinite_block.mc[0.6291])) - 288.7)))/(175*infinite_block.Ca[0.6291] + 90*infinite_block.Cb[0.6291] + 230*infinite_block.Cc[0.6291] + 97.5*infinite_block.Cm[0.6291]) :   0.0 :   True
+                0.704234 :   0.0 :      0.504054473244*infinite_block.dTdt[0.704234] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234])*infinite_block.d_k[0.704234]*infinite_block.Ca[0.704234]*5*-20013 - (infinite_block.Fa0[0.704234]*(35 + 453.6/infinite_block.Fa0[0.704234]*18 + 45.4/infinite_block.Fa0[0.704234]*19.5)*(infinite_block.T[0.704234] - 297) + 18*infinite_block.mc[0.704234]*(infinite_block.T[0.704234] - (infinite_block.T[0.704234] - 288.7)*exp(- 7000*infinite_block.d_UA[0.704234]/(18*infinite_block.mc[0.704234])) - 288.7)))/(175*infinite_block.Ca[0.704234] + 90*infinite_block.Cb[0.704234] + 230*infinite_block.Cc[0.704234] + 97.5*infinite_block.Cm[0.704234]) :   0.0 :   True
+                0.833333 :   0.0 :      0.305556111111*infinite_block.dTdt[0.833333] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333])*infinite_block.d_k[0.833333]*infinite_block.Ca[0.833333]*5*-20013 - (infinite_block.Fa0[0.833333]*(35 + 453.6/infinite_block.Fa0[0.833333]*18 + 45.4/infinite_block.Fa0[0.833333]*19.5)*(infinite_block.T[0.833333] - 297) + 18*infinite_block.mc[0.833333]*(infinite_block.T[0.833333] - (infinite_block.T[0.833333] - 288.7)*exp(- 7000*infinite_block.d_UA[0.833333]/(18*infinite_block.mc[0.833333])) - 288.7)))/(175*infinite_block.Ca[0.833333] + 90*infinite_block.Cb[0.833333] + 230*infinite_block.Cc[0.833333] + 97.5*infinite_block.Cm[0.833333]) :   0.0 :   True
+                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dTdt[0.962433] - (- 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433])*infinite_block.d_k[0.962433]*infinite_block.Ca[0.962433]*5*-20013 - (infinite_block.Fa0[0.962433]*(35 + 453.6/infinite_block.Fa0[0.962433]*18 + 45.4/infinite_block.Fa0[0.962433]*19.5)*(infinite_block.T[0.962433] - 297) + 18*infinite_block.mc[0.962433]*(infinite_block.T[0.962433] - (infinite_block.T[0.962433] - 288.7)*exp(- 7000*infinite_block.d_UA[0.962433]/(18*infinite_block.mc[0.962433])) - 288.7)))/(175*infinite_block.Ca[0.962433] + 90*infinite_block.Cb[0.962433] + 230*infinite_block.Cc[0.962433] + 97.5*infinite_block.Cm[0.962433]) :   0.0 :   True
+            k_eff_lb : Size=9, Index=infinite_block.time, Active=True
+                Key      : Lower : Body                                                                                             : Upper : Active
+                0.037567 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.037567])*infinite_block.d_k[0.037567] :  +Inf :   True
+                0.166666 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.166666])*infinite_block.d_k[0.166666] :  +Inf :   True
+                0.295766 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.295766])*infinite_block.d_k[0.295766] :  +Inf :   True
+                  0.3709 : 1e-06 :     20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.3709])*infinite_block.d_k[0.3709] :  +Inf :   True
+                     0.5 : 1e-06 :           20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.5])*infinite_block.d_k[0.5] :  +Inf :   True
+                  0.6291 : 1e-06 :     20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.6291])*infinite_block.d_k[0.6291] :  +Inf :   True
+                0.704234 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.704234])*infinite_block.d_k[0.704234] :  +Inf :   True
+                0.833333 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.833333])*infinite_block.d_k[0.833333] :  +Inf :   True
+                0.962433 : 1e-06 : 20000000000000.0*exp(-9064.921992954201/infinite_block.T[0.962433])*infinite_block.d_k[0.962433] :  +Inf :   True
             phi_time_cont_eq : Size=3, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                            : Upper : Active
-                0.333333 :   0.0 : infinite_block.phi[0.333333] - (-0.9999999999999982*infinite_block.phi[0] + 1.6666666666666643*infinite_block.phi[0.037567] - 1.333333333333329*infinite_block.phi[0.166666] + 1.6666666666666634*infinite_block.phi[0.295766]) :   0.0 :   True
-                0.666667 :   0.0 :   infinite_block.phi[0.666667] - (-0.9999999999999982*infinite_block.phi[0.333333] + 1.6666666666666643*infinite_block.phi[0.3709] - 1.333333333333329*infinite_block.phi[0.5] + 1.6666666666666634*infinite_block.phi[0.6291]) :   0.0 :   True
-                       1 :   0.0 : infinite_block.phi[1] - (-0.9999999999999982*infinite_block.phi[0.666667] + 1.6666666666666643*infinite_block.phi[0.704234] - 1.333333333333329*infinite_block.phi[0.833333] + 1.6666666666666634*infinite_block.phi[0.962433]) :   0.0 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                             : Upper : Active
+                0.333333 :   0.0 : infinite_block.phi[0.333333] - (-0.9999999999999964*infinite_block.phi[0] + 1.6666666666666536*infinite_block.phi[0.037567] - 1.3333333333333242*infinite_block.phi[0.166666] + 1.6666666666666616*infinite_block.phi[0.295766]) :   0.0 :   True
+                0.666667 :   0.0 :   infinite_block.phi[0.666667] - (-0.9999999999999964*infinite_block.phi[0.333333] + 1.6666666666666536*infinite_block.phi[0.3709] - 1.3333333333333242*infinite_block.phi[0.5] + 1.6666666666666616*infinite_block.phi[0.6291]) :   0.0 :   True
+                       1 :   0.0 : infinite_block.phi[1] - (-0.9999999999999964*infinite_block.phi[0.666667] + 1.6666666666666536*infinite_block.phi[0.704234] - 1.3333333333333242*infinite_block.phi[0.833333] + 1.6666666666666616*infinite_block.phi[0.962433]) :   0.0 :   True
             terminal_cost : Size=10, Index=infinite_block.time, Active=True
-                Key      : Lower : Body                                                                                                                                                                                                                                                                                               : Upper : Active
-                0.037567 :   0.0 :      0.998588720511*infinite_block.dphidt[0.037567] - ((infinite_block.Cc[0.037567] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.037567] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.037567] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.037567] - 324.62662265819245)**2) :   0.0 :   True
-                0.166666 :   0.0 :      0.972222444444*infinite_block.dphidt[0.166666] - ((infinite_block.Cc[0.166666] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.166666] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.166666] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.166666] - 324.62662265819245)**2) :   0.0 :   True
-                0.295766 :   0.0 :      0.912522473244*infinite_block.dphidt[0.295766] - ((infinite_block.Cc[0.295766] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.295766] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.295766] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.295766] - 324.62662265819245)**2) :   0.0 :   True
-                  0.3709 :   0.0 :                    0.86243319*infinite_block.dphidt[0.3709] - ((infinite_block.Cc[0.3709] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.3709] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.3709] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.3709] - 324.62662265819245)**2) :   0.0 :   True
-                     0.5 :   0.0 :                                         0.75*infinite_block.dphidt[0.5] - ((infinite_block.Cc[0.5] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.5] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.5] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.5] - 324.62662265819245)**2) :   0.0 :   True
-                  0.6291 :   0.0 :                    0.60423319*infinite_block.dphidt[0.6291] - ((infinite_block.Cc[0.6291] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.6291] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.6291] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.6291] - 324.62662265819245)**2) :   0.0 :   True
-                0.704234 :   0.0 :      0.504054473244*infinite_block.dphidt[0.704234] - ((infinite_block.Cc[0.704234] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.704234] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.704234] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.704234] - 324.62662265819245)**2) :   0.0 :   True
-                0.833333 :   0.0 :      0.305556111111*infinite_block.dphidt[0.833333] - ((infinite_block.Cc[0.833333] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.833333] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.833333] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.833333] - 324.62662265819245)**2) :   0.0 :   True
-                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dphidt[0.962433] - ((infinite_block.Cc[0.962433] - 5.180000630352289)**2 + 0.01*(infinite_block.T[0.962433] - 396.09999996178243)**2 + 0.01*(infinite_block.Fa0[0.962433] - 80.3538183720399)**2 + 0.001*(infinite_block.mc[0.962433] - 324.62662265819245)**2) :   0.0 :   True
-                       1 :  -Inf :                                                                                      (infinite_block.Cc[1] - 5.180000630352289)**2 + 0.01*(infinite_block.T[1] - 396.09999996178243)**2 + 0.01*([Unattached VarData] - 80.3538183720399)**2 + 0.001*([Unattached VarData] - 324.62662265819245)**2 : 1e-06 :   True
+                Key      : Lower : Body                                                                                                                                                                                                                                                                                                : Upper : Active
+                0.037567 :   0.0 :      0.998588720511*infinite_block.dphidt[0.037567] - ((infinite_block.Cc[0.037567] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.037567] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.037567] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.037567] - 283.04989743176725)**2) :   0.0 :   True
+                0.166666 :   0.0 :      0.972222444444*infinite_block.dphidt[0.166666] - ((infinite_block.Cc[0.166666] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.166666] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.166666] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.166666] - 283.04989743176725)**2) :   0.0 :   True
+                0.295766 :   0.0 :      0.912522473244*infinite_block.dphidt[0.295766] - ((infinite_block.Cc[0.295766] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.295766] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.295766] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.295766] - 283.04989743176725)**2) :   0.0 :   True
+                  0.3709 :   0.0 :                    0.86243319*infinite_block.dphidt[0.3709] - ((infinite_block.Cc[0.3709] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.3709] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.3709] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.3709] - 283.04989743176725)**2) :   0.0 :   True
+                     0.5 :   0.0 :                                         0.75*infinite_block.dphidt[0.5] - ((infinite_block.Cc[0.5] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.5] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.5] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.5] - 283.04989743176725)**2) :   0.0 :   True
+                  0.6291 :   0.0 :                    0.60423319*infinite_block.dphidt[0.6291] - ((infinite_block.Cc[0.6291] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.6291] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.6291] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.6291] - 283.04989743176725)**2) :   0.0 :   True
+                0.704234 :   0.0 :      0.504054473244*infinite_block.dphidt[0.704234] - ((infinite_block.Cc[0.704234] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.704234] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.704234] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.704234] - 283.04989743176725)**2) :   0.0 :   True
+                0.833333 :   0.0 :      0.305556111111*infinite_block.dphidt[0.833333] - ((infinite_block.Cc[0.833333] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.833333] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.833333] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.833333] - 283.04989743176725)**2) :   0.0 :   True
+                0.962433 :   0.0 : 0.07372272051100004*infinite_block.dphidt[0.962433] - ((infinite_block.Cc[0.962433] - 5.180001123440914)**2 + 0.01*(infinite_block.T[0.962433] - 396.09999995248296)**2 + 0.01*(infinite_block.Fa0[0.962433] - 80.35239140513501)**2 + 0.001*(infinite_block.mc[0.962433] - 283.04989743176725)**2) :   0.0 :   True
+                       1 :  -Inf :                                                                                      (infinite_block.Cc[1] - 5.180001123440914)**2 + 0.01*(infinite_block.T[1] - 396.09999995248296)**2 + 0.01*([Unattached VarData] - 80.35239140513501)**2 + 0.001*([Unattached VarData] - 283.04989743176725)**2 : 1e-06 :   True
 
         1 ContinuousSet Declarations
             time : Size=1, Index=None, Ordered=Sorted
                 Key  : Dimen : Domain : Size : Members
                 None :     1 : [0..1] :   13 : {0, 0.037567, 0.166666, 0.295766, 0.333333, 0.3709, 0.5, 0.6291, 0.666667, 0.704234, 0.833333, 0.962433, 1}
 
-        45 Declarations: time MV_index CV_index Measured_index Unmeasured_index DV_index Ca Cb Cc Cm T Fb0 UA d_UA d_k Fa0 mc dCadt dCbdt dCcdt dCmdt dTdt setpoints initial_values phi dphidt stage_cost_index terminal_cost Ca_time_cont_eq dCadt_disc_eq Cb_time_cont_eq dCbdt_disc_eq Cc_time_cont_eq dCcdt_disc_eq Cm_time_cont_eq dCmdt_disc_eq T_time_cont_eq dTdt_disc_eq phi_time_cont_eq dphidt_disc_eq Ca_balance Cb_balance Cc_balance Cm_balance energy_balance
+        46 Declarations: time MV_index CV_index Measured_index Unmeasured_index DV_index Ca Cb Cc Cm T Fb0 UA d_UA d_k Fa0 mc dCadt dCbdt dCcdt dCmdt dTdt setpoints initial_values phi dphidt stage_cost_index terminal_cost Ca_time_cont_eq dCadt_disc_eq Cb_time_cont_eq dCbdt_disc_eq Cc_time_cont_eq dCcdt_disc_eq Cm_time_cont_eq dCmdt_disc_eq T_time_cont_eq dTdt_disc_eq phi_time_cont_eq dphidt_disc_eq Ca_balance Cb_balance Cc_balance Cm_balance energy_balance k_eff_lb
 
-8 Declarations: finite_block infinite_block link_Cb_constraint link_Cm_constraint link_T_constraint link_Cc_constraint link_Ca_constraint objective
+8 Declarations: finite_block infinite_block link_Ca_constraint link_Cb_constraint link_Cc_constraint link_T_constraint link_Cm_constraint objective

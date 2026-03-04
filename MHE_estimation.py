@@ -209,12 +209,24 @@ def solve_mhe_no_arrival_cost(
     # Use model-initialized values from model_equations as xhat0
     #not enought data to accurately predict without this, drastically wrong estimates without it on the first solve
     bootstrap_xhat0: Dict[str, float] = {}
+    bootstrap_d_ua0: Optional[float] = None
+    bootstrap_d_k0: Optional[float] = None
     if not arrival_active:
         for name in getattr(m, "Unmeasured_index", []):
             try:
                 bootstrap_xhat0[name] = float(pyo.value(_add_time_indexed_expression(m, name, t0)))
             except Exception:
                 continue
+        if hasattr(m, "d_UA"):
+            try:
+                bootstrap_d_ua0 = float(pyo.value(m.d_UA[t0]))
+            except Exception:
+                bootstrap_d_ua0 = 0.0
+        if hasattr(m, "d_k"):
+            try:
+                bootstrap_d_k0 = float(pyo.value(m.d_k[t0]))
+            except Exception:
+                bootstrap_d_k0 = 0.0
     #warm start for x0
     if warm_start_x0:
         for name, guess in warm_start_x0.items():
@@ -312,15 +324,19 @@ def solve_mhe_no_arrival_cost(
     # Before arrival is active, leave d_UA(t0) free so the estimator can
     # move the initial disturbance without bootstrap anchoring.
     d_ua_step_ref: Optional[float] = None
-    if arrival_active and (prior_d_ua is not None):
+    if prior_d_ua is not None:
         d_ua_step_ref = float(prior_d_ua)
+    elif (not arrival_active) and (bootstrap_d_ua0 is not None):
+        d_ua_step_ref = float(bootstrap_d_ua0)
     if hasattr(m, "d_UA") and (d_ua_step_ref is not None):
         m.d_ua_step_up = pyo.Constraint(expr=m.d_UA[t0] - d_ua_step_ref <= d_ua_max_step)
         m.d_ua_step_dn = pyo.Constraint(expr=d_ua_step_ref - m.d_UA[t0] <= d_ua_max_step)
 
     d_k_step_ref: Optional[float] = None
-    if arrival_active and (prior_d_k is not None):
+    if prior_d_k is not None:
         d_k_step_ref = float(prior_d_k)
+    elif (not arrival_active) and (bootstrap_d_k0 is not None):
+        d_k_step_ref = float(bootstrap_d_k0)
     if hasattr(m, "d_k") and (d_k_step_ref is not None):
         m.d_k_step_up = pyo.Constraint(expr=m.d_k[t0] - d_k_step_ref <= d_k_max_step)
         m.d_k_step_dn = pyo.Constraint(expr=d_k_step_ref - m.d_k[t0] <= d_k_max_step)
@@ -362,9 +378,10 @@ def solve_mhe_no_arrival_cost(
                     continue
                 w_arr = _arrival_weight(name)
                 expr += w_arr * (x0 - float(init_val)) ** 2 #arrival weight * squared error of initial state from "prior" (initial state condtion)
-        # Intentionally no d_UA bootstrap penalty before arrival is active.
-        # d_UA(t0) is free initially; regularization comes from e_ua and, once
-        # arrival is active, from the d_UA arrival term.
+        if (not arrival_active) and (bootstrap_d_ua0 is not None) and hasattr(mm, "d_UA"):
+            expr += d_ua_arrival_weight * (mm.d_UA[t0] - float(bootstrap_d_ua0)) ** 2
+        if (not arrival_active) and (bootstrap_d_k0 is not None) and hasattr(mm, "d_k"):
+            expr += d_k_arrival_weight * (mm.d_k[t0] - float(bootstrap_d_k0)) ** 2
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
