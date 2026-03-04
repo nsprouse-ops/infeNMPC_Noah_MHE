@@ -32,6 +32,7 @@ def variables_initialize(m):
 
     # ---- disturbance state
     m.d_UA = pyo.Var(m.time, initialize=0, bounds=(-1000,1000))
+    m.d_k = pyo.Var(m.time, initialize=0, bounds=(-2000,2000))
 
     # ---- Manipulated Inputs ----
     m.Fa0 = pyo.Var(m.time, initialize=35, bounds=(10,100))    # A feed rate
@@ -77,11 +78,12 @@ def equations_write(m):
     Fm0 = 45.4      # Feed rate of inert/miscellaneous stream [mol/min]
 
     # ---- Algebraic Equations ----
-    m.k = {t: 1.696e14 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
+    m.k = {t: 2e13 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
     m.UA_eff = {t: m.UA + m.d_UA[t] for t in m.time}
-    m.ra = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
-    m.rb = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
-    m.rc = {t: m.k[t] * m.Ca[t] for t in m.time}
+    m.k_eff = {t: m.k[t] + m.d_k[t] for t in m.time}
+    m.ra = {t: 0 - (m.k_eff[t] * m.Ca[t]) for t in m.time}
+    m.rb = {t: 0 - (m.k_eff[t] * m.Ca[t]) for t in m.time}
+    m.rc = {t: m.k_eff[t] * m.Ca[t] for t in m.time}
     m.Na = {t: m.Ca[t] * V for t in m.time}
     m.Nb = {t: m.Cb[t] * V for t in m.time}
     m.Nc = {t: m.Cc[t] * V for t in m.time}

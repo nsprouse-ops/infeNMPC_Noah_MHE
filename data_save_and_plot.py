@@ -294,7 +294,40 @@ def _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant):
     return figures, names
 
 
-def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None, setpoint_values=None):
+def _plot_d_ua_sent(time_series, d_ua_sent_hist, d_k_sent_hist, plant):
+    """
+    Plot the disturbance value sent from MHE to MPC over time.
+    """
+    figures = []
+    names = []
+    if d_ua_sent_hist is None and d_k_sent_hist is None:
+        return figures, names
+
+    lengths = [len(time_series)]
+    if d_ua_sent_hist is not None:
+        lengths.append(len(d_ua_sent_hist))
+    if d_k_sent_hist is not None:
+        lengths.append(len(d_k_sent_hist))
+    min_len = min(lengths)
+    if min_len == 0:
+        return figures, names
+
+    fig = plt.figure()
+    if d_ua_sent_hist is not None:
+        plt.plot(time_series[:min_len], d_ua_sent_hist[:min_len], label="d_UA_sent")
+    if d_k_sent_hist is not None:
+        plt.plot(time_series[:min_len], d_k_sent_hist[:min_len], label="d_k_sent")
+    plt.ylabel("Sent Disturbance Value")
+    plt.xlabel(f"${plant.time_display_name[0]}$")
+    plt.title("Disturbance Sent to MPC: d_UA_sent and d_k_sent")
+    plt.grid(True)
+    plt.legend()
+    figures.append(fig)
+    names.append("d_UA_d_k_sent")
+    return figures, names
+
+
+def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None, setpoint_values=None, d_ua_sent_hist=None, d_k_sent_hist=None):
     """
     Post-processing after the MPC loop: saves data, plots, and manages output directories.
 
@@ -317,6 +350,9 @@ def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, o
     mhe_figures, mhe_names = _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant)
     final_figures.extend(mhe_figures)
     figure_names.extend(mhe_names)
+    d_ua_figures, d_ua_names = _plot_d_ua_sent(time_series, d_ua_sent_hist, d_k_sent_hist, plant)
+    final_figures.extend(d_ua_figures)
+    figure_names.extend(d_ua_names)
 
     if options.infinite_horizon:
         folder_path = os.path.join(

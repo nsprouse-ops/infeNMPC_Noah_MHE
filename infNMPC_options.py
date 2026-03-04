@@ -28,8 +28,8 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 15
-        self.num_horizons = 100
+        self.MHE_window = 10
+        self.num_horizons = 40
         self.nfe_finite = 2
         self.ncp_finite = 3
         self.sampling_time = 0.05
@@ -59,13 +59,16 @@ class Options:
         self.gamma = 0.05
         self.beta = 1.2
         self.mhe_arrival_default_lambda = 4.35   #this does nothing currently
-        self.theta_arrival_weight =95.93125069353201 #weights for state arrival
-        self.F_state_weight = 3.691310878592334 #weights on residuals
-        self.mhe_e_ua_weight = 0.002720946335344285 #0.002720946335344285
-        self.mhe_d_ua_bootstrap_weight =.00005#.01
-        self.mhe_d_ua_arrival_weight =.00005#.03
-        self.mhe_e_ua_bound = 20
+        self.theta_arrival_weight =110 #weights for state arrival
+        self.F_state_weight = 3.7 #3.691310878592334 #weights on residuals
+        self.mhe_e_ua_weight = .005#0.002720946335344285
+        self.mhe_e_k_weight = .005
+        self.mhe_d_ua_arrival_weight =3#.00005
+        self.mhe_d_k_arrival_weight = 3
+        self.mhe_e_ua_bound = 2.5
+        self.mhe_e_k_bound = 5
         self.mhe_d_ua_max_step = 100
+        self.mhe_d_k_max_step = 200
         self.mhe_arrival_weights = {}
         self.mhe_state_error_default = 1e-3 #with noise these are really irrelavent
         self.mhe_state_error = {}

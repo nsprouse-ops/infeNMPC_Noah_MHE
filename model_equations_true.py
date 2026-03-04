@@ -74,7 +74,7 @@ def equations_write(m):
     Fm0 = 45.4      # Feed rate of inert/miscellaneous stream [mol/min]
 
     # ---- Algebraic Equations ----
-    m.k = {t: 1.696e14 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
+    m.k = {t: 1.696e13 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
     m.ra = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
     m.rb = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
     m.rc = {t: m.k[t] * m.Ca[t] for t in m.time}

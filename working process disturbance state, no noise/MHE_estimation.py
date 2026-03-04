@@ -208,18 +208,12 @@ def solve_mhe_no_arrival_cost(
     # Use model-initialized values from model_equations as xhat0
     #not enought data to accurately predict without this, drastically wrong estimates without it on the first solve
     bootstrap_xhat0: Dict[str, float] = {}
-    bootstrap_d_ua0: Optional[float] = None
     if not arrival_active:
         for name in getattr(m, "Unmeasured_index", []):
             try:
                 bootstrap_xhat0[name] = float(pyo.value(_add_time_indexed_expression(m, name, t0)))
             except Exception:
                 continue
-        if hasattr(m, "d_UA"):
-            try:
-                bootstrap_d_ua0 = float(pyo.value(m.d_UA[t0]))
-            except Exception:
-                bootstrap_d_ua0 = 0.0
     #warm start for x0
     if warm_start_x0:
         for name, guess in warm_start_x0.items():
@@ -291,16 +285,15 @@ def solve_mhe_no_arrival_cost(
         return float(arrival_weight_map.get(state_name, default_arrival_lambda)) #loooking fow specific weight for this state, if not found uses default
     F_state_weight = float(getattr(options, "F_state_weight", 1.0))
     e_ua_weight = float(getattr(options, "mhe_e_ua_weight", 1.0))
-    d_ua_bootstrap_weight = float(getattr(options, "mhe_d_ua_bootstrap_weight", 1.0))
     d_ua_arrival_weight = float(getattr(options, "mhe_d_ua_arrival_weight", 1.0))
     d_ua_max_step = float(getattr(options, "mhe_d_ua_max_step", 100.0))
 
     # Limit inter-iteration change of initial disturbance estimate.
+    # Before arrival is active, leave d_UA(t0) free so the estimator can
+    # move the initial disturbance without bootstrap anchoring.
     d_ua_step_ref: Optional[float] = None
     if arrival_active and (prior_d_ua is not None):
         d_ua_step_ref = float(prior_d_ua)
-    elif (not arrival_active) and (bootstrap_d_ua0 is not None):
-        d_ua_step_ref = float(bootstrap_d_ua0)
     if hasattr(m, "d_UA") and (d_ua_step_ref is not None):
         m.d_ua_step_up = pyo.Constraint(expr=m.d_UA[t0] - d_ua_step_ref <= d_ua_max_step)
         m.d_ua_step_dn = pyo.Constraint(expr=d_ua_step_ref - m.d_UA[t0] <= d_ua_max_step)
@@ -339,8 +332,9 @@ def solve_mhe_no_arrival_cost(
                     continue
                 w_arr = _arrival_weight(name)
                 expr += w_arr * (x0 - float(init_val)) ** 2 #arrival weight * squared error of initial state from "prior" (initial state condtion)
-        if (not arrival_active) and (bootstrap_d_ua0 is not None) and hasattr(mm, "d_UA"):
-            expr += d_ua_bootstrap_weight * (mm.d_UA[t0] - float(bootstrap_d_ua0)) ** 2
+        # Intentionally no d_UA bootstrap penalty before arrival is active.
+        # d_UA(t0) is free initially; regularization comes from e_ua and, once
+        # arrival is active, from the d_UA arrival term.
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
@@ -357,14 +351,26 @@ def solve_mhe_no_arrival_cost(
             f"status={status}, termination={term}"
         )
 
+    tf = fe_times[-1]
+
     if hasattr(m, "d_UA"):
         e_ua_vals = [float(pyo.value(m.e_ua[k])) for k in m.fe_k_dyn]
         d_ua_vals = [float(pyo.value(m.d_UA[t_fe])) for t_fe in fe_times]
         print("MHE e_ua over horizon:", e_ua_vals)
         print("MHE d_UA over horizon (FE points):", d_ua_vals)
 
+    # End-of-window output residuals: y_measured - y_est_from_states
+    residual_tf = {}
+    for cv in m.Measured_index:
+        try:
+            y_meas_tf = float(pyo.value(m.y_meas[cv, tf]))
+            y_est_tf = float(pyo.value(_add_time_indexed_expression(m, cv, tf)))
+            residual_tf[str(cv)] = y_meas_tf - y_est_tf
+        except Exception:
+            continue
+    print("MHE residual at tf (y_measured - y_est_from_states):", residual_tf)
+
     #getting what the final estimates were in the MHE, which is the final time in the horzion, these are the estimates that we will use for the initial condition of the MPC at the next time step, and also to report how well the MHE is doing in estimating the current state
-    tf = fe_times[-1]
     unmeasured = set(m.Unmeasured_index)
 
     xhat = {}

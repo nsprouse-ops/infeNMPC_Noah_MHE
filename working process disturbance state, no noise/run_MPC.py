@@ -274,6 +274,7 @@ def _mpc_loop(options):
         terminal_cost_prev = 1
         first_stage_cost_prev = 1
     passed_disturbance_values = {"d_UA": 0.0}
+    d_ua_sent_hist = [float(passed_disturbance_values["d_UA"])]
     options.steady_state_fixed_vars = {"d_UA": float(passed_disturbance_values["d_UA"])}
 
     for i in loop_iter:
@@ -639,6 +640,8 @@ def _mpc_loop(options):
             controller.interface.load_data(tf_data, time_points=t0_controller)
         else:
             controller.interface.load_data(tf_data, time_points=t0_controller)
+
+        d_ua_sent_hist.append(float(passed_disturbance_values.get("d_UA", 0.0)))
         
         if options.remove_collocation:
             if options.infinite_horizon:
@@ -659,6 +662,7 @@ def _mpc_loop(options):
         mhe_state_hist=mhe_state_hist,
         true_state_hist=true_state_hist,
         setpoint_values=controller_setpoints,
+        d_ua_sent_hist=d_ua_sent_hist,
     )
     print(f"MHE skipped count: {mhe_skipped}")
     return {
@@ -668,6 +672,7 @@ def _mpc_loop(options):
         "setpoint_values": controller_setpoints,
         "mhe_state_hist": mhe_state_hist,
         "true_state_hist": true_state_hist,
+        "d_ua_sent_hist": d_ua_sent_hist,
         "mhe_skipped": mhe_skipped,
     }
 

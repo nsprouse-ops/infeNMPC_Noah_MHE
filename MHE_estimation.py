@@ -151,6 +151,7 @@ def solve_mhe_no_arrival_cost(
     tee: bool = False,
     prior_xhat: Optional[Dict[str, float]] = None,
     prior_d_ua: Optional[float] = None,
+    prior_d_k: Optional[float] = None,
     warm_start_x0: Optional[Dict[str, float]] = None,
     lambda_arrival: Optional[float] = None,
     equations_module: str = "model_equations",
@@ -183,7 +184,7 @@ def solve_mhe_no_arrival_cost(
     if M_eff < 1:
         return None
     
-    arrival_active = (bool(prior_xhat) or (prior_d_ua is not None)) and (M_eff >= M_desired) # Arrival should activate only once the full window is available
+    arrival_active = (bool(prior_xhat) or (prior_d_ua is not None) or (prior_d_k is not None)) and (M_eff >= M_desired) # Arrival should activate only once the full window is available
 
     # Build an MHE model with M_eff finite elements
     mhe_opt = _make_options_for_mhe(options, M_eff=M_eff)
@@ -208,18 +209,12 @@ def solve_mhe_no_arrival_cost(
     # Use model-initialized values from model_equations as xhat0
     #not enought data to accurately predict without this, drastically wrong estimates without it on the first solve
     bootstrap_xhat0: Dict[str, float] = {}
-    bootstrap_d_ua0: Optional[float] = None
     if not arrival_active:
         for name in getattr(m, "Unmeasured_index", []):
             try:
                 bootstrap_xhat0[name] = float(pyo.value(_add_time_indexed_expression(m, name, t0)))
             except Exception:
                 continue
-        if hasattr(m, "d_UA"):
-            try:
-                bootstrap_d_ua0 = float(pyo.value(m.d_UA[t0]))
-            except Exception:
-                bootstrap_d_ua0 = 0.0
     #warm start for x0
     if warm_start_x0:
         for name, guess in warm_start_x0.items():
@@ -235,6 +230,8 @@ def solve_mhe_no_arrival_cost(
     m.fe_k_dyn = pyo.RangeSet(0, M_eff - 1)
     e_ua_bound = float(getattr(options, "mhe_e_ua_bound", 1.0))
     m.e_ua = pyo.Var(m.fe_k_dyn, initialize=0.0, domain=pyo.Reals, bounds=(-e_ua_bound, e_ua_bound))
+    e_k_bound = float(getattr(options, "mhe_e_k_bound", 1.0))
+    m.e_k = pyo.Var(m.fe_k_dyn, initialize=0.0, domain=pyo.Reals, bounds=(-e_k_bound, e_k_bound))
 
     if hasattr(m, "d_UA"):
         def _d_ua_dyn_rule(mm, k):
@@ -249,6 +246,20 @@ def solve_mhe_no_arrival_cost(
             t_left = mm.time.get_lower_element_boundary(t)
             return mm.d_UA[t] == mm.d_UA[t_left]
         m.d_ua_hold = pyo.Constraint(m.time, rule=_d_ua_hold_rule)
+
+    if hasattr(m, "d_k"):
+        def _d_k_dyn_rule(mm, k):
+            t_k = fe_times[k]
+            t_kp1 = fe_times[k + 1]
+            return mm.d_k[t_kp1] == mm.d_k[t_k] + mm.e_k[k]
+        m.d_k_dyn = pyo.Constraint(m.fe_k_dyn, rule=_d_k_dyn_rule)
+
+        def _d_k_hold_rule(mm, t):
+            if t in fe_times:
+                return pyo.Constraint.Skip
+            t_left = mm.time.get_lower_element_boundary(t)
+            return mm.d_k[t] == mm.d_k[t_left]
+        m.d_k_hold = pyo.Constraint(m.time, rule=_d_k_hold_rule)
 
     # Load measurement history only at finite elements
     for cv in m.Measured_index:
@@ -291,19 +302,28 @@ def solve_mhe_no_arrival_cost(
         return float(arrival_weight_map.get(state_name, default_arrival_lambda)) #loooking fow specific weight for this state, if not found uses default
     F_state_weight = float(getattr(options, "F_state_weight", 1.0))
     e_ua_weight = float(getattr(options, "mhe_e_ua_weight", 1.0))
-    d_ua_bootstrap_weight = float(getattr(options, "mhe_d_ua_bootstrap_weight", 1.0))
+    e_k_weight = float(getattr(options, "mhe_e_k_weight", 1.0))
     d_ua_arrival_weight = float(getattr(options, "mhe_d_ua_arrival_weight", 1.0))
+    d_k_arrival_weight = float(getattr(options, "mhe_d_k_arrival_weight", 1.0))
     d_ua_max_step = float(getattr(options, "mhe_d_ua_max_step", 100.0))
+    d_k_max_step = float(getattr(options, "mhe_d_k_max_step", 100.0))
 
     # Limit inter-iteration change of initial disturbance estimate.
+    # Before arrival is active, leave d_UA(t0) free so the estimator can
+    # move the initial disturbance without bootstrap anchoring.
     d_ua_step_ref: Optional[float] = None
     if arrival_active and (prior_d_ua is not None):
         d_ua_step_ref = float(prior_d_ua)
-    elif (not arrival_active) and (bootstrap_d_ua0 is not None):
-        d_ua_step_ref = float(bootstrap_d_ua0)
     if hasattr(m, "d_UA") and (d_ua_step_ref is not None):
         m.d_ua_step_up = pyo.Constraint(expr=m.d_UA[t0] - d_ua_step_ref <= d_ua_max_step)
         m.d_ua_step_dn = pyo.Constraint(expr=d_ua_step_ref - m.d_UA[t0] <= d_ua_max_step)
+
+    d_k_step_ref: Optional[float] = None
+    if arrival_active and (prior_d_k is not None):
+        d_k_step_ref = float(prior_d_k)
+    if hasattr(m, "d_k") and (d_k_step_ref is not None):
+        m.d_k_step_up = pyo.Constraint(expr=m.d_k[t0] - d_k_step_ref <= d_k_max_step)
+        m.d_k_step_dn = pyo.Constraint(expr=d_k_step_ref - m.d_k[t0] <= d_k_max_step)
 
     #Objective: sum of squared measurement errors at finite elements only
     # + arrival cost at the start of the window, and for the solves before the arrival cost is active,
@@ -319,6 +339,7 @@ def solve_mhe_no_arrival_cost(
                     w = mm.cv_cost[cv]
                 expr += F_state_weight *  (yhat - ymeas) ** 2
         expr += e_ua_weight * sum(mm.e_ua[k] ** 2 for k in mm.fe_k_dyn)
+        expr += e_k_weight * sum(mm.e_k[k] ** 2 for k in mm.fe_k_dyn)
         # Arrival cost at start of window
         if arrival_active:
             if prior_xhat:
@@ -331,6 +352,8 @@ def solve_mhe_no_arrival_cost(
                     expr += w_arr * (x0 - float(prior_val)) ** 2 #arrival weight * squared error of initial state from prior
             if (prior_d_ua is not None) and hasattr(mm, "d_UA"):
                 expr += d_ua_arrival_weight * (mm.d_UA[t0] - float(prior_d_ua)) ** 2
+            if (prior_d_k is not None) and hasattr(mm, "d_k"):
+                expr += d_k_arrival_weight * (mm.d_k[t0] - float(prior_d_k)) ** 2
         elif bootstrap_xhat0:
             for name, init_val in bootstrap_xhat0.items():
                 try:
@@ -339,8 +362,9 @@ def solve_mhe_no_arrival_cost(
                     continue
                 w_arr = _arrival_weight(name)
                 expr += w_arr * (x0 - float(init_val)) ** 2 #arrival weight * squared error of initial state from "prior" (initial state condtion)
-        if (not arrival_active) and (bootstrap_d_ua0 is not None) and hasattr(mm, "d_UA"):
-            expr += d_ua_bootstrap_weight * (mm.d_UA[t0] - float(bootstrap_d_ua0)) ** 2
+        # Intentionally no d_UA bootstrap penalty before arrival is active.
+        # d_UA(t0) is free initially; regularization comes from e_ua and, once
+        # arrival is active, from the d_UA arrival term.
         return expr
 
     m.mhe_obj = pyo.Objective(rule=_mhe_obj_rule)
@@ -357,14 +381,31 @@ def solve_mhe_no_arrival_cost(
             f"status={status}, termination={term}"
         )
 
+    tf = fe_times[-1]
+
     if hasattr(m, "d_UA"):
         e_ua_vals = [float(pyo.value(m.e_ua[k])) for k in m.fe_k_dyn]
         d_ua_vals = [float(pyo.value(m.d_UA[t_fe])) for t_fe in fe_times]
         print("MHE e_ua over horizon:", e_ua_vals)
         print("MHE d_UA over horizon (FE points):", d_ua_vals)
+    if hasattr(m, "d_k"):
+        e_k_vals = [float(pyo.value(m.e_k[k])) for k in m.fe_k_dyn]
+        d_k_vals = [float(pyo.value(m.d_k[t_fe])) for t_fe in fe_times]
+        print("MHE e_k over horizon:", e_k_vals)
+        print("MHE d_k over horizon (FE points):", d_k_vals)
+
+    # End-of-window output residuals: y_measured - y_est_from_states
+    residual_tf = {}
+    for cv in m.Measured_index:
+        try:
+            y_meas_tf = float(pyo.value(m.y_meas[cv, tf]))
+            y_est_tf = float(pyo.value(_add_time_indexed_expression(m, cv, tf)))
+            residual_tf[str(cv)] = y_meas_tf - y_est_tf
+        except Exception:
+            continue
+    print("MHE residual at tf (y_measured - y_est_from_states):", residual_tf)
 
     #getting what the final estimates were in the MHE, which is the final time in the horzion, these are the estimates that we will use for the initial condition of the MPC at the next time step, and also to report how well the MHE is doing in estimating the current state
-    tf = fe_times[-1]
     unmeasured = set(m.Unmeasured_index)
 
     xhat = {}

@@ -273,8 +273,13 @@ def _mpc_loop(options):
     if options.infinite_horizon:
         terminal_cost_prev = 1
         first_stage_cost_prev = 1
-    passed_disturbance_values = {"d_UA": 0.0}
-    options.steady_state_fixed_vars = {"d_UA": float(passed_disturbance_values["d_UA"])}
+    passed_disturbance_values = {"d_UA": 0.0, "d_k": 0.0}
+    d_ua_sent_hist = [float(passed_disturbance_values["d_UA"])]
+    d_k_sent_hist = [float(passed_disturbance_values["d_k"])]
+    options.steady_state_fixed_vars = {
+        "d_UA": float(passed_disturbance_values["d_UA"]),
+        "d_k": float(passed_disturbance_values["d_k"]),
+    }
 
     for i in loop_iter:
         controller_rebuilt_this_iter = False
@@ -482,6 +487,7 @@ def _mpc_loop(options):
         # Build arrival-cost prior from previous MHE model at the current window start
         prior_xhat = None
         prior_d_ua = None
+        prior_d_k = None
         warm_start_x0 = None
         if prev_mhe_model is not None:
             try:
@@ -499,9 +505,15 @@ def _mpc_loop(options):
                             prior_d_ua = float(pyo.value(_add_time_indexed_expression(prev_mhe_model, "d_UA", t_prior)))
                         except Exception:
                             prior_d_ua = None
+                    if hasattr(prev_mhe_model, "d_k"):
+                        try:
+                            prior_d_k = float(pyo.value(_add_time_indexed_expression(prev_mhe_model, "d_k", t_prior)))
+                        except Exception:
+                            prior_d_k = None
             except Exception:
                 prior_xhat = None
                 prior_d_ua = None
+                prior_d_k = None
         if prior_xhat is not None and len(prior_xhat) == 0:
             # Keep bootstrap term active until we have at least one valid prior state.
             prior_xhat = None
@@ -514,6 +526,7 @@ def _mpc_loop(options):
                 tee=False,
                 prior_xhat=prior_xhat,
                 prior_d_ua=prior_d_ua,
+                prior_d_k=prior_d_k,
                 warm_start_x0=warm_start_x0,
                 equations_module=MHE_EQUATIONS_MODULE,
             )
@@ -576,7 +589,8 @@ def _mpc_loop(options):
             # Pass terminal disturbance estimates (if present) into the next MPC solve.
             tf_mhe = mhe_result.model.time.last()
             prev_passed_d_ua = float(passed_disturbance_values.get("d_UA", 0.0))
-            for d_name in ("d_UA",):
+            prev_passed_d_k = float(passed_disturbance_values.get("d_k", 0.0))
+            for d_name in ("d_UA", "d_k"):
                 if hasattr(mhe_result.model, d_name):
                     try:
                         passed_disturbance_values[d_name] = float(
@@ -585,6 +599,7 @@ def _mpc_loop(options):
                     except Exception:
                         continue
             d_ua_step_delta = float(passed_disturbance_values.get("d_UA", 0.0)) - prev_passed_d_ua
+            d_k_step_delta = float(passed_disturbance_values.get("d_k", 0.0)) - prev_passed_d_k
             c_actual = full_tf_data.get_data_from_key(_get_variable_key_for_data(plant, "Cc"))
             if isinstance(c_actual, list):
                 c_actual = c_actual[0] if len(c_actual) > 0 else np.nan
@@ -592,10 +607,18 @@ def _mpc_loop(options):
             print("Disturbances fixed for next MPC solve:", passed_disturbance_values)
             print(f"Cactual-Cestimated: {float(c_actual) - float(c_estimated)}")
             print(f"d_UA_passed-d_UA_passed(k-1): {d_ua_step_delta}")
-            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and abs(d_ua_step_delta) >= 0.5:
-                options.steady_state_fixed_vars = {"d_UA": float(passed_disturbance_values["d_UA"])}
+            print(f"d_k_passed-d_k_passed(k-1): {d_k_step_delta}")
+            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and (
+                abs(d_ua_step_delta) >= 0.5 or abs(d_k_step_delta) >= 0.5
+            ):
+                options.steady_state_fixed_vars = {
+                    "d_UA": float(passed_disturbance_values["d_UA"]),
+                    "d_k": float(passed_disturbance_values["d_k"]),
+                }
                 print(
-                    f"Re-solving controller steady-state targets with fixed d_UA={float(passed_disturbance_values['d_UA'])}"
+                    "Re-solving controller steady-state targets with fixed "
+                    f"d_UA={float(passed_disturbance_values['d_UA'])}, "
+                    f"d_k={float(passed_disturbance_values['d_k'])}"
                 )
                 if options.infinite_horizon:
                     controller = _make_infinite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
@@ -639,6 +662,9 @@ def _mpc_loop(options):
             controller.interface.load_data(tf_data, time_points=t0_controller)
         else:
             controller.interface.load_data(tf_data, time_points=t0_controller)
+
+        d_ua_sent_hist.append(float(passed_disturbance_values.get("d_UA", 0.0)))
+        d_k_sent_hist.append(float(passed_disturbance_values.get("d_k", 0.0)))
         
         if options.remove_collocation:
             if options.infinite_horizon:
@@ -659,6 +685,8 @@ def _mpc_loop(options):
         mhe_state_hist=mhe_state_hist,
         true_state_hist=true_state_hist,
         setpoint_values=controller_setpoints,
+        d_ua_sent_hist=d_ua_sent_hist,
+        d_k_sent_hist=d_k_sent_hist,
     )
     print(f"MHE skipped count: {mhe_skipped}")
     return {
@@ -668,6 +696,8 @@ def _mpc_loop(options):
         "setpoint_values": controller_setpoints,
         "mhe_state_hist": mhe_state_hist,
         "true_state_hist": true_state_hist,
+        "d_ua_sent_hist": d_ua_sent_hist,
+        "d_k_sent_hist": d_k_sent_hist,
         "mhe_skipped": mhe_skipped,
     }
 
