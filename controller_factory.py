@@ -2,7 +2,7 @@ import pyomo.environ as pyo
 from make_model import _make_infinite_horizon_model, _make_finite_horizon_model
 from indexing_tools import _add_time_indexed_expression
 
-def _make_infinite_horizon_controller(options, data=None, equations_module: str = "model_equations"):
+def _make_infinite_horizon_controller(options, data=None):
     """
     Create and solve a Pyomo model for infinite-horizon NMPC.
 
@@ -18,7 +18,7 @@ def _make_infinite_horizon_controller(options, data=None, equations_module: str 
         pyo.ConcreteModel: The solved infinite-horizon Pyomo model instance.
     """
     m = pyo.ConcreteModel()
-    m = _make_infinite_horizon_model(m, options, equations_module=equations_module)
+    m = _make_infinite_horizon_model(m, options)
 
     if data is not None:
         # Load initial data into the model
@@ -111,8 +111,7 @@ def _make_infinite_horizon_controller(options, data=None, equations_module: str 
     print('Infinite Horizon Controller Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    res = solver.solve(m, tee=options.tee_flag)
-    pyo.assert_optimal_termination(res)
+    solver.solve(m, tee=options.tee_flag)
 
     if True:  # Toggle to False to disable model display
         with open("model_output.txt", "w") as f:
@@ -121,7 +120,7 @@ def _make_infinite_horizon_controller(options, data=None, equations_module: str 
     return m
 
 
-def _make_finite_horizon_controller(options, data=None, equations_module: str = "model_equations"):
+def _make_finite_horizon_controller(options, data=None):
     """
     Create and solve a Pyomo model for finite-horizon NMPC.
 
@@ -137,7 +136,7 @@ def _make_finite_horizon_controller(options, data=None, equations_module: str = 
         pyo.ConcreteModel: The solved finite-horizon Pyomo model instance.
     """
     m = pyo.ConcreteModel()
-    m = _make_finite_horizon_model(m, options, equations_module=equations_module)
+    m = _make_finite_horizon_model(m, options)
 
     if data is not None:
         print("Loading initial data into finite horizon controller")
@@ -191,46 +190,10 @@ def _make_finite_horizon_controller(options, data=None, equations_module: str = 
     print('Finite Horizon Controller Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    res = solver.solve(m, tee=options.tee_flag)
-    pyo.assert_optimal_termination(res)
+    solver.solve(m, tee=options.tee_flag)
 
     if True:  # Toggle to False to disable model display
         with open("model_output.txt", "w") as f:
             m.pprint(ostream=f)
 
     return m
-    ######################################################
-    # m = pyo.ConcreteModel()
-    # m = _make_finite_horizon_model(m, options)
-
-    # m.stage_cost_index = pyo.Set(initialize=lambda m: list(m.CV_index) + list(m.MV_index))
-
-    # if False:
-    #     def objective_rule(m_controller):
-    #         # -------- Finite Horizon Cost (negative as in GAMS) --------
-    #         obj_expression_finite = sum(
-    #             -(
-    #                 m_controller.Fa0[t] * (2 * m_controller.Cb[t] - 0.5) - 6
-    #             ) * (t - m_controller.time.prev(t))
-    #             for t in m_controller.time
-    #             if t != m_controller.time.first()
-    #         )
-
-    #         return obj_expression_finite
-    # else:
-    #     # Define the objective function
-    #     def objective_rule(m):
-    #         c = options.stage_cost_weights
-    #         stage_cost = sum(sum(
-    #             c[i] * (_add_time_indexed_expression(m, var_name, t) - m.steady_state_values[var_name])**2
-    #             for i, var_name in enumerate(m.stage_cost_index)
-    #         ) for t in m.time)
-
-    #         return stage_cost
-
-    # m.objective = pyo.Objective(rule=objective_rule, sense=pyo.minimize)
-
-    # solver = pyo.SolverFactory('ipopt')
-    # solver.solve(m, tee=options.tee_flag)
-
-    # return m

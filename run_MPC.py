@@ -12,9 +12,9 @@ from indexing_tools import _get_variable_key_for_data
 import time
 from math import isclose
 from initialization_tools import _assist_initialization_infinite, _assist_initialization_finite
-from MHE_estimation import solve_mhe_no_arrival_cost
+from EKF_estimation import make_ekf
 from controller_factory import _make_infinite_horizon_controller, _make_finite_horizon_controller
- 
+
 # Solver Settings
 use_idaes_solver_configuration_defaults()
 idaes.cfg.ipopt.options.linear_solver = "ma57" # "ma27"
@@ -22,19 +22,6 @@ idaes.cfg.ipopt.options.OF_ma57_automatic_scaling = "yes"
 idaes.cfg.ipopt.options.max_iter = 6000
 idaes.cfg.ipopt.options.halt_on_ampl_error = "yes"
 idaes.cfg.ipopt.options.bound_relax_factor = 0
-
-PLANT_EQUATIONS_MODULE = "model_equations_true"
-CONTROLLER_EQUATIONS_MODULE = "model_equations"
-MHE_EQUATIONS_MODULE = "model_equations"
-
-def _require_optimal_termination(results, context: str):
-    if not pyo.check_optimal_termination(results):
-        status = getattr(results.solver, "status", "unknown")
-        term = getattr(results.solver, "termination_condition", "unknown")
-        raise RuntimeError(
-            f"{context} failed to reach optimal solution. "
-            f"status={status}, termination={term}"
-        )
 
 
 def _make_plant(options):
@@ -56,23 +43,22 @@ def _make_plant(options):
     plant_options.nfe_finite = 1
     plant_options.infinite_horizon = False
 
-    m = _make_finite_horizon_model(m, plant_options, equations_module=PLANT_EQUATIONS_MODULE)
+    m = _make_finite_horizon_model(m, plant_options, equations_module="model_equations_true")
 
     print('Generating Plant')
-    
+
     for var_name in m.MV_index:
         var = getattr(m, var_name)
         var.fix()
         if options.ncp_finite > 1:
             getattr(m, f"{var_name}_interpolation_constraints").deactivate()
-    
+
     m.obj = pyo.Objective(expr=1)
 
     print('Plant Initial Solve')
 
     solver = pyo.SolverFactory('ipopt')
-    res = solver.solve(m, tee=options.tee_flag)
-    _require_optimal_termination(res, "Plant initial solve")
+    solver.solve(m, tee=options.tee_flag)
 
     return m
 
@@ -92,19 +78,13 @@ def _mpc_loop(options):
     Returns:
         None
     """
-    print(
-        "Equation modules -> "
-        f"Plant: {PLANT_EQUATIONS_MODULE}, "
-        f"Controller: {CONTROLLER_EQUATIONS_MODULE}, "
-        f"MHE: {MHE_EQUATIONS_MODULE}"
-    )
     if options.infinite_horizon:
         if options.initialization_assist:
             controller = _assist_initialization_infinite(options)
             t0_controller = controller.finite_block.time.first()
             state_vars = controller.finite_block.state_vars
         else:
-            controller = _make_infinite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
+            controller = _make_infinite_horizon_controller(options)
             t0_controller = controller.finite_block.time.first()
             state_vars = controller.finite_block.state_vars
     else:
@@ -113,7 +93,7 @@ def _mpc_loop(options):
             t0_controller = controller.time.first()
             state_vars = controller.state_vars
         else:
-            controller = _make_finite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
+            controller = _make_finite_horizon_controller(options)
             t0_controller = controller.time.first()
             state_vars = controller.state_vars
 
@@ -127,6 +107,30 @@ def _mpc_loop(options):
     # Get full initial TimeSeriesData
     sim_data = plant.interface.get_data_at_time([plant.time.first()])
     full_initial_data = plant.interface.get_data_at_time([plant.time.first()])
+
+    # Build and initialize EKF.
+    # xw0 seeded from controller's current param values (its initial belief about Fb0, UA)
+    # so the EKF starts consistent with what the controller assumes.
+    if options.infinite_horizon:
+        _xw0 = np.array([
+            float(pyo.value(controller.finite_block.Fb0)),
+            float(pyo.value(controller.finite_block.UA)),
+        ])
+    else:
+        _xw0 = np.array([
+            float(pyo.value(controller.Fb0)),
+            float(pyo.value(controller.UA)),
+        ])
+    ekf = make_ekf(options, xw0=_xw0)
+    _ekf_x0 = {}
+    for _sv in state_vars:
+        _key = _get_variable_key_for_data(plant, _sv.local_name)
+        try:
+            _val = full_initial_data.get_data_from_key(_key)
+            _ekf_x0[_sv.local_name] = float(_val[0] if isinstance(_val, list) else _val)
+        except Exception:
+            pass
+    ekf.initialize_from_plant(_ekf_x0)
 
     # Zero out non-state values in initial sim_data
     state_var_keys = set()
@@ -156,35 +160,22 @@ def _mpc_loop(options):
 
     # Prepare plotting data arrays
     io_data_array = []
-    io_meas_array = []
     io_live_plot_array = []
     time_series = []
     cpu_time = []
-    mhe_state_hist = None
+    est_state_hist = None
     true_state_hist = None
-    mhe_skipped = 0
-    prev_mhe_model = None
-    prev_mhe_xhat = None
-    current_mhe_window = int(options.MHE_window)
-    mhe_min_window = int(getattr(options, "mhe_min_window", 1))
-    mhe_consecutive_ok = 0
+
     noise_amplitude = float(getattr(options, "measurement_noise_amplitude", 0.0))
     if noise_amplitude < 0.0 or noise_amplitude > 1.0:
         raise ValueError("measurement_noise_amplitude must be between 0 and 1.")
-    noise_seeded = bool(getattr(options, "measurement_noise_seeded", False))
-    noise_seed = int(getattr(options, "measurement_noise_seed", 0))
-    rng = np.random.default_rng(noise_seed) if noise_seeded else np.random.default_rng()
-    noise_vector = rng.normal(loc=0.0, scale=1.0, size=options.num_horizons)
+    noise_vector = np.random.normal(loc=0.0, scale=1.0, size=options.num_horizons)
     noise_vector = noise_vector - float(np.mean(noise_vector))
     max_abs_noise = float(np.max(np.abs(noise_vector)))
     if max_abs_noise > 0.0:
         noise_vector = noise_vector / max_abs_noise
     else:
         noise_vector = np.zeros(options.num_horizons)
-    if noise_seeded:
-        print(f"Measurement noise seed: {noise_seed}")
-    else:
-        print("Measurement noise seed: random (not seeded)")
     print("Measurement noise vector:", noise_vector.tolist())
 
     def _as_list(v):
@@ -203,19 +194,7 @@ def _mpc_loop(options):
         noisy = [ya_i + ys_i * noise_factor for ya_i, ys_i in zip(ya, ys)]
         return _restore_shape(y_actual, noisy)
 
-    def _fix_passed_disturbances_on_controller(controller_model, disturbance_values):
-        if options.infinite_horizon:
-            blocks = [controller_model.finite_block, controller_model.infinite_block]
-        else:
-            blocks = [controller_model]
-        for blk in blocks:
-            for name, val in disturbance_values.items():
-                if hasattr(blk, name):
-                    var = getattr(blk, name)
-                    for t in var.index_set():
-                        var[t].fix(float(val))
-
-    # Get initial CV values only if they correspond to a differential state
+    # Get initial CV values
     differential_state_keys = set()
     for sv in state_vars:
         sv_name = sv.name.split(".")[-1]
@@ -241,27 +220,22 @@ def _mpc_loop(options):
         else:
             initial_cv_row.append(value)
 
-    initial_meas_row = []
+    # Build measured_ss for noise scaling
     measured_index = list(getattr(plant, "Measured_index", plant.CV_index))
     measured_ss = {}
     for var_name in measured_index:
         key = _get_variable_key_for_data(plant, var_name)
-        value = full_initial_data.get_data_from_key(key)
-        measured_ss[var_name] = value
-        if isinstance(value, list):
-            initial_meas_row.extend(value)
-        else:
-            initial_meas_row.append(value)
+        measured_ss[var_name] = full_initial_data.get_data_from_key(key)
 
-    initial_mv_row = [None for _ in plant.MV_index]  # No initial MV values
+    initial_mv_row = [None for _ in plant.MV_index]
     io_data_array.append(initial_cv_row + initial_mv_row)
-    io_meas_array.append(initial_meas_row + initial_mv_row)
     io_live_plot_array.append(initial_cv_row + initial_mv_row)
     time_series.append(0.0)
-    # Initialize MHE/Truth history with NaNs for k=0 to align with time_series
+
+    # Initialize estimator history with NaNs for k=0 to align with time_series
     unmeasured_names = list(getattr(plant, "Unmeasured_index", []))
     if unmeasured_names:
-        mhe_state_hist = {name: [np.nan] for name in unmeasured_names}
+        est_state_hist  = {name: [np.nan] for name in unmeasured_names}
         true_state_hist = {name: [np.nan] for name in unmeasured_names}
 
     fig, axes = None, None
@@ -273,29 +247,15 @@ def _mpc_loop(options):
     if options.infinite_horizon:
         terminal_cost_prev = 1
         first_stage_cost_prev = 1
-    passed_disturbance_values = {"d_UA": 1.0, "d_k": 1.0}
-    d_ua_sent_hist = [float(passed_disturbance_values["d_UA"])]
-    d_k_sent_hist = [float(passed_disturbance_values["d_k"])]
-    options.steady_state_fixed_vars = {
-        "d_UA": float(passed_disturbance_values["d_UA"]),
-        "d_k": float(passed_disturbance_values["d_k"]),
-    }
 
     for i in loop_iter:
-        controller_rebuilt_this_iter = False
 
         simulation_time = (i + 1) * options.sampling_time
         noise_factor = noise_amplitude * float(noise_vector[i])
 
         start_time = time.process_time()
-        _fix_passed_disturbances_on_controller(controller, passed_disturbance_values)
-        res_controller = solver.solve(controller, tee=options.tee_flag)
-        _require_optimal_termination(res_controller, "Controller solve")
+        solver.solve(controller, tee=options.tee_flag)
         end_time = time.process_time()
-
-        # if i == 1:  # Toggle to False to disable model display
-        #     with open("model_output.txt", "w") as f:
-        #         controller.pprint(ostream=f)
 
         cpu_time.append(end_time - start_time)
 
@@ -331,7 +291,6 @@ def _mpc_loop(options):
                 for i, var_name in enumerate(controller.finite_block.stage_cost_index)
             )
 
-            # Optional debug printing
             print("")
             print("Terminal cost (prev):", terminal_cost_prev)
             print("Terminal cost (now):", terminal_cost_now)
@@ -341,8 +300,6 @@ def _mpc_loop(options):
             LHS = -(
                 terminal_cost_prev - terminal_cost_now - options.beta * penultimate_stage_cost_now
             ) / first_stage_cost_prev
-
-            
 
             print("")
             print(f"Min value of epsilon: {LHS}")
@@ -387,8 +344,7 @@ def _mpc_loop(options):
             )
 
         plant.interface.load_data(input_data, time_points=new_data_time)
-        res_plant = solver.solve(plant, tee=options.tee_flag)
-        _require_optimal_termination(res_plant, "Plant propagation solve")
+        solver.solve(plant, tee=options.tee_flag)
 
         # Get CV and MV values at the sampling time
         full_data = plant.interface.get_data_at_time(options.sampling_time)
@@ -400,7 +356,6 @@ def _mpc_loop(options):
             else:
                 cv_row.append(val)
 
-        meas_row = []
         measured_now = {}
         measured_noisy = {}
         for var_name in measured_index:
@@ -408,11 +363,9 @@ def _mpc_loop(options):
             y_measured = _make_noisy_measurement(val, measured_ss[var_name], noise_factor)
             measured_noisy[var_name] = y_measured
             if isinstance(y_measured, list):
-                meas_row.extend(y_measured)
                 if len(y_measured) == 1:
                     measured_now[var_name] = float(y_measured[0])
             else:
-                meas_row.append(y_measured)
                 measured_now[var_name] = float(y_measured)
 
         mv_row = []
@@ -425,7 +378,6 @@ def _mpc_loop(options):
 
         io_row = cv_row + mv_row
         io_data_array.append(io_row)
-        io_meas_array.append(meas_row + mv_row)
         live_cv_row = []
         for var_name in plant.CV_index:
             if var_name in measured_noisy:
@@ -446,22 +398,21 @@ def _mpc_loop(options):
                 time_series,
                 io_live_plot_array,
                 plant,
-                mhe_state_hist=mhe_state_hist,
+                est_state_hist=est_state_hist,
                 setpoint_values=controller_setpoints,
-                io_true_data_array=io_data_array,
             )
 
         model_data = plant.interface.get_data_at_time(new_data_time)
         model_data.shift_time_points(simulation_time - plant.time.first() - options.sampling_time)
         sim_data.concatenate(model_data)
 
-        # Only load state variables into tf_data
+        # Build tf_data: measured states from plant (with noise), unmeasured from EKF
         full_tf_data = plant.interface.get_data_at_time(options.sampling_time)
         tf_data = ScalarData(data={})
         unmeasured_names = list(getattr(plant, "Unmeasured_index", []))
         unmeasured_base = {name.split("[", 1)[0] for name in unmeasured_names}
         measured_state_vars = [v for v in state_vars if v.local_name not in unmeasured_base]
-        unmeasured_state_vars = [v for v in state_vars if v.local_name in unmeasured_base]
+
         for state_var in measured_state_vars:
             sv_name = state_var.name.split(".")[-1]
             if state_var.is_indexed():
@@ -482,190 +433,34 @@ def _mpc_loop(options):
                 y_actual = full_tf_data.get_data_from_key(key)
                 y_ss = full_initial_data.get_data_from_key(key)
                 tf_data.data[key] = _make_noisy_measurement(y_actual, y_ss, noise_factor)
-        # for UNMEASURED state vars in state vars, insert MHE estimates here
-        # keep measured states from plant; replace only unmeasured with MHE xhat
-        # Build arrival-cost prior from previous MHE model at the current window start
-        prior_xhat = None
-        prior_d_ua = None
-        prior_d_k = None
-        warm_start_x0 = None
-        if prev_mhe_model is not None:
-            try:
-                prev_fe_times = list(prev_mhe_model.time.get_finite_elements())
-                if prev_fe_times:
-                    t_prior = prev_fe_times[1] if len(prev_fe_times) > 1 else prev_fe_times[0]
-                    prior_xhat = {}
-                    for name in unmeasured_names:
-                        try:
-                            prior_xhat[name] = pyo.value(_add_time_indexed_expression(prev_mhe_model, name, t_prior))
-                        except Exception:
-                            continue
-                    if hasattr(prev_mhe_model, "d_UA"):
-                        try:
-                            prior_d_ua = float(pyo.value(_add_time_indexed_expression(prev_mhe_model, "d_UA", t_prior)))
-                        except Exception:
-                            prior_d_ua = None
-                    if hasattr(prev_mhe_model, "d_k"):
-                        try:
-                            prior_d_k = float(pyo.value(_add_time_indexed_expression(prev_mhe_model, "d_k", t_prior)))
-                        except Exception:
-                            prior_d_k = None
-            except Exception:
-                prior_xhat = None
-                prior_d_ua = None
-                prior_d_k = None
-        if prior_xhat is not None and len(prior_xhat) == 0:
-            # Keep bootstrap term active until we have at least one valid prior state.
-            prior_xhat = None
-        try:
-            mhe_result = solve_mhe_no_arrival_cost(
-                options=options,
-                io_data_array=io_meas_array,
-                M_desired=current_mhe_window,
-                solver_name="ipopt",
-                tee=False,
-                prior_xhat=prior_xhat,
-                prior_d_ua=prior_d_ua,
-                prior_d_k=prior_d_k,
-                warm_start_x0=warm_start_x0,
-                equations_module=MHE_EQUATIONS_MODULE,
-            )
-        except ValueError:
-            mhe_result = None
-            mhe_skipped += 1
-        if mhe_result is not None:
-            # Adaptive MHE window reduction:
-            # if state-change and output-residual conditions are satisfied
-            # for 2 consecutive iterations across all states/outputs.
-            state_default_eps = float(getattr(options, "mhe_state_error_default", 1e-2))
-            state_eps_map = dict(getattr(options, "mhe_state_error", {}))
-            output_default_eps = float(getattr(options, "mhe_output_error_default", 1e-2))
-            output_eps_map = dict(getattr(options, "mhe_output_error", {}))
 
-            state_ok = prev_mhe_xhat is not None and bool(unmeasured_names)
-            if state_ok:
-                for name in unmeasured_names:
-                    if name not in mhe_result.xhat or name not in prev_mhe_xhat:
-                        state_ok = False
-                        break
-                    eps_x = float(state_eps_map.get(name, state_default_eps))
-                    if abs(float(mhe_result.xhat[name]) - float(prev_mhe_xhat[name])) >= eps_x:
-                        state_ok = False
-                        break
+        # EKF step: predict using applied MVs, update using measured T
+        u_applied = np.array(mv_row)
+        T_meas = float(measured_now.get("T", ekf.x[4]))
+        ekf.step(u_applied, T_meas)
+        unmeasured_xhat = ekf.get_unmeasured_xhat()
 
-            output_ok = bool(measured_index)
-            tf_mhe = mhe_result.model.time.last()
-            if output_ok:
-                for name in measured_index:
-                    if name not in measured_now:
-                        output_ok = False
-                        break
-                    try:
-                        yhat_now = float(pyo.value(_add_time_indexed_expression(mhe_result.model, name, tf_mhe)))
-                    except Exception:
-                        output_ok = False
-                        break
-                    eps_y = float(output_eps_map.get(name, output_default_eps))
-                    if abs(float(measured_now[name]) - yhat_now) >= eps_y:
-                        output_ok = False
-                        break
-
-            if state_ok and output_ok:
-                mhe_consecutive_ok += 1
-            else:
-                mhe_consecutive_ok = 0
-                reset_window = int(options.MHE_window)
-                if current_mhe_window != reset_window:
-                    current_mhe_window = reset_window
-                    print(f"Adaptive MHE window reset to: {reset_window}")
-
-            if mhe_consecutive_ok >= 1 and current_mhe_window > mhe_min_window:
-                current_mhe_window -= 1
-                mhe_consecutive_ok = 0
-                print(f"Adaptive MHE window reduced to: {current_mhe_window}")
-
-            prev_mhe_model = mhe_result.model
-            prev_mhe_xhat = dict(mhe_result.xhat)
-            # Pass terminal disturbance estimates (if present) into the next MPC solve.
-            tf_mhe = mhe_result.model.time.last()
-            prev_passed_d_ua = float(passed_disturbance_values.get("d_UA", 0.0))
-            prev_passed_d_k = float(passed_disturbance_values.get("d_k", 0.0))
-            for d_name in ("d_UA", "d_k"):
-                if hasattr(mhe_result.model, d_name):
-                    try:
-                        passed_disturbance_values[d_name] = float(
-                            pyo.value(_add_time_indexed_expression(mhe_result.model, d_name, tf_mhe))
-                        )
-                    except Exception:
-                        continue
-            d_ua_step_delta = float(passed_disturbance_values.get("d_UA", 0.0)) - prev_passed_d_ua
-            d_k_step_delta = float(passed_disturbance_values.get("d_k", 0.0)) - prev_passed_d_k
-            c_actual = full_tf_data.get_data_from_key(_get_variable_key_for_data(plant, "Cc"))
-            if isinstance(c_actual, list):
-                c_actual = c_actual[0] if len(c_actual) > 0 else np.nan
-            c_estimated = mhe_result.xhat.get("Cc", np.nan)
-            print("Disturbances fixed for next MPC solve:", passed_disturbance_values)
-            print(f"Cactual-Cestimated: {float(c_actual) - float(c_estimated)}")
-            print(f"d_UA_passed-d_UA_passed(k-1): {d_ua_step_delta}")
-            print(f"d_k_passed-d_k_passed(k-1): {d_k_step_delta}")
-            if bool(getattr(options, "rebuild_setpoints_on_d_ua_change", True)) and (mhe_result.M_eff >= current_mhe_window) and (
-                abs(d_ua_step_delta) >= 0.02 or abs(d_k_step_delta) >= 0.02
-            ):
-                options.steady_state_fixed_vars = {
-                    "d_UA": float(passed_disturbance_values["d_UA"]),
-                    "d_k": float(passed_disturbance_values["d_k"]),
-                }
-                print(
-                    "Re-solving controller steady-state targets with fixed "
-                    f"d_UA={float(passed_disturbance_values['d_UA'])}, "
-                    f"d_k={float(passed_disturbance_values['d_k'])}"
-                )
-                if options.infinite_horizon:
-                    controller = _make_infinite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
-                    t0_controller = controller.finite_block.time.first()
-                    state_vars = controller.finite_block.state_vars
-                    controller_setpoints = controller.finite_block.steady_state_values
-                else:
-                    controller = _make_finite_horizon_controller(options, equations_module=CONTROLLER_EQUATIONS_MODULE)
-                    t0_controller = controller.time.first()
-                    state_vars = controller.state_vars
-                    controller_setpoints = controller.steady_state_values
-                _fix_passed_disturbances_on_controller(controller, passed_disturbance_values)
-                controller_rebuilt_this_iter = True
-            for name in unmeasured_names:
-                if name in mhe_result.xhat:
-                    key = _get_variable_key_for_data(plant, name)
-                    tf_data._data[key] = mhe_result.xhat[name]
-                    if mhe_state_hist is not None:
-                        mhe_state_hist[name].append(mhe_result.xhat[name])
-                else:
-                    if mhe_state_hist is not None:
-                        mhe_state_hist[name].append(np.nan)
-        else:
-            mhe_consecutive_ok = 0
-            if mhe_state_hist is not None:
-                for name in unmeasured_names:
-                    mhe_state_hist[name].append(np.nan)
-            # Fallback: use plant values if MHE not available
-            for name in unmeasured_names:
+        for name in unmeasured_names:
+            if name in unmeasured_xhat:
                 key = _get_variable_key_for_data(plant, name)
-                tf_data._data[key] = full_tf_data.get_data_from_key(key)
-        # Record truth unmeasured states from plant at this sampling time
+                tf_data._data[key] = unmeasured_xhat[name]
+                if est_state_hist is not None:
+                    est_state_hist[name].append(unmeasured_xhat[name])
+            else:
+                if est_state_hist is not None:
+                    est_state_hist[name].append(np.nan)
+
+        # Record truth unmeasured states from plant
         if true_state_hist is not None:
             for name in true_state_hist:
                 key = _get_variable_key_for_data(plant, name)
                 true_state_hist[name].append(full_tf_data.get_data_from_key(key))
+
         plant.interface.load_data(tf_data)
 
-        if not controller_rebuilt_this_iter:
-            controller.interface.shift_values_by_time(options.sampling_time)
-            controller.interface.load_data(tf_data, time_points=t0_controller)
-        else:
-            controller.interface.load_data(tf_data, time_points=t0_controller)
+        controller.interface.shift_values_by_time(options.sampling_time)
+        controller.interface.load_data(tf_data, time_points=t0_controller)
 
-        d_ua_sent_hist.append(float(passed_disturbance_values.get("d_UA", 0.0)))
-        d_k_sent_hist.append(float(passed_disturbance_values.get("d_k", 0.0)))
-        
         if options.remove_collocation:
             if options.infinite_horizon:
                 controller = _remove_non_collocation_values_infinite(controller)
@@ -682,24 +477,10 @@ def _mpc_loop(options):
         plant,
         cpu_time,
         options,
-        mhe_state_hist=mhe_state_hist,
+        est_state_hist=est_state_hist,
         true_state_hist=true_state_hist,
         setpoint_values=controller_setpoints,
-        d_ua_sent_hist=d_ua_sent_hist,
-        d_k_sent_hist=d_k_sent_hist,
     )
-    print(f"MHE skipped count: {mhe_skipped}")
-    return {
-        "time_series": time_series,
-        "io_data_array": io_data_array,
-        "cv_index": list(plant.CV_index),
-        "setpoint_values": controller_setpoints,
-        "mhe_state_hist": mhe_state_hist,
-        "true_state_hist": true_state_hist,
-        "d_ua_sent_hist": d_ua_sent_hist,
-        "d_k_sent_hist": d_k_sent_hist,
-        "mhe_skipped": mhe_skipped,
-    }
 
 
 if __name__ == "__main__":

@@ -103,16 +103,7 @@ def _setup_live_plot(plant):
     return fig, axes
 
 
-def _update_live_plot(
-    fig,
-    axes,
-    time_series,
-    io_data_array,
-    plant,
-    mhe_state_hist=None,
-    setpoint_values=None,
-    io_true_data_array=None,
-):
+def _update_live_plot(fig, axes, time_series, io_data_array, plant, est_state_hist=None, setpoint_values=None):
     """
     Update the live plot with current simulation data.
 
@@ -122,20 +113,19 @@ def _update_live_plot(
         time_series: List of simulation time points.
         io_data_array: List of CV and MV data at each time.
         plant: The plant model with display names and steady state values.
-        io_true_data_array: Optional list of true CV/MV data to overlay against noisy measurements.
+        est_state_hist: EKF estimate history for unmeasured states.
+        setpoint_values: Dict of setpoint values for CV/MV.
 
     Returns:
         None
     """
     io_np = np.array(io_data_array)
-    true_np = np.array(io_true_data_array) if io_true_data_array is not None else None
     time_label = f"${plant.time_display_name[0]}$"
 
     # Ensure axes is 2D for uniform indexing
     axes = np.atleast_2d(axes)
 
     unmeasured_names = set(getattr(plant, "Unmeasured_index", []))
-    measured_names = set(getattr(plant, "Measured_index", plant.CV_index))
     if setpoint_values is None:
         setpoint_values = getattr(plant, "steady_state_values", {})
 
@@ -143,13 +133,9 @@ def _update_live_plot(
         ax = axes[j, 0] if axes.shape[1] > 1 else axes[j]
         ax.cla()
         display_name = plant.CV_display_names[j]
-        if mhe_state_hist is not None and var_name in unmeasured_names and var_name in mhe_state_hist:
-            series = mhe_state_hist[var_name]
-            ax.plot(time_series[:len(series)], series, label="MHE Estimate", color="blue")
-            ax.plot(time_series, io_np[:, j], label="Actual", color="purple")
-        elif var_name in measured_names and true_np is not None:
-            ax.plot(time_series, io_np[:, j], label="Noisy Measurement", color="blue")
-            ax.plot(time_series, true_np[:, j], label="Actual", color="purple")
+        if est_state_hist is not None and var_name in unmeasured_names and var_name in est_state_hist:
+            series = est_state_hist[var_name]
+            ax.plot(time_series[:len(series)], series, label="EKF Estimate")
         else:
             ax.plot(time_series, io_np[:, j], label="Trajectory")
         sp = setpoint_values.get(var_name, None)
@@ -250,84 +236,51 @@ def _plot_final_results(time_series, io_data_array, plant, show=False, setpoint_
     return figures, names
 
 
-def _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant):
+def _plot_est_vs_truth(time_series, est_state_hist, true_state_hist, plant):
     """
-    Plot MHE estimates vs truth for unmeasured states.
+    Plot EKF estimates vs plant truth for unmeasured states.
     """
     figures = []
     names = []
-    if not mhe_state_hist or not true_state_hist:
+    if not est_state_hist or not true_state_hist:
         return figures, names
 
-    for name, mhe_series in mhe_state_hist.items():
+    for name, est_series in est_state_hist.items():
         if name not in true_state_hist:
             continue
         true_series = true_state_hist[name]
-        min_len = min(len(time_series), len(mhe_series), len(true_series))
+        min_len = min(len(time_series), len(est_series), len(true_series))
         if min_len == 0:
             continue
 
         fig = plt.figure()
         plt.plot(time_series[:min_len], true_series[:min_len], label="Truth")
-        plt.plot(time_series[:min_len], mhe_series[:min_len], label="MHE")
+        plt.plot(time_series[:min_len], est_series[:min_len], label="EKF Estimate")
         plt.ylabel(name)
         plt.xlabel(f"${plant.time_display_name[0]}$")
-        plt.title(f"MHE vs Truth: {name}")
+        plt.title(f"EKF vs Truth: {name}")
         plt.grid(True)
         plt.legend()
         figures.append(fig)
-        names.append(f"MHE_vs_Truth_{name}")
+        names.append(f"EKF_vs_Truth_{name}")
 
-        # Error plot: (Truth - MHE)
+        # Error plot
         fig_err = plt.figure()
-        err = np.array(true_series[:min_len]) - np.array(mhe_series[:min_len])
-        plt.plot(time_series[:min_len], err, label="Truth - MHE")
+        err = np.array(true_series[:min_len]) - np.array(est_series[:min_len])
+        plt.plot(time_series[:min_len], err, label="Truth - EKF")
         plt.axhline(y=0.0, color="k", linestyle="--", linewidth=1)
         plt.ylabel(f"{name} error")
         plt.xlabel(f"${plant.time_display_name[0]}$")
-        plt.title(f"MHE Error: {name}")
+        plt.title(f"EKF Error: {name}")
         plt.grid(True)
         plt.legend()
         figures.append(fig_err)
-        names.append(f"MHE_Error_{name}")
+        names.append(f"EKF_Error_{name}")
 
     return figures, names
 
 
-def _plot_d_ua_sent(time_series, d_ua_sent_hist, d_k_sent_hist, plant):
-    """
-    Plot the disturbance value sent from MHE to MPC over time.
-    """
-    figures = []
-    names = []
-    if d_ua_sent_hist is None and d_k_sent_hist is None:
-        return figures, names
-
-    lengths = [len(time_series)]
-    if d_ua_sent_hist is not None:
-        lengths.append(len(d_ua_sent_hist))
-    if d_k_sent_hist is not None:
-        lengths.append(len(d_k_sent_hist))
-    min_len = min(lengths)
-    if min_len == 0:
-        return figures, names
-
-    fig = plt.figure()
-    if d_ua_sent_hist is not None:
-        plt.plot(time_series[:min_len], d_ua_sent_hist[:min_len], label="d_UA_sent")
-    if d_k_sent_hist is not None:
-        plt.plot(time_series[:min_len], d_k_sent_hist[:min_len], label="d_k_sent")
-    plt.ylabel("Sent Disturbance Value")
-    plt.xlabel(f"${plant.time_display_name[0]}$")
-    plt.title("Disturbance Sent to MPC: d_UA_sent and d_k_sent")
-    plt.grid(True)
-    plt.legend()
-    figures.append(fig)
-    names.append("d_UA_d_k_sent")
-    return figures, names
-
-
-def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, mhe_state_hist=None, true_state_hist=None, setpoint_values=None, d_ua_sent_hist=None, d_k_sent_hist=None):
+def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, est_state_hist=None, true_state_hist=None, setpoint_values=None):
     """
     Post-processing after the MPC loop: saves data, plots, and manages output directories.
 
@@ -347,12 +300,9 @@ def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, o
         plant,
         setpoint_values=setpoint_values,
     )
-    mhe_figures, mhe_names = _plot_mhe_vs_truth(time_series, mhe_state_hist, true_state_hist, plant)
-    final_figures.extend(mhe_figures)
-    figure_names.extend(mhe_names)
-    d_ua_figures, d_ua_names = _plot_d_ua_sent(time_series, d_ua_sent_hist, d_k_sent_hist, plant)
-    final_figures.extend(d_ua_figures)
-    figure_names.extend(d_ua_names)
+    est_figures, est_names = _plot_est_vs_truth(time_series, est_state_hist, true_state_hist, plant)
+    final_figures.extend(est_figures)
+    figure_names.extend(est_names)
 
     if options.infinite_horizon:
         folder_path = os.path.join(

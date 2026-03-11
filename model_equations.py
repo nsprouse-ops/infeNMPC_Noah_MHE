@@ -26,13 +26,9 @@ def variables_initialize(m):
     m.Cm = pyo.Var(m.time, initialize=1.5, domain=pyo.NonNegativeReals)  # Inert/misc concentration
     m.T = pyo.Var(m.time, initialize=297, domain=pyo.NonNegativeReals)   # Reactor temperature
 
-    # ---- Parameters (Disturbances) ----
-    m.Fb0 = pyo.Param(initialize=453.6, mutable=False)  # B feed rate
-    m.UA = pyo.Param(initialize=7000, mutable=False)    # Heat transfer coefficient * area
-
-    # ---- disturbance state
-    m.d_UA = pyo.Var(m.time, initialize=1, bounds=(.0001,2))
-    m.d_k = pyo.Var(m.time, initialize=1, bounds=(.0001,2))
+    # ---- Parameters (Disturbances) — mutable so EKF estimates can be fed back ----
+    m.Fb0 = pyo.Param(initialize=453.6, mutable=True)  # B feed rate
+    m.UA = pyo.Param(initialize=7262,   mutable=True)  # Heat transfer coefficient * area
 
     # ---- Manipulated Inputs ----
     m.Fa0 = pyo.Var(m.time, initialize=35, bounds=(10,100))    # A feed rate
@@ -78,19 +74,17 @@ def equations_write(m):
     Fm0 = 45.4      # Feed rate of inert/miscellaneous stream [mol/min]
 
     # ---- Algebraic Equations ----
-    m.k = {t: 2e13 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
-    m.UA_eff = {t: m.UA * m.d_UA[t] for t in m.time}
-    m.k_eff = {t: m.k[t] * m.d_k[t] for t in m.time}
-    m.ra = {t: 0 - (m.k_eff[t] * m.Ca[t]) for t in m.time}
-    m.rb = {t: 0 - (m.k_eff[t] * m.Ca[t]) for t in m.time}
-    m.rc = {t: m.k_eff[t] * m.Ca[t] for t in m.time}
+    m.k = {t: 1.696e13 * exp(-18012 / 1.987 / (m.T[t])) for t in m.time}
+    m.ra = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
+    m.rb = {t: 0 - (m.k[t] * m.Ca[t]) for t in m.time}
+    m.rc = {t: m.k[t] * m.Ca[t] for t in m.time}
     m.Na = {t: m.Ca[t] * V for t in m.time}
     m.Nb = {t: m.Cb[t] * V for t in m.time}
     m.Nc = {t: m.Cc[t] * V for t in m.time}
     m.Nm = {t: m.Cm[t] * V for t in m.time}
     m.ThetaCp = {t: 35 + m.Fb0 / m.Fa0[t] * 18 + Fm0 / m.Fa0[t] * 19.5 for t in m.time}
     m.v0 = {t: m.Fa0[t] / 14.8 + m.Fb0 / 55.3 + Fm0 / 24.7 for t in m.time}
-    m.Ta2 = {t: m.T[t] - ((m.T[t] - Ta1) * exp(0 - (m.UA_eff[t] / (CpW * m.mc[t])))) for t in m.time}
+    m.Ta2 = {t: m.T[t] - ((m.T[t] - Ta1) * exp(0 - (m.UA / (CpW * m.mc[t])))) for t in m.time}
     m.Ca0 = {t: m.Fa0[t] / m.v0[t] for t in m.time}
     m.Cb0 = {t: m.Fb0 / m.v0[t] for t in m.time}
     m.Cm0 = {t: Fm0 / m.v0[t] for t in m.time}
@@ -111,16 +105,12 @@ def equations_write(m):
         return m.dCmdt[t] == (1 / m.tau_tc[t]) * (m.Cm0[t] - m.Cm[t])
     def energy_balance_rule(m, t):
         return m.dTdt[t] == (m.Qg[t] - m.Qr[t]) / m.NCp[t]
-    def k_eff_lb_rule(m, t):
-        # Keep effective kinetic constant physically meaningful.
-        return m.k_eff[t] >= 1e-6
 
     m.Ca_balance = pyo.Constraint(m.time, rule=Ca_balance_rule)
     m.Cb_balance = pyo.Constraint(m.time, rule=Cb_balance_rule)
     m.Cc_balance = pyo.Constraint(m.time, rule=Cc_balance_rule)
     m.Cm_balance = pyo.Constraint(m.time, rule=Cm_balance_rule)
     m.energy_balance = pyo.Constraint(m.time, rule=energy_balance_rule)
-    m.k_eff_lb = pyo.Constraint(m.time, rule=k_eff_lb_rule)
 
     return m
 

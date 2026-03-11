@@ -28,8 +28,8 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 10
-        self.num_horizons = 40
+        self.MHE_window = 15
+        self.num_horizons = 100
         self.nfe_finite = 2
         self.ncp_finite = 3
         self.sampling_time = 0.05
@@ -40,7 +40,7 @@ class Options:
         self.ncp_infinite = 3
 
         # Solver and model options
-        self.tee_flag = False
+        self.tee_flag = True
         self.endpoint_constraints = True
         self.custom_objective = False
         self.initialize_with_initial_data = False
@@ -51,30 +51,18 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-        self.measurement_noise_amplitude = 0.01
-        self.measurement_noise_seeded = False
-        self.measurement_noise_seed = 12345
+        self.measurement_noise_amplitude = 0.00
         #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
-        self.mhe_arrival_default_lambda = 4.35   #this does nothing currently
-        self.theta_arrival_weight =200 #weights for state arrival
-        self.F_state_weight = .5 #3.691310878592334 #weights on residuals
-        self.mhe_e_ua_weight = 1#0.002720946335344285
-        self.mhe_e_k_weight = self.mhe_e_ua_weight
-        self.mhe_d_ua_arrival_weight =10#.00005
-        self.mhe_d_k_arrival_weight = self.mhe_d_ua_arrival_weight
-        self.mhe_e_ua_bound = .015
-        self.mhe_e_k_bound = self.mhe_e_ua_bound
-        self.mhe_d_ua_max_step = .015
-        self.mhe_d_k_max_step = self.mhe_d_ua_max_step
-        self.mhe_arrival_weights = {}
-        self.mhe_state_error_default = 1e-3 #with noise these are really irrelavent
-        self.mhe_state_error = {}
-        self.mhe_output_error_default = 1e-3
-        self.mhe_output_error = {}
-        self.rebuild_setpoints_on_d_ua_change = True
+
+        # EKF options
+        self.ekf_Q_process          = 1e-4   # process noise covariance (Ca, Cb, Cc, Cm, T)
+        self.ekf_Q_disturbance      = 1e-6   # process noise covariance (Fb0_est, UA_est)
+        self.ekf_R                  = 2      # measurement noise covariance (T)
+        self.ekf_P0_scale           = 1.0    # initial error covariance = I * scale
+        self.ekf_disturbance_smoothing = 0.05  # EMA alpha for disturbance feedback (0=no update, 1=instant)
 
         # Display/Data Output options
         self.live_plot = True
