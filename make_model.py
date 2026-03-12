@@ -68,6 +68,15 @@ def _make_steady_state_model(m, options, equations_module: str = "model_equation
 
     m = equations_write(m)
 
+    # Fix disturbance states to nominal (1.0) so the SS solve uses the unperturbed model.
+    # Without this, IPOPT treats d_UA and d_k as free optimisation variables and computes
+    # wrong steady-state MV references that corrupt the controller objective for the whole run.
+    for dname in ["d_k"]:
+        if hasattr(m, dname):
+            var = getattr(m, dname)
+            for t in m.time:
+                var[t].fix(1.0)
+
     for var in deriv_vars:
         for idx in var.index_set():
             # Check if last index is time
@@ -489,6 +498,16 @@ def _finite_block_gen(m, options, equations_module: str = "model_equations"):
 
     equations_write(m)
 
+    # Mutable ss_param: allows runtime updates to steady-state references in objective/constraints
+    if hasattr(m, 'steady_state_values'):
+        cv_mv_list = list(m.CV_index) + list(m.MV_index)
+        m.ss_param_index = pyo.Set(initialize=cv_mv_list)
+        m.ss_param = pyo.Param(
+            m.ss_param_index,
+            initialize={k: m.steady_state_values[k] for k in cv_mv_list},
+            mutable=True,
+        )
+
     return m
 
 
@@ -571,11 +590,20 @@ def _infinite_block_gen(m, options, equations_module: str = "model_equations"):
 
         m.stage_cost_index = pyo.Set(initialize=lambda m: list(m.CV_index) + list(m.MV_index))
 
+        # Mutable ss_param for the infinite block — allows runtime SS updates
+        cv_mv_list = list(m.CV_index) + list(m.MV_index)
+        m.ss_param_index = pyo.Set(initialize=cv_mv_list)
+        m.ss_param = pyo.Param(
+            m.ss_param_index,
+            initialize={k: m.steady_state_values[k] for k in cv_mv_list},
+            mutable=True,
+        )
+
         c = options.stage_cost_weights
 
         def _terminal_cost_rule(m, t):
             stage_cost = sum(
-                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.steady_state_values[var_name])**2
+                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.ss_param[var_name])**2
                 for i, var_name in enumerate(m.stage_cost_index)
             )
 
@@ -583,22 +611,20 @@ def _infinite_block_gen(m, options, equations_module: str = "model_equations"):
                 if any(c[i] == 0 for i in range(len(c))):
                     cmod = [1 for _ in c]  # Set all cmod[i] = 1
                     stage_cost_mod = sum(
-                        cmod[i] * (_add_time_indexed_expression(m, var_name, t) - m.steady_state_values[var_name])**2
+                        cmod[i] * (_add_time_indexed_expression(m, var_name, t) - m.ss_param[var_name])**2
                         for i, var_name in enumerate(m.stage_cost_index)
                     )
                     return stage_cost_mod <= 1e-6
                 else:
                     return stage_cost <= 1e-6
-                # else:
-                #     return stage_cost <= 1e-6
             elif t == 0:
                 return pyo.Constraint.Skip
             else:
                 return (options.gamma / options.sampling_time * (1 - t**2)) * m.dphidt[t] == stage_cost
-            
+
         def _custom_terminal_cost_rule(m, t):
             setpoint_stage_cost = sum(
-                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.steady_state_values[var_name])**2
+                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.ss_param[var_name])**2
                 for i, var_name in enumerate(m.stage_cost_index)
             )
             cost_fn = custom_objective(m, options)  # this returns a lambda
@@ -693,6 +719,49 @@ def _link_blocks(m):
         setattr(m, f"link_{name}_constraint", make_link_constraint(name))
 
     return m
+
+
+def _update_steady_state_for_disturbances(controller, options, d_k):
+    """
+    Re-solve the steady-state problem with the EKF d_k estimate and
+    update ss_param (and steady_state_values dict) on the controller blocks in place.
+
+    Parameters
+    ----------
+    controller : pyo.ConcreteModel   solved controller (infinite or finite horizon)
+    options    : Options
+    d_k        : float               current EKF d_k estimate
+    """
+    m_ss = pyo.ConcreteModel()
+    m_ss = _make_steady_state_model(m_ss, options)   # initially fixes d_k=1
+
+    # Override d_k with EKF estimate
+    if hasattr(m_ss, "d_k"):
+        for t in m_ss.time:
+            m_ss.d_k[t].fix(float(d_k))
+
+    setpoint_targets = {
+        _get_variable_key_for_data(m_ss, var): pyo.value(m_ss.setpoints[var])
+        for var in m_ss.setpoints.index_set()
+    }
+    steady_state_data = _solve_steady_state_model(m_ss, ScalarData(setpoint_targets), options)
+
+    # Only update MV references — CV setpoints (Cc, T) remain fixed at their target values
+    new_ss = {}
+    for mv in m_ss.MV_index:
+        new_ss[mv] = steady_state_data.get_data_from_key(_get_variable_key_for_data(m_ss, mv))
+
+    # Update controller blocks
+    blocks = ([controller.finite_block, controller.infinite_block]
+              if hasattr(controller, 'finite_block') else [controller])
+    for blk in blocks:
+        blk.steady_state_values.update(new_ss)
+        if hasattr(blk, 'ss_param'):
+            for var_name, val in new_ss.items():
+                if var_name in blk.ss_param:
+                    blk.ss_param[var_name].set_value(float(val))
+
+    return new_ss
 
 
 # ---- Testing the Model ----

@@ -1,5 +1,5 @@
 import pyomo.environ as pyo
-from make_model import _make_infinite_horizon_model, _make_finite_horizon_model, _remove_non_collocation_values_infinite, _remove_non_collocation_values_finite
+from make_model import _make_infinite_horizon_model, _make_finite_horizon_model, _remove_non_collocation_values_infinite, _remove_non_collocation_values_finite, _update_steady_state_for_disturbances
 import idaes
 from idaes.core.solvers import use_idaes_solver_configuration_defaults
 from infNMPC_options import _import_settings
@@ -102,6 +102,16 @@ def _mpc_loop(options):
     else:
         controller_setpoints = controller.steady_state_values
 
+    # Fix d_UA and d_k to nominal (1.0) before any solve — prevents IPOPT from
+    # exploiting them as free variables before the EKF has produced estimates.
+    def _fix_disturbances(d_k_val):
+        blocks = [controller.finite_block, controller.infinite_block] if options.infinite_horizon else [controller]
+        for blk in blocks:
+            for t in blk.time:
+                blk.d_k[t].fix(d_k_val)
+
+    _fix_disturbances(1.0)
+
     plant = _make_plant(options)
 
     # Get full initial TimeSeriesData
@@ -109,19 +119,8 @@ def _mpc_loop(options):
     full_initial_data = plant.interface.get_data_at_time([plant.time.first()])
 
     # Build and initialize EKF.
-    # xw0 seeded from controller's current param values (its initial belief about Fb0, UA)
-    # so the EKF starts consistent with what the controller assumes.
-    if options.infinite_horizon:
-        _xw0 = np.array([
-            float(pyo.value(controller.finite_block.Fb0)),
-            float(pyo.value(controller.finite_block.UA)),
-        ])
-    else:
-        _xw0 = np.array([
-            float(pyo.value(controller.Fb0)),
-            float(pyo.value(controller.UA)),
-        ])
-    ekf = make_ekf(options, xw0=_xw0)
+    # d_UA and d_k are multiplicative disturbance states; nominal (no disturbance) = 1.0
+    ekf = make_ekf(options)  # xw0 defaults to [1.0, 1.0]
     _ekf_x0 = {}
     for _sv in state_vars:
         _key = _get_variable_key_for_data(plant, _sv.local_name)
@@ -165,6 +164,7 @@ def _mpc_loop(options):
     cpu_time = []
     est_state_hist = None
     true_state_hist = None
+    d_k_hist = []
 
     noise_amplitude = float(getattr(options, "measurement_noise_amplitude", 0.0))
     if noise_amplitude < 0.0 or noise_amplitude > 1.0:
@@ -434,11 +434,19 @@ def _mpc_loop(options):
                 y_ss = full_initial_data.get_data_from_key(key)
                 tf_data.data[key] = _make_noisy_measurement(y_actual, y_ss, noise_factor)
 
-        # EKF step: predict using applied MVs, update using measured T
+        # EKF step: predict using applied MVs, update using measured T only
         u_applied = np.array(mv_row)
         T_meas = float(measured_now.get("T", ekf.x[4]))
-        ekf.step(u_applied, T_meas)
+        ekf.step(u_applied, np.array([T_meas]))
         unmeasured_xhat = ekf.get_unmeasured_xhat()
+
+        # Feed EKF disturbance estimate back to controller — fix d_k throughout horizon
+        dist_est = ekf.get_disturbance_estimates()
+        print(f"  EKF d_k [step {i+1}]: {dist_est['d_k']:.4f}")
+        _fix_disturbances(dist_est["d_k"])
+        d_k_hist.append(dist_est["d_k"])
+        new_ss = _update_steady_state_for_disturbances(controller, options, dist_est["d_k"])
+        print(f"  Updated SS refs: Fa0 = {new_ss.get('Fa0', float('nan')):.4f},  mc = {new_ss.get('mc', float('nan')):.4f}")
 
         for name in unmeasured_names:
             if name in unmeasured_xhat:
@@ -480,6 +488,7 @@ def _mpc_loop(options):
         est_state_hist=est_state_hist,
         true_state_hist=true_state_hist,
         setpoint_values=controller_setpoints,
+        d_k_hist=d_k_hist,
     )
 
 

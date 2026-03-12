@@ -53,7 +53,7 @@ def _make_infinite_horizon_controller(options, data=None):
             c = options.stage_cost_weights
             finite_elements = m.finite_block.time.get_finite_elements()
             stage_cost = sum(sum(
-                c[i] * (_add_time_indexed_expression(m.finite_block, var_name, t) - m.finite_block.steady_state_values[var_name])**2
+                c[i] * (_add_time_indexed_expression(m.finite_block, var_name, t) - m.finite_block.ss_param[var_name])**2
                 for i, var_name in enumerate(m.finite_block.stage_cost_index)
             ) for t in finite_elements if t != m.finite_block.time.first())
 
@@ -64,7 +64,7 @@ def _make_infinite_horizon_controller(options, data=None):
             for tau in tau_list:
                 if m.infinite_block.time.first() < tau < m.infinite_block.time.last():
                     tracking_cost = sum(
-                        c[i] * (_add_time_indexed_expression(m.infinite_block, var_name, tau) - m.infinite_block.steady_state_values[var_name])**2
+                        c[i] * (_add_time_indexed_expression(m.infinite_block, var_name, tau) - m.infinite_block.ss_param[var_name])**2
                         for i, var_name in enumerate(m.infinite_block.stage_cost_index)
                     )
                     obj_expression_infinite += tracking_cost * (tau - tau_prev) / (options.gamma / options.sampling_time * (1 - tau**2))
@@ -79,7 +79,7 @@ def _make_infinite_horizon_controller(options, data=None):
             c = options.stage_cost_weights
             finite_elements = m.finite_block.time.get_finite_elements()
             stage_cost = sum(sum(
-                c[i] * (_add_time_indexed_expression(m.finite_block, var_name, t) - m.finite_block.steady_state_values[var_name])**2
+                c[i] * (_add_time_indexed_expression(m.finite_block, var_name, t) - m.finite_block.ss_param[var_name])**2
                 for i, var_name in enumerate(m.finite_block.stage_cost_index)
             ) for t in finite_elements if t != m.finite_block.time.first())
 
@@ -169,9 +169,9 @@ def _make_finite_horizon_controller(options, data=None):
         def objective_rule(m):
             c = options.stage_cost_weights
             finite_elements = m.time.get_finite_elements()
-            
+
             stage_cost = sum(sum(
-                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.steady_state_values[var_name])**2
+                c[i] * (_add_time_indexed_expression(m, var_name, t) - m.ss_param[var_name])**2
                 for i, var_name in enumerate(m.stage_cost_index)
             ) for t in finite_elements if t != m.time.first()) #  for t in m.time if t != m.time.first()) #
 

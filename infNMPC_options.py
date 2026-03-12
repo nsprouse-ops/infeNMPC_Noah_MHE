@@ -28,8 +28,7 @@ class Options:
 
     def __init__(self):
         # Simulation control
-        self.MHE_window = 15
-        self.num_horizons = 100
+        self.num_horizons = 200
         self.nfe_finite = 2
         self.ncp_finite = 3
         self.sampling_time = 0.05
@@ -40,7 +39,7 @@ class Options:
         self.ncp_infinite = 3
 
         # Solver and model options
-        self.tee_flag = True
+        self.tee_flag = False
         self.endpoint_constraints = True
         self.custom_objective = False
         self.initialize_with_initial_data = False
@@ -51,18 +50,25 @@ class Options:
 
         self.input_suppression = True
         self.input_suppression_factor = 0.5e0 * 1.0E5
-        self.measurement_noise_amplitude = 0.00
+        self.measurement_noise_amplitude = 0.01
         #list(m.CV_index) + list(m.MV_index) is order
         self.stage_cost_weights = [1, 1e-2, 1e-2, 1e-3]
         self.gamma = 0.05
         self.beta = 1.2
 
         # EKF options
-        self.ekf_Q_process          = 1e-4   # process noise covariance (Ca, Cb, Cc, Cm, T)
-        self.ekf_Q_disturbance      = 1e-6   # process noise covariance (Fb0_est, UA_est)
-        self.ekf_R                  = 2      # measurement noise covariance (T)
-        self.ekf_P0_scale           = 1.0    # initial error covariance = I * scale
-        self.ekf_disturbance_smoothing = 0.05  # EMA alpha for disturbance feedback (0=no update, 1=instant)
+        # Q_process    : variance allowed on process state evolution per step
+        # Q_disturbance: variance allowed on d_UA, d_k per step
+        #                d_UA/d_k are dimensionless (order 1); needs to be >> R to get
+        #                meaningful Kalman gain. Rule of thumb: Q_w >= R * expected_change^2
+        # ekf_R        : temperature measurement noise variance [K^2]
+        self.ekf_Q_process          = 1e-3   # process noise covariance (Ca, Cb, Cc, Cm, T)
+        self.ekf_Q_disturbance      = 2.5e-4   # d_k is a CONSTANT model mismatch — tiny Q means
+                                             # filter holds its estimate once converged
+        self.ekf_R                  = 9      # measurement noise covariance (T) [K^2]
+        self.ekf_P0_scale           = 1e-4   # initial error covariance for process states
+        self.ekf_P0_scale_disturbance = 1.0  # initial error covariance for d_k — must be LARGE
+                                             # because d_k starts at 1.0 but true ~0.34 (error ~0.66)
 
         # Display/Data Output options
         self.live_plot = True

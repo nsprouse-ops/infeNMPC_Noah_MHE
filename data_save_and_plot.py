@@ -280,7 +280,35 @@ def _plot_est_vs_truth(time_series, est_state_hist, true_state_hist, plant):
     return figures, names
 
 
-def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, est_state_hist=None, true_state_hist=None, setpoint_values=None):
+def _plot_d_k(time_series, d_k_hist, plant, true_d_k=None):
+    """
+    Plot EKF d_k estimate over time.
+
+    Args:
+        time_series: Full list of time points (length N+1, starting at 0).
+        d_k_hist: List of d_k estimates, one per MPC step (length N).
+        plant: Plant model (for time axis label).
+        true_d_k: Optional true d_k value to draw as a horizontal reference line.
+
+    Returns:
+        fig: Matplotlib figure.
+        name: Figure name string.
+    """
+    # d_k_hist aligns with time_series[1:] (first entry is t=0 with no estimate yet)
+    t = time_series[1 : len(d_k_hist) + 1]
+    fig = plt.figure()
+    plt.plot(t, d_k_hist, label="EKF $d_k$ estimate")
+    if true_d_k is not None:
+        plt.axhline(y=true_d_k, color="r", linestyle="--", label=f"True $d_k$ = {true_d_k:.4f}")
+    plt.ylabel("$d_k$")
+    plt.xlabel(f"${plant.time_display_name[0]}$")
+    plt.title("EKF Disturbance Estimate: $d_k$ vs. Time")
+    plt.grid(True)
+    plt.legend()
+    return fig, "d_k_estimate"
+
+
+def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, options, est_state_hist=None, true_state_hist=None, setpoint_values=None, d_k_hist=None):
     """
     Post-processing after the MPC loop: saves data, plots, and manages output directories.
 
@@ -303,6 +331,13 @@ def _handle_mpc_results(sim_data, time_series, io_data_array, plant, cpu_time, o
     est_figures, est_names = _plot_est_vs_truth(time_series, est_state_hist, true_state_hist, plant)
     final_figures.extend(est_figures)
     figure_names.extend(est_names)
+
+    if d_k_hist:
+        # True d_k = plant k_pre / controller k_pre = 1.696e13 / 5e13
+        true_d_k = 1.696e13 / 5e13
+        fig_dk, name_dk = _plot_d_k(time_series, d_k_hist, plant, true_d_k=true_d_k)
+        final_figures.append(fig_dk)
+        figure_names.append(name_dk)
 
     if options.infinite_horizon:
         folder_path = os.path.join(
